@@ -1,0 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+@tailwind utilities;
+.nexacore { --font-nexacore-sans: 'Plus Jakarta Sans'; }
+/* Scoped preflight equivalents: the existing learning app styling is unaffected. */
+.nexacore h1,.nexacore h2,.nexacore h3,.nexacore h4,.nexacore p,.nexacore ul { margin: 0; }
+.nexacore h1,.nexacore h2,.nexacore h3,.nexacore h4 { font-size: inherit; font-weight: inherit; }
+.nexacore ul { padding: 0; list-style: none; }
+.nexacore button { font: inherit; }

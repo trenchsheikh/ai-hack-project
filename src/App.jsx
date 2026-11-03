@@ -1,4 +1,4 @@
-import LandingGoogle from './LandingGoogle.jsx';
+import Nexacore from './components/templates/nexacore/nexacore';
 import React, {useEffect, useMemo, useState} from 'react';
 import {lessons, challenges, categories} from './data';
 
@@ -27,7 +27,7 @@ function FeatureChallengeCard({challenge,onClick,joined=false,compact=false}){re
   <div className="challenge-decoration"><div className="challenge-sweep"/><div className="challenge-star">✦</div><span className="round-link"><Icon name="arrow_forward"/></span></div>
 </button>}
 
-function Landing({navigate}){return <LandingGoogle navigate={navigate}/>}
+function Landing({navigate}){return <Nexacore/>}
 
 const navItems=[{id:'home',icon:'home',label:'Overview',url:'/app'},{id:'learn',icon:'menu_book',label:'Learn',url:'/app/learn'},{id:'hackathons',icon:'emoji_events',label:'Hackathons',url:'/app/hackathons'},{id:'build',icon:'draw',label:'Build a project',url:'/app/build'},{id:'projects',icon:'grid_view',label:'My projects',url:'/app/projects'}];
 function StatCard({icon,value,label,color}){return <div className={`stat-card ${color}`}><span className="stat-icon"><Icon name={icon}/></span><strong>{value}</strong><span>{label}</span></div>}
