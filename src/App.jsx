@@ -33,10 +33,10 @@ const colors={purple:'purple',cyan:'cyan',lime:'lime',pink:'pink'};
 // Photo assets are from Unsplash; only the lesson and challenge catalogue uses these
 // decorative images, with the original NexaCore brand colours in the gradients.
 const cardStyle={
-  purple:{gradient:'purple',dot:'#8552CE'},
-  cyan:{gradient:'gray',dot:'#3862C8'},
-  lime:{gradient:'green',dot:'#248F80'},
-  pink:{gradient:'orange',dot:'#D87764'}
+  purple:{gradient:'blue',dot:'#2563EB'},
+  cyan:{gradient:'sky',dot:'#3285CA'},
+  lime:{gradient:'cream',dot:'#6CA9D4'},
+  pink:{gradient:'white',dot:'#5396CF'}
 };
 const lessonImages={
   'generative-ai':'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=760&q=80',

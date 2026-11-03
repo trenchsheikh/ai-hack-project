@@ -11,13 +11,13 @@ export const cardVariants = cva(
   {
     variants: {
       gradient: {
-        orange: "bg-gradient-to-br from-orange-100 via-rose-50 to-amber-200/60",
-        gray: "bg-gradient-to-br from-slate-100 via-indigo-50 to-blue-200/60",
-        purple: "bg-gradient-to-br from-purple-100 via-violet-50 to-indigo-200/70",
-        green: "bg-gradient-to-br from-emerald-100 via-lime-50 to-teal-200/60",
+        blue: "bg-gradient-to-br from-blue-100 via-sky-50 to-blue-200/70",
+        sky: "bg-gradient-to-br from-sky-100 via-white to-cyan-100",
+        cream: "bg-gradient-to-br from-[#FAF7F0] via-[#FFFCF6] to-[#DAEBF8]",
+        white: "bg-gradient-to-br from-white via-[#F5F9FD] to-[#DCECF8]",
       },
     },
-    defaultVariants: { gradient: "purple" },
+    defaultVariants: { gradient: "blue" },
   },
 );
 
@@ -83,7 +83,7 @@ export const GradientCard = React.forwardRef<HTMLDivElement, GradientCardProps>(
             </div>
             <a
               href={ctaHref}
-              className="group/cta mt-9 inline-flex w-fit items-center gap-2 rounded-md py-1 text-sm font-semibold text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-indigo-600"
+              className="group/cta mt-9 inline-flex w-fit items-center gap-2 rounded-md py-1 text-sm font-semibold text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-600"
               onClick={(event) => {
                 if (onNavigate && !event.defaultPrevented && event.button === 0 && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey) {
                   event.preventDefault();
