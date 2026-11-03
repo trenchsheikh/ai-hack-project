@@ -392,3 +392,5 @@
  .st-storage-note{align-items:flex-start;line-height:1.5}
 }
 @media(prefers-reduced-motion:reduce){.studio-app *{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+
+@media(max-width:640px){.st-sidebar.st-sidebar-mobile-open .st-sidebar-help{display:block}}
