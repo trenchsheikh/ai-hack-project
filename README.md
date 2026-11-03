@@ -1,27 +1,29 @@
-# AI Learning Lab
+# AI Lab — learning and mini-hackathon platform
 
-A brand-first, responsive AI learning and mini-hackathon experience. Temporary descriptive project name until the company name is chosen.
+Responsive AI learning product built to help new learners explore AI via real-world lessons, practice mini-hackathons and personal projects.
 
-## Stack
-- React 19 + Vite
-- Google Material Web (`@material/web`)
-- Google Material Symbols Rounded
-- Browser-local progress and projects (prototype, no authentication or shared database yet)
+## Product
 
-## Develop
-`npm install && npm run dev`
+- Landing (/): original NexaCore template layout and motion preserved, with our business copy
+- Dashboard (/app): Studio Admin-inspired sidebar, progress based on actual learner activity
+- Lessons (/app/learn): six practical lessons with completion tracking
+- Mini-hackathons (/app/hackathons): four self-paced briefs linked to project creation
+- Projects (/app/projects): create, edit, update stage, search and delete project ideas
+- Progress (/app/progress): learning-path breakdown
 
-## Build
-`npm run build`
+## Framework
 
-## Routes
-- `/` – landing page
-- `/app` – dashboard
-- `/app/learn` – lessons
-- `/app/hackathons` – challenges
-- `/app/build` – project idea form
-- `/app/projects` – local project library
+React 19 + Vite + Tailwind utilities + Lucide, with a standalone app-specific CSS layer.
+We adapted the MIT-licensed Next/Shadcn template's visual patterns to the existing React app. Migrating the whole product to Next.js would add complexity without unlocking anything required for this frontend.
 
-The 6 interactive lessons and 4 self-paced practice briefs are starter content, not claims of scheduled live events. Browser data is saved with localStorage. The Vercel SPA rewrite supports deep links.
-## Landing template
-The public landing page uses the user-supplied MIT-licensed NexaCore template with its original colors, illustrations, video, hover interactions and layout. The text is adapted for AI learning and mini-hackathons. See [ATTRIBUTION-NEXACORE.md](ATTRIBUTION-NEXACORE.md). The /app workspace remains unchanged.
+This is a browser-local prototype. Progress and projects continue to use the previous localStorage keys: ailab_lessons_v1, ailab_challenges_v1, ailab_projects_v1. There are no synced accounts, shared data or real-time bookings in this version.
+
+## Run
+
+npm install
+npm run dev
+npm run build
+
+## Attribution
+
+See ATTRIBUTION-NEXACORE.md and ATTRIBUTION-STUDIO-ADMIN.md for both original MIT-licensed designs.

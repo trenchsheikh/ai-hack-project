@@ -1,70 +1,247 @@
+import React, { useEffect, useMemo, useState } from 'react';
+import {
+  ArrowDownRight, ArrowLeft, ArrowRight, ArrowUpRight, Bell, BookOpen, BookOpenCheck,
+  BrainCircuit, CalendarDays, Check, CheckCircle2, ChevronDown, ChevronLeft, ChevronRight,
+  CircleHelp, Clock3, Compass, FileText, FolderKanban, GraduationCap, HeartPulse, House,
+  Info, LayoutDashboard, Lightbulb, ListTodo, Menu, MoreHorizontal, PanelLeftClose,
+  PanelLeftOpen, Palette, Pencil, Play, Plus, Search, Settings2, ShieldCheck,
+  Sparkles, Target, Trash2, Trophy, UserRound, WandSparkles, X, Zap
+} from 'lucide-react';
 import Nexacore from './components/templates/nexacore/nexacore';
-import React, {useEffect, useMemo, useState} from 'react';
-import {lessons, challenges, categories} from './data';
+import { lessons, challenges } from './data';
+import './workspace.css';
 
-const Icon=({name,filled=false,className=''})=><md-icon className={`${className} ${filled?'filled-icon':''}`}>{name}</md-icon>;
-const Brand=({onClick})=><button className="brand" onClick={onClick} aria-label="AI Learning Lab home"><span className="brand-logo"><Icon name="asterisk" /></span><span>AI<span className="brand-light">lab</span><span className="brand-dot">.</span></span></button>;
-const Primary=({children,onClick,icon='arrow_forward',className='',disabled=false,type='button'})=><md-filled-button type={type} className={`brand-button ${className}`} onClick={onClick} disabled={disabled}>{children}{icon&&<md-icon slot="icon">{icon}</md-icon>}</md-filled-button>;
-const Secondary=({children,onClick,icon,className=''})=><md-outlined-button className={`secondary-button ${className}`} onClick={onClick}>{children}{icon&&<md-icon slot="icon">{icon}</md-icon>}</md-outlined-button>;
-const Tonal=({children,onClick,icon,className=''})=><md-filled-tonal-button className={`tonal-button ${className}`} onClick={onClick}>{children}{icon&&<md-icon slot="icon">{icon}</md-icon>}</md-filled-tonal-button>;
-
-function useSavedState(key,initial){
-  const [state,setState]=useState(()=>{try{let raw=localStorage.getItem(key);return raw?JSON.parse(raw):initial;}catch{return initial;}});
-  useEffect(()=>{try{localStorage.setItem(key,JSON.stringify(state));}catch{}},[key,state]);
-  return [state,setState];
+const NAV = [
+  { group:'WORKSPACE', items:[
+    { path:'/app', label:'Overview', icon:LayoutDashboard },
+    { path:'/app/learn', label:'Learn', icon:BookOpen },
+    { path:'/app/hackathons', label:'Mini-hackathons', icon:Trophy },
+    { path:'/app/projects', label:'My projects', icon:FolderKanban }
+  ]},
+  { group:'CREATE', items:[
+    { path:'/app/build', label:'Start a project', icon:Plus },
+    { path:'/app/progress', label:'My progress', icon:Target }
+  ]}
+];
+const iconFor = {
+  sports_soccer:Trophy, palette:Palette, favorite:HeartPulse, public:Compass,
+  auto_awesome:Sparkles, edit_note:Pencil, verified_user:ShieldCheck, deployed_code:WandSparkles
+};
+const colors={purple:'purple',cyan:'cyan',lime:'lime',pink:'pink'};
+function useStored(key, fallback) {
+  const [value,setValue]=useState(()=>{
+    try { const fromStorage=JSON.parse(window.localStorage.getItem(key)); return Array.isArray(fromStorage)?fromStorage:fallback; }
+    catch {return fallback;}
+  });
+  useEffect(()=>{try{window.localStorage.setItem(key,JSON.stringify(value));}catch{}},[key,value]);
+  return [value,setValue];
 }
-
-function BackgroundArt(){return <div className="art-composition" aria-hidden="true"><div className="art-halo"/><div className="art-arc art-arc-lime"/><div className="art-arc art-arc-coral"/><div className="art-arc art-arc-violet"/><div className="art-arc art-arc-cyan"/><div className="art-glint glint-one">✦</div><div className="art-glint glint-two">✧</div><span className="art-icon art-icon-cap"><Icon name="school"/></span><span className="art-icon art-icon-code"><Icon name="code"/></span><span className="art-icon art-icon-auto"><Icon name="auto_awesome"/></span></div>}
-
-function LaptopGraphic({small=false}){return <div className={`laptop-illustration ${small?'mini-laptop':''}`} aria-hidden="true"><div className="device-orbit orbit-a"/><div className="device-orbit orbit-b"/><div className="device-screen"><span className="device-glow"><Icon name="auto_awesome"/></span><i/></div><div className="device-base"/><span className="laptop-spark laptop-spark-one">✧</span><span className="laptop-spark laptop-spark-two">✦</span></div>}
-
-function FeatureLessonCard({lesson,onClick,compact=false,done=false}){return <button className={`feature-card lesson-feature ${compact?'compact-card':''}`} onClick={onClick}>
-  <div className="feature-copy"><span className="pill violet"><Icon name="menu_book"/> AI LESSON</span><h3>{lesson.title}</h3><p>{lesson.description}</p><div className="feature-bottom"><span><Icon name="schedule"/>{lesson.minutes} min</span><span><Icon name="signal_cellular_alt"/>{lesson.level}</span>{done&&<span className="done-marker"><Icon name="check_circle"/> Done</span>}</div></div>
-  <div className="feature-visual"><LaptopGraphic small={compact}/><span className="round-link violet-circle"><Icon name={done?'check':'arrow_forward'}/></span></div>
-</button>}
-function FeatureChallengeCard({challenge,onClick,joined=false,compact=false}){return <button className={`feature-card challenge-feature ${compact?'compact-card':''}`} onClick={onClick}>
-  <div className="feature-copy"><span className="pill coral"><Icon name="emoji_events"/> MINI-HACKATHON</span><h3>{challenge.title}</h3><p>{challenge.description}</p><div className="feature-bottom"><span><Icon name="timer"/>{challenge.duration}</span>{joined&&<span className="done-marker"><Icon name="check_circle"/> Joined</span>}</div></div>
-  <div className="challenge-decoration"><div className="challenge-sweep"/><div className="challenge-star">✦</div><span className="round-link"><Icon name="arrow_forward"/></span></div>
-</button>}
-
-function Landing({navigate}){return <Nexacore/>}
-
-const navItems=[{id:'home',icon:'home',label:'Overview',url:'/app'},{id:'learn',icon:'menu_book',label:'Learn',url:'/app/learn'},{id:'hackathons',icon:'emoji_events',label:'Hackathons',url:'/app/hackathons'},{id:'build',icon:'draw',label:'Build a project',url:'/app/build'},{id:'projects',icon:'grid_view',label:'My projects',url:'/app/projects'}];
-function StatCard({icon,value,label,color}){return <div className={`stat-card ${color}`}><span className="stat-icon"><Icon name={icon}/></span><strong>{value}</strong><span>{label}</span></div>}
-function Dashboard({navigate,completed,joined,projects}){
- const nextLesson=lessons.find(l=>!completed.includes(l.id))||lessons[0];
- return <><div className="dash-welcome"><span className="section-kicker"><Icon name="waving_hand"/> YOUR SPACE TO EXPLORE</span><h1>Good to see you! <span className="wave">✳</span></h1><p>Continue learning, build your next idea or jump into a mini-hackathon.</p></div><div className="dash-feature-hero"><div className="dash-feature-copy"><span className="hero-tag"><Icon name="auto_awesome"/> THIS IS YOUR STARTING POINT</span><h2>Great things start<br/>with a little curiosity.</h2><p>No experience needed. Just take that first step.</p><Primary onClick={()=>navigate('/app/learn')} icon="arrow_forward">Explore lessons</Primary></div><div className="dash-feature-art"><div className="dash-big-star">✳</div><div className="dash-graphic-one"/><div className="dash-graphic-two"/><span className="dash-floating-icon"><Icon name="neurology"/></span><span className="dash-floating-icon second"><Icon name="lightbulb"/></span></div></div><div className="dashboard-section-title"><h2>Your journey so far</h2><span>Every step counts.</span></div><div className="stats-grid"><StatCard icon="menu_book" value={completed.length} label={completed.length===1?'Lesson complete':'Lessons complete'} color="purple"/><StatCard icon="deployed_code" value={projects.length} label={projects.length===1?'Project created':'Projects created'} color="cyan"/><StatCard icon="emoji_events" value={joined.length} label={joined.length===1?'Challenge joined':'Challenges joined'} color="lime"/></div><div className="dashboard-section-title spaced"><h2>Picked for you</h2><button onClick={()=>navigate('/app/learn')}>View all <Icon name="arrow_forward"/></button></div><div className="dash-cards-grid"><FeatureLessonCard lesson={nextLesson} onClick={()=>navigate(`/app/learn/${nextLesson.id}`)} done={completed.includes(nextLesson.id)} compact/><FeatureChallengeCard challenge={challenges[0]} onClick={()=>navigate('/app/hackathons/future')} joined={joined.includes('future')} compact/></div><div className="next-step-banner"><div className="next-icon"><Icon name="auto_awesome"/></div><div><strong>Your next step: create an AI project</strong><p>Turn what you've learned into an idea of your own.</p></div><button aria-label="Create a project" onClick={()=>navigate('/app/build')}><Icon name="arrow_forward"/></button></div></>
+function usePath(){
+ const current=()=>window.location.pathname.replace(/\/+$/,'')||'/';
+ const [path,setPath]=useState(current);
+ useEffect(()=>{
+   const update=()=>setPath(current());
+   window.addEventListener('popstate',update);
+   return ()=>window.removeEventListener('popstate',update);
+ },[]);
+ const navigate=(to)=>{
+   if(to.startsWith('#')){document.querySelector(to)?.scrollIntoView({behavior:'smooth'});return;}
+   window.history.pushState({},'',to);setPath(current());window.scrollTo({top:0,behavior:'instant'});
+ };
+ return [path,navigate];
 }
-
-function LearnPage({navigate,completed}){
- const [query,setQuery]=useState('');const [filter,setFilter]=useState('All');
- const shown=lessons.filter(l=>(filter==='All'||l.tag===filter)&&`${l.title} ${l.description} ${l.category}`.toLowerCase().includes(query.toLowerCase()));
- return <><PageHeader tag="A LITTLE KNOWLEDGE GOES A LONG WAY" title="Discover something new." description="Short lessons that help you understand AI and put it to work. Start anywhere." icon="menu_book"/><div className="tool-row"><label className="search-field"><Icon name="search"/><input placeholder="Search lessons" aria-label="Search lessons" value={query} onChange={e=>setQuery(e.target.value)}/></label><span className="catalog-count">{shown.length} lessons</span></div><div className="filter-row" role="group" aria-label="Filter lessons">{['All','Foundations','Sports','Creative','Build'].map(f=><button key={f} className={`filter-pill ${filter===f?'selected':''}`} onClick={()=>setFilter(f)}>{f}</button>)}</div><div className="catalog-grid">{shown.map(l=><button key={l.id} className={`catalog-card theme-${l.theme}`} onClick={()=>navigate(`/app/learn/${l.id}`)}><div className="catalog-art"><span className="catalog-art-inner"><Icon name={l.icon}/></span><span className="art-mini-star">✦</span></div><div className="catalog-card-body"><div className="card-meta"><span>{l.eyebrow}</span>{completed.includes(l.id)&&<span className="completed-badge"><Icon name="check_circle"/> Completed</span>}</div><h3>{l.title}</h3><p>{l.description}</p><div className="catalog-bottom"><span><Icon name="schedule"/>{l.minutes} min</span><span><Icon name="signal_cellular_alt"/>{l.level}</span><span className="circle-action"><Icon name="arrow_forward"/></span></div></div></button>)}</div>{shown.length===0&&<div className="empty-state"><Icon name="search_off"/><h3>No lessons found</h3><p>Try another search or category.</p></div>}</>
+function SectionTitle({eyebrow,title,description,action}){
+ return <div className="st-page-heading"><div><div className="st-eyebrow">{eyebrow}</div><h1>{title}</h1>{description&&<p>{description}</p>}</div>{action&&<div className="st-heading-action">{action}</div>}</div>;
 }
-function PageHeader({tag,title,description,icon}){return <div className="page-header"><span className="section-kicker"><Icon name={icon}/>{tag}</span><h1>{title}</h1><p>{description}</p></div>}
-function LessonDetail({lesson,completed,onComplete,navigate}){return <><button className="back-link" onClick={()=>navigate('/app/learn')}><Icon name="arrow_back"/> All lessons</button><div className="detail-hero"><div><span className="pill violet"><Icon name="auto_stories"/> {lesson.eyebrow}</span><h1>{lesson.title}</h1><p>{lesson.description}</p><div className="detail-meta"><span><Icon name="schedule"/>{lesson.minutes} min</span><span><Icon name="signal_cellular_alt"/>{lesson.level}</span></div></div><div className={`detail-hero-icon theme-${lesson.theme}`}><Icon name={lesson.icon}/></div></div><div className="detail-layout"><article className="lesson-content"><h2>Let's get into it.</h2><p className="lesson-lede">{lesson.overview}</p><div className="lesson-steps">{lesson.steps.map((s,i)=><section className="lesson-step" key={s.title}><span className="step-index">{String(i+1).padStart(2,'0')}</span><div><h3>{s.title}</h3><p>{s.body}</p></div></section>)}</div><div className="try-it-box"><span><Icon name="lightbulb"/> YOUR TURN</span><h3>Try this for yourself</h3><p>{lesson.challenge}</p></div><div className="lesson-finish">{completed.includes(lesson.id)?<span className="finish-message"><Icon name="check_circle"/> Lesson completed — nicely done!</span>:<Primary icon="check" onClick={()=>onComplete(lesson.id)}>Mark lesson complete</Primary>}<Secondary onClick={()=>navigate('/app/build')} icon="arrow_forward">Turn it into a project</Secondary></div></article><aside className="lesson-aside"><div className="aside-card"><span className="aside-icon"><Icon name="track_changes"/></span><h3>Small steps add up.</h3><p>You don't have to know everything to start building. Learn one thing, then try it.</p><div className="aside-foot"><Icon name="school"/> Beginner friendly</div></div></aside></div></>}
-function HackathonsPage({navigate,joined}){return <><PageHeader tag="IDEAS INTO ACTION" title="A challenge worth taking." description="Short, creative mini-hackathons designed to get you thinking. Choose a brief that speaks to you." icon="emoji_events"/><div className="info-banner"><Icon name="info"/><p>These are self-paced practice challenges. In-person events and live cohorts will be announced separately.</p></div><div className="challenge-grid">{challenges.map(c=><button key={c.id} onClick={()=>navigate(`/app/hackathons/${c.id}`)} className={`hack-card theme-${c.theme}`}><div className="hack-top"><span className="hack-icon"><Icon name={c.icon}/></span><span className="hack-arrow"><Icon name="north_east"/></span></div><span className="hack-tag">{c.tag}</span><h3>{c.title}</h3><p>{c.description}</p><div className="hack-footer"><span><Icon name="schedule"/> {c.duration}</span>{joined.includes(c.id)?<span className="joined-badge"><Icon name="check_circle"/> Joined</span>:<span>Explore brief <Icon name="arrow_forward"/></span>}</div></button>)}</div></>}
-function ChallengeDetail({challenge,joined,onJoin,navigate}){return <><button className="back-link" onClick={()=>navigate('/app/hackathons')}><Icon name="arrow_back"/> All challenges</button><div className={`challenge-detail-header theme-${challenge.theme}`}><div><span className="hack-detail-kicker">{challenge.tag} · {challenge.duration}</span><h1>{challenge.title}</h1><p>{challenge.description}</p></div><span className="challenge-detail-icon"><Icon name={challenge.icon}/></span></div><div className="detail-layout"><div className="lesson-content"><h2>The challenge</h2><p className="lesson-lede">{challenge.brief}</p><div className="prompt-box"><span>YOUR DESIGN QUESTION</span><h3>“{challenge.prompt}”</h3></div><h2>Need a spark of inspiration?</h2><div className="idea-list">{challenge.ideas.map((idea,i)=><div key={idea}><span>{String(i+1).padStart(2,'0')}</span>{idea}<Icon name="north_east"/></div>)}</div><div className="lesson-finish"><Primary onClick={()=>{onJoin(challenge.id);navigate(`/app/build?challenge=${challenge.id}`)}} icon="arrow_forward">{joined.includes(challenge.id)?'Build your solution':'Join and start building'}</Primary></div></div><aside className="lesson-aside"><div className="aside-card"><span className="aside-icon"><Icon name="tips_and_updates"/></span><h3>Make it your own.</h3><p>You can start with a sketch or a simple concept. The goal is to build something useful, not perfect.</p><div className="aside-foot"><Icon name="all_inclusive"/> Self-paced</div></div></aside></div></>}
-
-function BuildPage({navigate,onCreate}){
- const params=new URLSearchParams(window.location.search);const linked=challenges.find(c=>c.id===params.get('challenge'));
- const [title,setTitle]=useState('');const [area,setArea]=useState(linked?.category||'Sport');const [problem,setProblem]=useState('');const [solution,setSolution]=useState('');const [submitted,setSubmitted]=useState(false);
+function Button({children,onClick,variant='primary',icon:Icon,disabled=false,type='button',className=''}) {
+ return <button type={type} disabled={disabled} onClick={onClick} className={'st-button st-button-'+variant+' '+className}>{Icon&&<Icon size={17} strokeWidth={2}/>}<span>{children}</span></button>;
+}
+function Tag({children,color='neutral'}){return <span className={'st-tag st-tag-'+color}>{children}</span>;}
+function Panel({children,className=''}){return <section className={'st-panel '+className}>{children}</section>;}
+function PanelHeader({title,subtitle,action}){return <div className="st-panel-header"><div><h2>{title}</h2>{subtitle&&<p>{subtitle}</p>}</div>{action}</div>;}
+function PlaceholderArt({icon:Icon=Sparkles,tone='purple',compact=false}) {
+ return <div className={'st-art st-art-'+tone+(compact?' st-art-compact':'')} aria-hidden="true"><div className="st-art-orb"/><div className="st-art-stripe"/><span className="st-art-device"><Icon size={compact?25:38} strokeWidth={1.7}/></span><span className="st-art-twinkle">✦</span></div>;
+}
+function ProgressBar({percent}){return <div className="st-progress-track" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={percent}><div style={{width:percent+'%'}}/></div>;}
+function Stats({completed,joined,projects,go}){
+ const rows=[
+  {title:'Lessons completed',value:completed.length,sub:'of '+lessons.length+' available',icon:BookOpenCheck,path:'/app/learn',tone:'purple'},
+  {title:'Challenges joined',value:joined.length,sub:'of '+challenges.length+' practice briefs',icon:Trophy,path:'/app/hackathons',tone:'pink'},
+  {title:'Projects created',value:projects.length,sub:'saved in this browser',icon:FolderKanban,path:'/app/projects',tone:'cyan'},
+  {title:'Learning progress',value:Math.round(completed.length/lessons.length*100)+'%',sub:'your lesson completion',icon:Target,path:'/app/progress',tone:'lime'}
+ ];
+ return <div className="st-stats-grid">{rows.map(x=><button key={x.title} className="st-stat" onClick={()=>go(x.path)}><div className="st-stat-top"><span>{x.title}</span><x.icon size={17}/></div><strong>{x.value}</strong><div className="st-stat-bottom"><span className={'st-stat-indicator st-indicator-'+x.tone}><ArrowUpRight size={13}/></span><span>{x.sub}</span></div></button>)}</div>;
+}
+function LessonTile({lesson,completed,go}) {
+ const Icon=iconFor[lesson.icon]||BrainCircuit;
+ return <button className="st-lesson-tile" onClick={()=>go('/app/learn/'+lesson.id)}><PlaceholderArt icon={Icon} tone={colors[lesson.theme]||'purple'} compact/><div className="st-tile-body"><div className="st-tile-meta"><Tag color={colors[lesson.theme]||'purple'}>{lesson.tag}</Tag>{completed&&<span className="st-success-inline"><CheckCircle2 size={14}/> Done</span>}</div><h3>{lesson.title}</h3><p>{lesson.description}</p><div className="st-tile-foot"><span><Clock3 size={14}/>{lesson.minutes} min · {lesson.level}</span><ArrowUpRight size={17}/></div></div></button>;
+}
+function ChallengeTile({challenge,joined,go}) {
+ const Icon=iconFor[challenge.icon]||Trophy;
+ return <button className="st-challenge-tile" onClick={()=>go('/app/hackathons/'+challenge.id)}><div className={'st-challenge-icon st-soft-'+(colors[challenge.theme]||'purple')}><Icon size={22}/></div><div className="st-challenge-text"><div className="st-challenge-title"><h3>{challenge.title}</h3><ArrowUpRight size={16}/></div><p>{challenge.description}</p><div className="st-tile-tags"><Tag>{challenge.category}</Tag>{joined?<Tag color="green"><Check size={12}/> Joined</Tag>:<Tag color="outline">Self-paced</Tag>}</div></div></button>;
+}
+function Empty({icon:Icon=FolderKanban,title,description,button,go}) {
+ return <div className="st-empty"><span className="st-empty-icon"><Icon size={24}/></span><h3>{title}</h3><p>{description}</p>{button&&<Button icon={Plus} onClick={go}>{button}</Button>}</div>;
+}
+function Overview({completed,joined,projects,go}){
+ const next=lessons.find(l=>!completed.includes(l.id));
+ const recent=[...projects].sort((a,b)=>new Date(b.created||0)-new Date(a.created||0)).slice(0,3);
+ return <div className="st-view">
+   <SectionTitle eyebrow="YOUR WORKSPACE" title="Welcome to your learning space." description="Keep learning, take on new challenges and turn your ideas into something real." action={<Button icon={Plus} onClick={()=>go('/app/build')}>New project</Button>}/>
+   <Stats completed={completed} joined={joined} projects={projects} go={go}/>
+   <div className="st-dashboard-grid">
+     <Panel className="st-overview-progress"><PanelHeader title="Your learning journey" subtitle="Progress based on lessons you've completed" action={<button className="st-small-link" onClick={()=>go('/app/progress')}>Full progress <ArrowRight size={15}/></button>}/><div className="st-progress-layout">
+       <div className="st-donut" style={{'--progress':Math.round(completed.length/lessons.length*100)+'%'}}><div><strong>{Math.round(completed.length/lessons.length*100)}%</strong><span>complete</span></div></div>
+       <div className="st-progress-details"><strong>Keep your momentum going</strong><p>{completed.length===0?'Complete your first lesson to start tracking your progress.':completed.length===lessons.length?'You have completed every available lesson. Great work!':'You have completed '+completed.length+' of '+lessons.length+' starter lessons.'}</p><div className="st-micro-label"><BookOpenCheck size={14}/>{completed.length} / {lessons.length} lessons</div><ProgressBar percent={Math.round(completed.length/lessons.length*100)}/><button className="st-link" onClick={()=>go(next?'/app/learn/'+next.id:'/app/hackathons')}>{next?'Continue learning':'Explore a challenge'}<ArrowRight size={15}/></button></div>
+     </div></Panel>
+     <Panel className="st-next-card"><div className="st-next-stars"><Sparkles size={22}/></div><div className="st-next-tag">YOUR NEXT STEP</div><h2>{next?'Small steps. Big possibilities.':'Ready for the next challenge?'}</h2><p>{next?'Take your next lesson, or explore a practical challenge connected to the things you love.':'Put those skills to work and bring an idea to life in a mini-hackathon.'}</p><Button onClick={()=>go(next?'/app/learn/'+next.id:'/app/hackathons')} variant="light" icon={ArrowRight}>{next?'Start next lesson':'Explore challenges'}</Button><span className="st-next-decoration">✳</span></Panel>
+   </div>
+   <div className="st-overview-bottom">
+     <Panel><PanelHeader title="Continue learning" subtitle="Pick up where you left off" action={<button className="st-small-link" onClick={()=>go('/app/learn')}>All lessons <ArrowRight size={15}/></button>}/><div className="st-continue-list">{lessons.filter(l=>!completed.includes(l.id)).slice(0,3).concat(completed.length===lessons.length?lessons.slice(0,2):[]).map(l=>{const Icon=iconFor[l.icon]||BookOpen;return <button className="st-continue-row" key={l.id} onClick={()=>go('/app/learn/'+l.id)}><span className={'st-row-icon st-soft-'+(colors[l.theme]||'purple')}><Icon size={20}/></span><span><strong>{l.title}</strong><small>{l.minutes} min · {l.tag}</small></span><ChevronRight size={17}/></button>})}</div></Panel>
+     <Panel><PanelHeader title="Mini-hackathons" subtitle="Creative, self-paced briefs" action={<button className="st-small-link" onClick={()=>go('/app/hackathons')}>Explore all <ArrowRight size={15}/></button>}/><div className="st-mini-challenges">{challenges.slice(0,3).map(c=><ChallengeTile key={c.id} challenge={c} joined={joined.includes(c.id)} go={go}/>)}</div></Panel>
+   </div>
+   <Panel><PanelHeader title="Your latest projects" subtitle="Ideas saved in your browser" action={<button className="st-small-link" onClick={()=>go('/app/projects')}>View projects <ArrowRight size={15}/></button>}/>{recent.length?<div className="st-project-table-wrap"><table className="st-project-table"><thead><tr><th>Project</th><th>Area</th><th>Stage</th><th>Created</th><th></th></tr></thead><tbody>{recent.map(p=><tr key={p.id}><td><span className="st-table-project"><span><WandSparkles size={16}/></span>{p.title}</span></td><td>{p.area}</td><td><Tag color="purple">{p.stage||'Idea'}</Tag></td><td>{formatDate(p.created)}</td><td><button aria-label={'Open '+p.title} onClick={()=>go('/app/projects/'+p.id)}><ArrowUpRight size={16}/></button></td></tr>)}</tbody></table></div>:<Empty icon={FolderKanban} title="Your first project is waiting." description="Sketch an idea, save it, and watch it take shape." button="Start a project" go={()=>go('/app/build')}/>}</Panel>
+   <p className="st-storage-note"><Info size={14}/> This is an early preview. Your progress and projects are stored only in this browser, not in a shared account.</p>
+ </div>;
+}
+function Learn({completed,go}) {
+ const [term,setTerm]=useState(''),[category,setCategory]=useState('All');
+ const options=['All','Foundations','Sports','Creative','Build'];
+ const filtered=lessons.filter(l=>(category==='All'||category===l.tag)&&(l.title+' '+l.description+' '+l.tag).toLowerCase().includes(term.toLowerCase()));
+ return <div className="st-view"><SectionTitle eyebrow="LEARN AI" title="Your learning library" description="Build confidence with short, practical lessons. No previous experience required." action={<Tag color="purple">{completed.length} of {lessons.length} completed</Tag>}/>
+   <div className="st-library-actions"><label className="st-search-input"><Search size={18}/><input value={term} onChange={e=>setTerm(e.target.value)} placeholder="Search lessons…" aria-label="Search lessons"/></label><span className="st-results">{filtered.length} lessons</span></div>
+   <div className="st-tabs" role="group" aria-label="Filter by subject">{options.map(x=><button key={x} aria-pressed={category===x} className={category===x?'selected':''} onClick={()=>setCategory(x)}>{x}</button>)}</div>
+   {filtered.length?<div className="st-lessons-grid">{filtered.map(l=><LessonTile key={l.id} lesson={l} completed={completed.includes(l.id)} go={go}/>)}</div>:<Panel><Empty icon={Search} title="No lessons found" description="Try a different keyword or filter."/></Panel>}
+ </div>;
+}
+function Lesson({lesson,completed,onComplete,go}) {
+ const Icon=iconFor[lesson.icon]||BookOpen;
+ return <div className="st-view"><button className="st-back" onClick={()=>go('/app/learn')}><ArrowLeft size={16}/>All lessons</button>
+   <section className="st-detail-hero"><div><Tag color={colors[lesson.theme]||'purple'}>{lesson.eyebrow}</Tag><h1>{lesson.title}</h1><p>{lesson.description}</p><div className="st-detail-metadata"><span><Clock3 size={16}/>{lesson.minutes} min</span><span><GraduationCap size={16}/>{lesson.level}</span></div></div><PlaceholderArt icon={Icon} tone={colors[lesson.theme]||'purple'}/></section>
+   <div className="st-detail-grid"><Panel><PanelHeader title="What you'll learn" subtitle={lesson.overview}/><div className="st-detail-steps">{lesson.steps.map((s,i)=><article key={s.title}><div className="st-step-count">{String(i+1).padStart(2,'0')}</div><div><h3>{s.title}</h3><p>{s.body}</p></div></article>)}</div><div className="st-practice-box"><span><Lightbulb size={17}/> TRY IT YOURSELF</span><h3>Your practice task</h3><p>{lesson.challenge}</p></div><div className="st-detail-actions"><Button icon={completed?CheckCircle2:Check} disabled={completed} onClick={()=>onComplete(lesson.id)}>{completed?'Lesson completed':'Mark lesson complete'}</Button><Button variant="outline" icon={WandSparkles} onClick={()=>go('/app/build')}>Use this in a project</Button></div></Panel>
+   <Panel className="st-aside"><PanelHeader title="A reminder"/><span className="st-aside-illustration"><Sparkles size={26}/></span><h3>Build as you learn.</h3><p>You don't need to know everything to start. Try small ideas and keep people in control of important decisions.</p><div className="st-aside-footer"><ShieldCheck size={17}/> Beginner friendly</div></Panel></div>
+ </div>;
+}
+function Hackathons({joined,go}){
+ const [filter,setFilter]=useState('All');
+ const options=['All','Sport','Creativity','Social impact','Health'];
+ const filtered=challenges.filter(c=>filter==='All'||c.category===filter);
+ return <div className="st-view"><SectionTitle eyebrow="IDEAS INTO ACTION" title="Mini-hackathons" description="Find an interesting problem, explore solutions and turn what you learn into a project." action={<Tag color="purple">{challenges.length} practice challenges</Tag>}/>
+   <div className="st-info-line"><Info size={16}/> These are self-paced practice challenges, not scheduled in-person events or competitions.</div>
+   <div className="st-tabs">{options.map(o=><button key={o} className={filter===o?'selected':''} onClick={()=>setFilter(o)}>{o}</button>)}</div>
+   <div className="st-challenge-grid">{filtered.map(c=><div className="st-challenge-card" key={c.id}><div className="st-challenge-art"><PlaceholderArt tone={colors[c.theme]||'purple'} icon={iconFor[c.icon]||Trophy} compact/></div><div className="st-challenge-card-body"><div className="st-meta-row"><Tag color="outline">{c.tag}</Tag>{joined.includes(c.id)&&<Tag color="green"><Check size={13}/>Joined</Tag>}</div><h3>{c.title}</h3><p>{c.description}</p><div className="st-challenge-card-foot"><span><Clock3 size={14}/>{c.duration}</span><Button variant="outline" onClick={()=>go('/app/hackathons/'+c.id)}>View brief <ArrowRight size={15}/></Button></div></div></div>)}</div>
+ </div>;
+}
+function Challenge({challenge,joined,onJoin,go}) {
+ const Icon=iconFor[challenge.icon]||Trophy;
+ return <div className="st-view"><button className="st-back" onClick={()=>go('/app/hackathons')}><ArrowLeft size={16}/>All mini-hackathons</button>
+   <section className="st-detail-hero"><div><Tag color="purple">{challenge.tag}</Tag><h1>{challenge.title}</h1><p>{challenge.description}</p><div className="st-detail-metadata"><span><Clock3 size={16}/>{challenge.duration}</span><span><Target size={16}/>{challenge.category}</span></div></div><PlaceholderArt icon={Icon} tone={colors[challenge.theme]||'purple'}/></section>
+   <div className="st-detail-grid"><Panel><PanelHeader title="Your challenge brief" subtitle={challenge.brief}/><div className="st-practice-box"><span><Lightbulb size={17}/> DESIGN QUESTION</span><h3>{challenge.prompt}</h3></div><h3 className="st-ideas-title">Some starting points</h3><div className="st-detail-steps">{challenge.ideas.map((idea,i)=><article key={idea}><div className="st-step-count">{String(i+1).padStart(2,'0')}</div><div><h3>{idea}</h3><p>How could you turn this into a useful, human-centred prototype?</p></div></article>)}</div><div className="st-detail-actions"><Button icon={WandSparkles} onClick={()=>{onJoin(challenge.id);go('/app/build?challenge='+challenge.id)}}>{joined?'Continue building':'Join & start a project'}</Button></div></Panel>
+   <Panel className="st-aside"><PanelHeader title="How it works"/><div className="st-how-items"><p><span>01</span> Pick an idea that matters to you</p><p><span>02</span> Define who you're helping</p><p><span>03</span> Sketch how AI could help</p><p><span>04</span> Save your first project</p></div><div className="st-aside-footer"><Info size={17}/> Self-paced practice</div></Panel></div>
+ </div>;
+}
+function formatDate(value){if(!value)return '—';const d=new Date(value);return Number.isNaN(+d)?'—':d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});}
+function ProjectForm({onSave,go,existing=null}){
+ const linked=challenges.find(c=>c.id===new URLSearchParams(window.location.search).get('challenge'));
+ const [title,setTitle]=useState(existing?.title||'');
+ const [area,setArea]=useState(existing?.area||linked?.category||'Sport');
+ const [problem,setProblem]=useState(existing?.problem||'');
+ const [solution,setSolution]=useState(existing?.solution||'');
+ const [stage,setStage]=useState(existing?.stage||'Idea');
+ const [showValidation,setShowValidation]=useState(false);
  const valid=title.trim().length>=3&&problem.trim().length>=10&&solution.trim().length>=10;
- const submit=(e)=>{e.preventDefault();setSubmitted(true);if(!valid)return;onCreate({id:String(Date.now()),title:title.trim(),area,problem:problem.trim(),solution:solution.trim(),challengeId:linked?.id||null,created:new Date().toISOString()});navigate('/app/projects');};
- return <><PageHeader tag="FROM WHAT IF TO WHAT'S NEXT" title="Every idea starts somewhere." description="Give your idea a name, find the problem and sketch a solution. You've got this." icon="draw"/><div className="build-layout"><div className="build-form-card"><div className="build-form-heading"><span className="build-symbol"><Icon name="deployed_code"/></span><div><h2>Create a project</h2><p>Your first draft doesn't need to be perfect.</p></div></div>{linked&&<div className="linked-challenge"><Icon name="emoji_events"/><span>Building for: <strong>{linked.title}</strong></span></div>}<form onSubmit={submit} noValidate><div className="form-group"><label htmlFor="project-title">Give your idea a name <span>*</span></label><input id="project-title" value={title} maxLength={90} placeholder="e.g. Better football for everyone" onChange={e=>setTitle(e.target.value)}/><small>Keep it short and memorable.</small></div><div className="form-group"><label htmlFor="project-area">Which world does it belong to?</label><div className="select-wrap"><select id="project-area" value={area} onChange={e=>setArea(e.target.value)}>{['Sport','Creative','Health','Social impact','Education','Everyday life','Other'].map(a=><option key={a}>{a}</option>)}</select><Icon name="expand_more"/></div></div><div className="form-group"><label htmlFor="project-problem">What problem are you solving? <span>*</span></label><textarea id="project-problem" rows="4" value={problem} placeholder="Who is this for? What's getting in their way?" onChange={e=>setProblem(e.target.value)}/></div><div className="form-group"><label htmlFor="project-solution">How could AI help? <span>*</span></label><textarea id="project-solution" rows="4" value={solution} placeholder="Describe your idea in your own words..." onChange={e=>setSolution(e.target.value)}/></div>{submitted&&!valid&&<p className="validation-message" role="alert"><Icon name="error"/> Add a title (3+ characters), problem and solution (10+ characters each).</p>}<div className="form-action-row"><span><Icon name="lock"/> Saved only in this browser</span><Primary icon="arrow_forward" type="submit" disabled={!valid}>Create my project</Primary></div></form></div><aside className="build-side"><div className="inspo-card"><span className="inspo-stars">✳</span><span className="inspo-tag">A LITTLE REMINDER</span><h3>Big ideas start with small questions.</h3><p>You don't need to have it all figured out. Start with something that matters to you.</p></div><div className="tips-card"><h3>Three things to think about</h3><div><Icon name="person"/> Who are you helping?</div><div><Icon name="psychology"/> Why does it matter?</div><div><Icon name="auto_awesome"/> How might AI help?</div></div></aside></div></>}
-function ProjectsPage({projects,navigate,onRemove}){const [confirmId,setConfirmId]=useState(null);return <><PageHeader tag="MADE BY YOU" title="Your ideas, taking shape." description="A place for everything you're imagining and building. Projects are stored in this browser." icon="grid_view"/><div className="projects-heading"><span>{projects.length} {projects.length===1?'project':'projects'}</span><Primary icon="add" onClick={()=>navigate('/app/build')}>New project</Primary></div>{projects.length===0?<div className="projects-empty"><div className="empty-illustration"><Icon name="draw"/></div><h2>Nothing here yet. That's exciting.</h2><p>Every great idea starts somewhere. Let's put your first one on the page.</p><Primary onClick={()=>navigate('/app/build')} icon="arrow_forward">Create your first project</Primary></div>:<div className="projects-grid">{projects.map(p=><article className="project-card" key={p.id}><div className="project-top"><span className="project-icon"><Icon name="auto_awesome"/></span><span className="project-category">{p.area}</span></div><h3>{p.title}</h3><p>{p.problem}</p><div className="project-solution"><span>THE IDEA</span><p>{p.solution}</p></div><div className="project-footer"><span><Icon name="calendar_today"/> {new Date(p.created).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}</span>{confirmId===p.id?<span className="delete-confirm">Remove? <button onClick={()=>onRemove(p.id)}>Yes</button><button onClick={()=>setConfirmId(null)}>No</button></span>:<button className="delete-project" onClick={()=>setConfirmId(p.id)} aria-label={`Remove ${p.title}`}><Icon name="delete_outline"/></button>}</div></article>)}</div>}</>}
-
-function AppShell({navigate,route,completed,setCompleted,joined,setJoined,projects,setProjects}){
- const [mobileNav,setMobileNav]=useState(false);const [profileOpen,setProfileOpen]=useState(false);
- const view=route.split('/')[2]||'home';const detailId=route.split('/')[3];const lesson=lessons.find(l=>l.id===detailId);const challenge=challenges.find(c=>c.id===detailId);
- const activeView=navItems.some(n=>n.id===view)?view:'home';
- const visit=(path)=>{setMobileNav(false);setProfileOpen(false);navigate(path);};
- return <div className="app-shell"><aside className={`app-sidebar ${mobileNav?'mobile-open':''}`}><div className="sidebar-brand"><Brand onClick={()=>visit('/')}/><span className="beta-chip">BETA</span></div><span className="sidebar-label">WORKSPACE</span><nav className="app-nav" aria-label="Workspace navigation">{navItems.map(n=><button key={n.id} className={`sidebar-link ${activeView===n.id?'active':''}`} onClick={()=>visit(n.url)}><Icon name={n.icon}/>{n.label}{activeView===n.id&&<span className="active-dot"/>}</button>)}</nav><div className="sidebar-bottom"><div className="sidebar-promo"><span className="promo-spark">✳</span><strong>Got an idea?</strong><p>Start with a question. See where it takes you.</p><button onClick={()=>visit('/app/build')}>Start building <Icon name="arrow_forward"/></button></div><button className="sidebar-footer-link" onClick={()=>visit('/')}><Icon name="arrow_back"/> Back to website</button></div></aside><div className="app-main"><header className="app-topbar"><div className="topbar-left"><button className="mobile-menu-button" onClick={()=>setMobileNav(!mobileNav)} aria-label="Toggle app menu"><Icon name={mobileNav?'close':'menu'}/></button><div><span>YOUR WORKSPACE</span><strong>{view==='home'?'Overview':navItems.find(n=>n.id===activeView)?.label||'Workspace'}</strong></div></div><div className="topbar-right"><span className="topbar-badge"><Icon name="auto_awesome"/> Your space to grow</span><div className="profile-container"><button className="profile-button" onClick={()=>setProfileOpen(!profileOpen)} aria-label="About this demo" aria-expanded={profileOpen}><Icon name="person"/></button>{profileOpen&&<div className="profile-popover"><strong>Welcome, explorer!</strong><p>This is a browser-based preview. Your progress is saved locally, without an account.</p><button onClick={()=>setProfileOpen(false)}>Got it</button></div>}</div></div></header><main className="app-content">{view==='home'?<Dashboard navigate={visit} completed={completed} joined={joined} projects={projects}/>:view==='learn'?(detailId&&lesson?<LessonDetail lesson={lesson} completed={completed} onComplete={id=>setCompleted(old=>old.includes(id)?old:[...old,id])} navigate={visit}/>:<LearnPage navigate={visit} completed={completed}/>):view==='hackathons'?(detailId&&challenge?<ChallengeDetail challenge={challenge} joined={joined} onJoin={id=>setJoined(old=>old.includes(id)?old:[...old,id])} navigate={visit}/>:<HackathonsPage navigate={visit} joined={joined}/>):view==='build'?<BuildPage key={window.location.search} navigate={visit} onCreate={project=>setProjects(old=>[project,...old])}/>:view==='projects'?<ProjectsPage projects={projects} navigate={visit} onRemove={id=>setProjects(old=>old.filter(p=>p.id!==id))}/>:<Dashboard navigate={visit} completed={completed} joined={joined} projects={projects}/>}</main><footer className="app-footer"><span>Keep making things that matter.</span><span>AI Learning Lab · Preview</span></footer></div>{mobileNav&&<button className="mobile-backdrop" aria-label="Close navigation" onClick={()=>setMobileNav(false)}/>}</div>
+ const submit=e=>{
+   e.preventDefault();if(!valid){setShowValidation(true);return;}
+   onSave({id:existing?.id||String(Date.now()),title:title.trim(),area,problem:problem.trim(),solution:solution.trim(),stage,challengeId:existing?.challengeId||linked?.id||null,created:existing?.created||new Date().toISOString(),updated:new Date().toISOString()});
+   go('/app/projects');
+ };
+ return <div className="st-view"><button className="st-back" onClick={()=>go('/app/projects')}><ArrowLeft size={16}/>My projects</button>
+   <SectionTitle eyebrow="YOUR CREATIVE WORKSPACE" title={existing?'Edit your project':'Start something meaningful'} description="Define a real problem and make the first version of your idea. You can refine it any time."/>
+   <div className="st-editor-grid"><Panel><PanelHeader title="Project details" subtitle="A first draft is enough. Keep it clear, useful and focused."/>{linked&&!existing&&<div className="st-linked-challenge"><Trophy size={16}/> Building for <strong>{linked.title}</strong></div>}
+     <form className="st-form" onSubmit={submit} noValidate>
+       <div className="st-form-field"><label htmlFor="pj-title">Project name <b>*</b></label><input id="pj-title" maxLength={90} value={title} onChange={e=>setTitle(e.target.value)} placeholder="e.g. AI coach for grassroots football"/></div>
+       <div className="st-form-row"><div className="st-form-field"><label htmlFor="pj-area">Area</label><select id="pj-area" value={area} onChange={e=>setArea(e.target.value)}>{['Sport','Creative','Creativity','Health','Social impact','Education','Everyday life','Other'].map(o=><option key={o}>{o}</option>)}</select></div>
+       <div className="st-form-field"><label htmlFor="pj-stage">Stage</label><select id="pj-stage" value={stage} onChange={e=>setStage(e.target.value)}>{['Idea','Planning','Prototype','Completed'].map(o=><option key={o}>{o}</option>)}</select></div></div>
+       <div className="st-form-field"><label htmlFor="pj-problem">Who are you helping, and what is the problem? <b>*</b></label><textarea id="pj-problem" rows={4} value={problem} onChange={e=>setProblem(e.target.value)} placeholder="Describe a specific person and a problem that matters to them."/></div>
+       <div className="st-form-field"><label htmlFor="pj-solution">How could AI help? <b>*</b></label><textarea id="pj-solution" rows={4} value={solution} onChange={e=>setSolution(e.target.value)} placeholder="Explain your idea in plain English. What might the first version do?"/></div>
+       {showValidation&&!valid&&<div className="st-form-error" role="alert">Add a project name (3+ characters), a problem and a solution (10+ characters each).</div>}
+       <div className="st-form-footer"><span><Info size={15}/> Saved in your browser only</span><Button icon={Check} type="submit">{existing?'Save changes':'Create project'}</Button></div>
+     </form>
+   </Panel><Panel className="st-aside"><PanelHeader title="Tips for a strong idea"/><div className="st-how-items"><p><span>01</span> Start with people, not technology</p><p><span>02</span> Focus on one clear problem</p><p><span>03</span> Explain how someone will use it</p><p><span>04</span> Test your idea with real people</p></div><div className="st-aside-footer"><Lightbulb size={17}/> No coding required to start</div></Panel></div>
+ </div>;
 }
-
+function Projects({projects,onRemove,go}){
+ const [filter,setFilter]=useState('All'),[query,setQuery]=useState(''),[pending,setPending]=useState(null);
+ const options=['All','Idea','Planning','Prototype','Completed'];
+ const list=projects.filter(p=>(filter==='All'||(p.stage||'Idea')===filter)&&(p.title+' '+p.area+' '+p.problem).toLowerCase().includes(query.toLowerCase()));
+ return <div className="st-view"><SectionTitle eyebrow="YOUR PROJECT WORKSPACE" title="My projects" description="Your ideas, all in one place. Start simple, then move each project towards a prototype." action={<Button icon={Plus} onClick={()=>go('/app/build')}>New project</Button>}/>
+   <div className="st-library-actions"><label className="st-search-input"><Search size={18}/><input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search projects…" aria-label="Search projects"/></label><span className="st-results">{projects.length} saved</span></div>
+   <div className="st-tabs">{options.map(o=><button key={o} className={filter===o?'selected':''} onClick={()=>setFilter(o)}>{o}</button>)}</div>
+   {list.length?<div className="st-project-grid">{list.map(p=><article className="st-project-card" key={p.id}><div className="st-project-card-top"><span className="st-project-symbol"><WandSparkles size={19}/></span><Tag color={p.stage==='Completed'?'green':'purple'}>{p.stage||'Idea'}</Tag></div><h3>{p.title}</h3><span className="st-project-category">{p.area}</span><p>{p.problem}</p><div className="st-project-card-foot"><small>{formatDate(p.created)}</small><div><button onClick={()=>go('/app/projects/'+p.id)} aria-label={'Open '+p.title}><ArrowUpRight size={18}/></button><button onClick={()=>setPending(p.id)} aria-label={'Delete '+p.title}><Trash2 size={17}/></button></div></div>{pending===p.id&&<div className="st-delete-overlay"><strong>Delete this project?</strong><p>This cannot be undone.</p><div><Button variant="outline" onClick={()=>setPending(null)}>Cancel</Button><Button variant="danger" onClick={()=>{onRemove(p.id);setPending(null)}}>Delete</Button></div></div>}</article>)}</div>:<Panel><Empty icon={FolderKanban} title={projects.length?'Nothing matches your filters':'Your first project starts here'} description={projects.length?'Try a different search or stage.':'Create a project and keep track of your ideas as you build.'} button={projects.length?'Clear filters':'Create a project'} go={()=>projects.length?(setFilter('All'),setQuery('')):go('/app/build')}/></Panel>}
+ </div>;
+}
+function ProjectDetail({project,go}){
+ return <div className="st-view"><button className="st-back" onClick={()=>go('/app/projects')}><ArrowLeft size={16}/>My projects</button><SectionTitle eyebrow="YOUR PROJECT" title={project.title} description={'Created '+formatDate(project.created)} action={<Button icon={Pencil} onClick={()=>go('/app/projects/'+project.id+'/edit')}>Edit project</Button>}/>
+ <div className="st-project-detail-layout"><Panel><PanelHeader title="The problem"/><p className="st-reading-text">{project.problem}</p></Panel><Panel><PanelHeader title="Your solution"/><p className="st-reading-text">{project.solution}</p></Panel><Panel><PanelHeader title="Project information"/><div className="st-definition-list"><div>Area <strong>{project.area}</strong></div><div>Stage <Tag color="purple">{project.stage||'Idea'}</Tag></div><div>Created <strong>{formatDate(project.created)}</strong></div><div>Last edited <strong>{formatDate(project.updated||project.created)}</strong></div></div></Panel></div>
+ </div>;
+}
+function Progress({completed,joined,projects,go}){
+ const groups=[{name:'AI foundations',items:lessons.filter(l=>l.tag==='Foundations')},{name:'Explore your interests',items:lessons.filter(l=>['Sports','Creative'].includes(l.tag))},{name:'Make it real',items:lessons.filter(l=>l.tag==='Build')}];
+ return <div className="st-view"><SectionTitle eyebrow="YOUR JOURNEY" title="Learning progress" description="See what you've explored and where you could go next." action={<Button icon={ArrowRight} onClick={()=>go('/app/learn')}>Explore lessons</Button>}/>
+ <Stats completed={completed} joined={joined} projects={projects} go={go}/>
+ <Panel><PanelHeader title="Your learning path" subtitle="Progress is calculated from available starter lessons"/><div className="st-path-groups">{groups.map(g=>{const count=g.items.filter(l=>completed.includes(l.id)).length;return <section key={g.name}><div className="st-path-heading"><div><strong>{g.name}</strong><span>{count} of {g.items.length} completed</span></div><ProgressBar percent={Math.round(count/g.items.length*100)}/></div><div className="st-path-items">{g.items.map(l=><button key={l.id} onClick={()=>go('/app/learn/'+l.id)}><span className={completed.includes(l.id)?'done':''}>{completed.includes(l.id)?<Check size={16}/>:<BookOpen size={16}/>}</span><strong>{l.title}</strong><ChevronRight size={16}/></button>)}</div></section>})}</div></Panel>
+ <p className="st-storage-note"><Info size={14}/> Your completion and project information remains on this device until you clear browser storage.</p></div>;
+}
+function Sidebar({path,go,collapsed,setCollapsed,mobileOpen,setMobileOpen}){
+ return <><aside className={'st-sidebar'+(collapsed?' st-sidebar-collapsed':'')+(mobileOpen?' st-sidebar-mobile-open':'')}>
+   <div className="st-side-top"><button className="st-wordmark" onClick={()=>go('/')} aria-label="Back to home"><span className="st-logo-ring"/>{!collapsed&&<strong>AI <span>Lab</span></strong>}</button><button className="st-sidebar-collapse" aria-label={collapsed?'Expand sidebar':'Collapse sidebar'} onClick={()=>setCollapsed(!collapsed)}>{collapsed?<PanelLeftOpen size={19}/>:<PanelLeftClose size={19}/>}</button><button className="st-mobile-close" aria-label="Close navigation" onClick={()=>setMobileOpen(false)}><X size={19}/></button></div>
+   <div className="st-space-select"><span className="st-space-avatar"><GraduationCap size={18}/></span>{!collapsed&&<span><strong>My workspace</strong><small>Learning preview</small></span>}{!collapsed&&<ChevronDown size={15}/>}</div>
+   <nav className="st-sidebar-nav" aria-label="App navigation">{NAV.map(g=><div key={g.group}><div className="st-nav-group">{!collapsed?g.group:'·'}</div>{g.items.map(item=>{const Icon=item.icon;const selected=item.path==='/app'?path==='/app':path.startsWith(item.path);return <button className={'st-nav-link'+(selected?' st-nav-active':'')} key={item.path} onClick={()=>{go(item.path);setMobileOpen(false)}} title={collapsed?item.label:undefined}><Icon size={18}/>{!collapsed&&<span>{item.label}</span>}{selected&&!collapsed&&<span className="st-nav-active-dot"/>}</button>})}</div>)}</nav>
+   <div className="st-sidebar-bottom">{!collapsed&&<div className="st-sidebar-help"><Sparkles size={20}/><strong>Have an idea?</strong><p>You can start with a question. Turn it into your first project.</p><button onClick={()=>go('/app/build')}>Start building <ArrowRight size={15}/></button></div>}
+   <button className="st-nav-link" onClick={()=>go('/')} title="Back to website"><House size={18}/>{!collapsed&&<span>Back to website</span>}</button></div>
+ </aside>{mobileOpen&&<button className="st-sidebar-backdrop" aria-label="Close menu" onClick={()=>setMobileOpen(false)}/>}</>;
+}
+function Shell({path,go,completed,setCompleted,joined,setJoined,projects,setProjects}){
+ const [collapsed,setCollapsed]=useState(false),[mobileOpen,setMobileOpen]=useState(false),[searchOpen,setSearchOpen]=useState(false),[term,setTerm]=useState(''),[profileOpen,setProfileOpen]=useState(false);
+ const segments=path.split('/').filter(Boolean);const section=segments[1]||'overview';const id=segments[2];const isEdit=segments[3]==='edit';
+ const title=section==='learn'?'Learn':section==='hackathons'?'Mini-hackathons':section==='build'?'Start a project':section==='projects'?'My projects':section==='progress'?'Progress':'Overview';
+ const results=useMemo(()=>{
+  const q=term.trim().toLowerCase();if(!q)return [];
+  return [
+   ...lessons.filter(l=>(l.title+' '+l.description).toLowerCase().includes(q)).map(l=>({label:l.title,type:'Lesson',path:'/app/learn/'+l.id})),
+   ...challenges.filter(c=>(c.title+' '+c.description).toLowerCase().includes(q)).map(c=>({label:c.title,type:'Challenge',path:'/app/hackathons/'+c.id})),
+   ...projects.filter(p=>(p.title+' '+p.problem).toLowerCase().includes(q)).map(p=>({label:p.title,type:'Project',path:'/app/projects/'+p.id}))
+  ].slice(0,8);
+ },[term,projects]);
+ useEffect(()=>{
+  const handler=e=>{if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();setSearchOpen(true)}if(e.key==='Escape'){setSearchOpen(false);setProfileOpen(false)}};
+  window.addEventListener('keydown',handler);return()=>window.removeEventListener('keydown',handler);
+ },[]);
+ const visit=target=>{setMobileOpen(false);setSearchOpen(false);setProfileOpen(false);setTerm('');go(target)};
+ const create=project=>setProjects(prev=>[project,...prev.filter(p=>p.id!==project.id)]);
+ const mark=id=>setCompleted(prev=>prev.includes(id)?prev:[...prev,id]);
+ const join=id=>setJoined(prev=>prev.includes(id)?prev:[...prev,id]);
+ const remove=id=>setProjects(prev=>prev.filter(p=>p.id!==id));
+ const selectedLesson=lessons.find(l=>l.id===id),selectedChallenge=challenges.find(c=>c.id===id),selectedProject=projects.find(p=>p.id===id);
+ let view;
+ if(section==='overview')view=<Overview completed={completed} joined={joined} projects={projects} go={visit}/>;
+ else if(section==='learn')view=selectedLesson?<Lesson lesson={selectedLesson} completed={completed.includes(id)} onComplete={mark} go={visit}/>:<Learn completed={completed} go={visit}/>;
+ else if(section==='hackathons')view=selectedChallenge?<Challenge challenge={selectedChallenge} joined={joined.includes(id)} onJoin={join} go={visit}/>:<Hackathons joined={joined} go={visit}/>;
+ else if(section==='build')view=<ProjectForm go={visit} onSave={create}/>;
+ else if(section==='projects')view=selectedProject?(isEdit?<ProjectForm key={id} existing={selectedProject} go={visit} onSave={create}/>:<ProjectDetail project={selectedProject} go={visit}/>):<Projects projects={projects} onRemove={remove} go={visit}/>;
+ else if(section==='progress')view=<Progress completed={completed} joined={joined} projects={projects} go={visit}/>;
+ else view=<Overview completed={completed} joined={joined} projects={projects} go={visit}/>;
+ return <div className={'studio-app'+(collapsed?' st-collapsed':'')}>
+   <Sidebar path={path} go={visit} collapsed={collapsed} setCollapsed={setCollapsed} mobileOpen={mobileOpen} setMobileOpen={setMobileOpen}/>
+   <div className="st-content-frame"><header className="st-topbar"><div className="st-topbar-left"><button className="st-mobile-menu" aria-label="Open menu" onClick={()=>setMobileOpen(true)}><Menu size={20}/></button><div className="st-breadcrumb"><span>Workspace</span><ChevronRight size={14}/><strong>{title}</strong></div></div><div className="st-topbar-right"><button className="st-top-search" onClick={()=>setSearchOpen(true)}><Search size={17}/><span>Search anything...</span><kbd>⌘ K</kbd></button><button className="st-icon-button st-search-mobile" aria-label="Search" onClick={()=>setSearchOpen(true)}><Search size={19}/></button><button className="st-icon-button" aria-label="About this preview" onClick={()=>setProfileOpen(!profileOpen)}><CircleHelp size={19}/></button><div className="st-avatar-wrap"><button className="st-avatar" aria-label="Profile details" onClick={()=>setProfileOpen(!profileOpen)}><UserRound size={17}/></button>{profileOpen&&<div className="st-profile-menu"><strong>Welcome, explorer</strong><p>This preview uses browser-local progress and projects. No account or cloud sync is connected.</p><button onClick={()=>setProfileOpen(false)}>Got it <Check size={14}/></button></div>}</div></div></header>
+   <main className="st-main">{view}</main><footer className="st-footer"><span>AI Lab · learning workspace</span><span>Early preview · browser-local data</span></footer></div>
+   {searchOpen&&<div className="st-search-backdrop" onClick={()=>setSearchOpen(false)}><div className="st-search-dialog" role="dialog" aria-modal="true" aria-label="Search workspace" onClick={e=>e.stopPropagation()}><div className="st-search-dialog-top"><Search size={20}/><input autoFocus value={term} onChange={e=>setTerm(e.target.value)} placeholder="Find lessons, challenges, projects…" aria-label="Search workspace"/><button onClick={()=>setSearchOpen(false)} aria-label="Close search"><X size={18}/></button></div><div className="st-search-hits">{term.trim()?results.length?results.map(r=><button key={r.path} onClick={()=>visit(r.path)}><span><Search size={16}/>{r.label}</span><Tag>{r.type}</Tag></button>):<div className="st-search-empty">No matching results</div>:<div className="st-search-empty"><Sparkles size={20}/> Search your learning workspace</div>}</div><div className="st-search-hint">Tip: Press Esc to close</div></div></div>}
+ </div>;
+}
 export default function App(){
- const [route,setRoute]=useState(window.location.pathname.replace(/\/$/,'')||'/');const [completed,setCompleted]=useSavedState('ailab_lessons_v1',[]);const [joined,setJoined]=useSavedState('ailab_challenges_v1',[]);const [projects,setProjects]=useSavedState('ailab_projects_v1',[]);
- useEffect(()=>{const update=()=>setRoute(window.location.pathname.replace(/\/$/,'')||'/');window.addEventListener('popstate',update);return()=>window.removeEventListener('popstate',update)},[]);
- const navigate=(path)=>{window.history.pushState({},'',path);setRoute(window.location.pathname.replace(/\/$/,'')||'/');window.scrollTo({top:0,behavior:'instant'});};
- return route.startsWith('/app')?<AppShell route={route} navigate={navigate} completed={completed} setCompleted={setCompleted} joined={joined} setJoined={setJoined} projects={projects} setProjects={setProjects}/>:<Landing navigate={navigate}/>;
+ const [path,go]=usePath();
+ const [completed,setCompleted]=useStored('ailab_lessons_v1',[]);
+ const [joined,setJoined]=useStored('ailab_challenges_v1',[]);
+ const [projects,setProjects]=useStored('ailab_projects_v1',[]);
+ return path.startsWith('/app')?<Shell path={path} go={go} completed={completed} setCompleted={setCompleted} joined={joined} setJoined={setJoined} projects={projects} setProjects={setProjects}/>:<Nexacore/>;
 }
