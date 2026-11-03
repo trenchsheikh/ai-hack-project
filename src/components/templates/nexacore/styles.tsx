@@ -1,34 +1,38 @@
 const NEXACORE_CSS = `
 .nexacore {
-  --background: #ffffff;
-  --foreground: rgb(26, 11, 84);
+  --background: #FAF7F0;
+  --nexa-cream: #FAF7F0;
+  --nexa-cream-deep: #F3EEE2;
+  --nexa-sky: #EAF4FC;
+  --nexa-royal: #2563EB;
+  --foreground: rgb(22, 57, 90);
   --card: #ffffff;
-  --card-foreground: rgb(26, 11, 84);
+  --card-foreground: rgb(22, 57, 90);
   --popover: #ffffff;
-  --popover-foreground: rgb(26, 11, 84);
-  --primary: rgb(28, 78, 255);
+  --popover-foreground: rgb(22, 57, 90);
+  --primary: rgb(37, 99, 235);
   --primary-foreground: #ffffff;
-  --secondary: rgb(249, 249, 249);
-  --secondary-foreground: rgb(26, 11, 84);
-  --muted: rgb(249, 249, 249);
-  --muted-foreground: rgb(169, 151, 206);
-  --accent: rgb(249, 249, 249);
-  --accent-foreground: rgb(26, 11, 84);
-  --border: rgb(232, 228, 243);
-  --input: rgb(232, 228, 243);
-  --ring: rgb(28, 78, 255);
-  --nexa-navy: rgb(26, 11, 84);
-  --nexa-lavender: rgb(169, 151, 206);
-  --nexa-lavender-2: rgb(189, 174, 231);
-  --nexa-lavender-3: rgb(131, 121, 158);
-  --nexa-accent: rgb(200, 111, 255);
-  --nexa-blue: rgb(28, 78, 255);
-  --nexa-chip: rgb(249, 249, 249);
-  --nexa-card-dark: rgba(10, 5, 20, 0.88);
-  --nexa-badge: rgb(41, 31, 57);
-  --nexa-grad-a: linear-gradient(90deg, rgb(28, 78, 255), rgb(172, 36, 255) 50%, rgb(254, 136, 27));
-  --nexa-grad-b: linear-gradient(90deg, rgb(43, 167, 255), rgb(202, 69, 255) 50%, rgb(254, 136, 27));
-  --nexa-grad-line: linear-gradient(rgb(28, 78, 255), rgb(254, 136, 27) 0%, rgb(172, 36, 255) 25%, rgb(247, 159, 255) 50%, rgb(255, 214, 0) 66%, rgb(254, 136, 27) 84%, rgba(254, 136, 27, 0) 102%);
+  --secondary: rgb(238, 246, 252);
+  --secondary-foreground: rgb(22, 57, 90);
+  --muted: rgb(245, 248, 252);
+  --muted-foreground: rgb(102, 128, 154);
+  --accent: rgb(237, 246, 252);
+  --accent-foreground: rgb(22, 57, 90);
+  --border: rgb(218, 232, 245);
+  --input: rgb(218, 232, 245);
+  --ring: rgb(37, 99, 235);
+  --nexa-navy: rgb(22, 57, 90);
+  --nexa-lavender: rgb(177, 213, 237);
+  --nexa-lavender-2: rgb(211, 229, 243);
+  --nexa-lavender-3: rgb(105, 132, 155);
+  --nexa-accent: rgb(101, 190, 246);
+  --nexa-blue: rgb(37, 99, 235);
+  --nexa-chip: rgb(245, 241, 232);
+  --nexa-card-dark: rgba(13, 43, 74, 0.92);
+  --nexa-badge: rgb(26, 70, 109);
+  --nexa-grad-a: linear-gradient(100deg, #245bc2, #3b82e4 52%, #a4d5f5);
+  --nexa-grad-b: linear-gradient(100deg, #245bc2, #2883c7 56%, #1a669b);
+  --nexa-grad-line: linear-gradient(to bottom, #2563eb 0%, #5aa9e9 30%, #a8d6f3 56%, #d8eaf5 78%, rgba(224, 238, 247, 0) 100%);
 }
 .nexacore .nexa-grad-text {
   background-image: var(--nexa-grad-b);
@@ -49,6 +53,42 @@ const NEXACORE_CSS = `
 .nexacore .nexa-blur-card {
   backdrop-filter: blur(36px);
   -webkit-backdrop-filter: blur(36px);
+}
+/* Only the public landing page receives this palette; /app stays as-is. */
+.nexacore { background: var(--nexa-cream); color: var(--nexa-navy); }
+.nexacore [data-slot="navbar"] nav {
+  background: rgba(255, 255, 255, .96);
+  border: 1px solid #e3edf6;
+  box-shadow: 0 12px 36px rgba(20, 58, 100, .11);
+}
+.nexacore .nexa-section-cream { background: var(--nexa-cream); }
+.nexacore .nexa-hero-blue-wash {
+  background: linear-gradient(118deg, rgba(8,36,67,.60) 0%, rgba(16,72,124,.42) 48%, rgba(15,65,117,.45) 100%);
+}
+.nexacore [data-slot="hero"] .nexa-grad-text,
+.nexacore [data-slot="trusted"] .nexa-grad-text {
+  background-image: linear-gradient(100deg, #a9dfff 4%, #83c9f9 52%, #f6e9c9 100%);
+}
+.nexacore [data-slot="hero"] video {
+  filter: saturate(.82);
+}
+.nexacore [data-slot="freedom"] .nexa-video-blue-wash::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: 50%;
+  background: rgba(61, 127, 188, .22);
+  mix-blend-mode: color;
+}
+.nexacore [data-slot="freedom"] .nexa-soft-shadow {
+  border: 1px solid rgba(215, 229, 240, .75);
+}
+.nexacore [data-slot="precision"] .nexa-grad-text {
+  background-image: linear-gradient(100deg, #2866b2, #328bc8 63%, #1f568a);
+}
+.nexacore .nexa-soft-shadow {
+  box-shadow: 0 3px 9px rgba(35, 73, 116, 0.04), 0 2px 23px rgba(35, 73, 116, 0.08);
 }
 `;
 

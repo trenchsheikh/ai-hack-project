@@ -40,9 +40,9 @@ export function Logo({ className }: { className?: string }) {
           y2="26"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="rgb(28, 78, 255)" />
-          <stop offset="0.5" stopColor="rgb(172, 36, 255)" />
-          <stop offset="1" stopColor="rgb(254, 136, 27)" />
+          <stop stopColor="rgb(37, 99, 235)" />
+          <stop offset="0.5" stopColor="rgb(72, 153, 227)" />
+          <stop offset="1" stopColor="rgb(184, 222, 246)" />
         </linearGradient>
       </defs>
       <circle
@@ -81,9 +81,9 @@ export function BrandMark({
           y2="21"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="rgb(28, 78, 255)" />
-          <stop offset="0.5" stopColor="rgb(172, 36, 255)" />
-          <stop offset="1" stopColor="rgb(254, 136, 27)" />
+          <stop stopColor="rgb(37, 99, 235)" />
+          <stop offset="0.5" stopColor="rgb(72, 153, 227)" />
+          <stop offset="1" stopColor="rgb(184, 222, 246)" />
         </linearGradient>
       </defs>
       <circle

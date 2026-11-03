@@ -47,11 +47,11 @@ function DeliveryGlyph() {
       aria-hidden
       className="shrink-0"
     >
-      <circle cx="8.5" cy="8" r="7" stroke="#c86fff" strokeWidth="1.2" />
-      <rect x="8" y="0" width="1" height="3" fill="rgb(200, 111, 255)" />
-      <rect x="8" y="13" width="1" height="3" fill="rgb(200, 111, 255)" />
-      <rect x="0" y="7.5" width="3" height="1" fill="rgb(200, 111, 255)" />
-      <rect x="14" y="7.5" width="3" height="1" fill="rgb(200, 111, 255)" />
+      <circle cx="8.5" cy="8" r="7" stroke="#4298d8" strokeWidth="1.2" />
+      <rect x="8" y="0" width="1" height="3" fill="rgb(71, 154, 219)" />
+      <rect x="8" y="13" width="1" height="3" fill="rgb(71, 154, 219)" />
+      <rect x="0" y="7.5" width="3" height="1" fill="rgb(71, 154, 219)" />
+      <rect x="14" y="7.5" width="3" height="1" fill="rgb(71, 154, 219)" />
     </svg>
   );
 }
@@ -165,7 +165,7 @@ function MobileStack() {
                     key={item}
                     style={{
                       fontSize: 14,
-                      color: "rgb(100, 80, 160)",
+                      color: "rgb(66, 106, 145)",
                       padding: "8px 0",
                     }}
                   >
@@ -188,7 +188,7 @@ export function Precision() {
       data-slot="precision"
       className="flex flex-col items-center text-center"
       style={{
-        backgroundImage: `url(${PRECISION_BG})`,
+        backgroundImage: `linear-gradient(160deg, rgba(250, 247, 240, .92), rgba(232, 244, 253, .88)), url(${PRECISION_BG})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
@@ -201,7 +201,7 @@ export function Precision() {
         <span
           className="inline-flex items-center gap-2 font-medium text-[var(--nexa-navy)]"
           style={{
-            background: "rgb(249, 249, 249)",
+            background: "#ffffff",
             borderRadius: 36,
             padding: "clamp(8px, 0.9vw, 14px) clamp(12px, 1.25vw, 20px)",
             fontSize: "clamp(14px, 1.1vw, 18px)",

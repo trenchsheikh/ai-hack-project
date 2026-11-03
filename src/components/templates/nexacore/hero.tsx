@@ -19,11 +19,12 @@ export function Hero() {
         playsInline
         aria-hidden
       />
+      <div aria-hidden className="nexa-hero-blue-wash pointer-events-none absolute inset-0 z-[1]" />
       <div
         aria-hidden
         className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-48"
         style={{
-          background: "linear-gradient(to bottom, transparent, #000201)",
+          background: "linear-gradient(to bottom, transparent, #0e304e)",
         }}
       />
 

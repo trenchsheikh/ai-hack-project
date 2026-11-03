@@ -63,7 +63,7 @@ export function ServiceCard({
         className="absolute inset-x-0 top-0 z-[1] h-[55%] translate-y-[-30%] opacity-70 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100"
         style={{
           background:
-            "radial-gradient(120% 90% at 50% 0%, rgba(200, 111, 255, 0.45), transparent 70%), linear-gradient(160deg, rgba(28, 78, 255, 0.35), rgba(10, 5, 20, 0) 60%)",
+            "radial-gradient(120% 90% at 50% 0%, rgba(75, 156, 223, 0.5), transparent 70%), linear-gradient(160deg, rgba(37, 99, 235, 0.27), rgba(13, 43, 74, 0) 60%)",
         }}
       />
       <div
@@ -71,7 +71,7 @@ export function ServiceCard({
         className="absolute inset-x-0 bottom-0 z-[1] h-[55%] translate-y-full opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100"
         style={{
           background:
-            "linear-gradient(to top, rgba(10, 5, 20, 0.95) 60%, transparent)",
+            "linear-gradient(to top, rgba(9, 35, 62, 0.98) 60%, transparent)",
         }}
       />
 

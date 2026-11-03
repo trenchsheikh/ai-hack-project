@@ -35,7 +35,7 @@ function ControlGlyph() {
     >
       <path
         d="M8.5 14C8.5 14 1.5 9.8 1.5 5.4C1.5 3.2 3.2 1.8 5 1.8C6.5 1.8 7.8 2.8 8.5 4C9.2 2.8 10.5 1.8 12 1.8C13.8 1.8 15.5 3.2 15.5 5.4C15.5 9.8 8.5 14 8.5 14Z"
-        fill="rgb(200, 111, 255)"
+        fill="rgb(71, 154, 219)"
       />
     </svg>
   );
@@ -89,7 +89,7 @@ export function Freedom() {
     <section
       id="method"
       data-slot="freedom"
-      className="flex flex-col items-center bg-white"
+      className="nexa-section-cream flex flex-col items-center"
       style={{
         padding: "clamp(48px, 6vw, 80px) clamp(16px, 3vw, 40px)",
         gap: 36,
@@ -138,7 +138,7 @@ export function Freedom() {
 
         <div className="order-first flex w-full justify-center lg:order-none">
           <div
-            className="relative"
+            className="nexa-video-blue-wash relative"
             style={{
               borderRadius: "50%",
               overflow: "hidden",

@@ -38,7 +38,7 @@ export function Trusted() {
       data-slot="trusted"
       className="relative flex flex-col items-center"
       style={{
-        backgroundImage: `url(${TRUSTED_BG})`,
+        backgroundImage: `linear-gradient(125deg, rgba(12, 42, 75, .92), rgba(25, 79, 128, .83)), url(${TRUSTED_BG})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         padding:
@@ -75,7 +75,7 @@ export function Trusted() {
         className="pointer-events-none absolute inset-x-0 bottom-0 h-[180px]"
         style={{
           background:
-            "linear-gradient(to bottom, transparent, rgb(255, 255, 255))",
+            "linear-gradient(to bottom, transparent, #FAF7F0)",
         }}
       />
     </section>
