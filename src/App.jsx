@@ -8,6 +8,8 @@ import {
   Sparkles, Target, Trash2, Trophy, UserRound, WandSparkles, X, Zap
 } from 'lucide-react';
 import Nexacore from './components/templates/nexacore/nexacore';
+import { GradientCard } from './components/ui/gradient-card';
+import { GradientCardDemo } from './components/ui/gradient-card-demo';
 import { lessons, challenges } from './data';
 import './workspace.css';
 
@@ -28,6 +30,28 @@ const iconFor = {
   auto_awesome:Sparkles, edit_note:Pencil, verified_user:ShieldCheck, deployed_code:WandSparkles
 };
 const colors={purple:'purple',cyan:'cyan',lime:'lime',pink:'pink'};
+// Photo assets are from Unsplash; only the lesson and challenge catalogue uses these
+// decorative images, with the original NexaCore brand colours in the gradients.
+const cardStyle={
+  purple:{gradient:'purple',dot:'#8552CE'},
+  cyan:{gradient:'gray',dot:'#3862C8'},
+  lime:{gradient:'green',dot:'#248F80'},
+  pink:{gradient:'orange',dot:'#D87764'}
+};
+const lessonImages={
+  'generative-ai':'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=760&q=80',
+  prompting:'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=760&q=80',
+  'ai-football':'https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=760&q=80',
+  'creative-ai':'https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=760&q=80',
+  'responsible-ai':'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=760&q=80',
+  prototype:'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=760&q=80'
+};
+const challengeImages={
+  future:'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=760&q=80',
+  football:'https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=760&q=80',
+  creative:'https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=760&q=80',
+  wellbeing:'https://images.unsplash.com/photo-1531058020387-3be344556be6?auto=format&fit=crop&w=760&q=80'
+};
 function useStored(key, fallback) {
   const [value,setValue]=useState(()=>{
     try { const fromStorage=JSON.parse(window.localStorage.getItem(key)); return Array.isArray(fromStorage)?fromStorage:fallback; }
@@ -58,14 +82,21 @@ function Button({children,onClick,variant='primary',icon:Icon,disabled=false,typ
 }
 function Tag({children,color='neutral'}){return <span className={'st-tag st-tag-'+color}>{children}</span>;}
 function Panel({children,className=''}){return <section className={'st-panel '+className}>{children}</section>;}
-function PanelHeader({title,subtitle,action}){return <div className="st-panel-header"><div><h2>{title}</h2>{subtitle&&<p>{subtitle}</p>}</div>{action}</div>;}
-function PlaceholderArt({icon:Icon=Sparkles,tone='purple',compact=false}) {
- return <div className={'st-art st-art-'+tone+(compact?' st-art-compact':'')} aria-hidden="true"><div className="st-art-orb"/><div className="st-art-stripe"/><span className="st-art-device"><Icon size={compact?25:38} strokeWidth={1.7}/></span><span className="st-art-twinkle">✦</span></div>;
+function PanelHeader({title,subtitle,action}){return <div className="st-panel-header"><div><h2>{title}</h2>{subtitle&&<p>{subtitle}</p>}function LessonTile({lesson,completed,go}) {
+ const style=cardStyle[lesson.theme]||cardStyle.purple;
+ return <GradientCard
+   gradient={style.gradient}
+   badgeText={completed?'Completed · '+lesson.tag:lesson.tag+' · '+lesson.minutes+' min'}
+   badgeColor={completed?'#26855A':style.dot}
+   title={lesson.title}
+   description={lesson.description}
+   ctaText={completed?'Review lesson':'Start lesson'}
+   ctaHref={'/app/learn/'+lesson.id}
+   imageUrl={lessonImages[lesson.id]||lessonImages.prototype}
+   onNavigate={go}
+ />;
 }
-function ProgressBar({percent}){return <div className="st-progress-track" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={percent}><div style={{width:percent+'%'}}/></div>;}
-function Stats({completed,joined,projects,go}){
- const rows=[
-  {title:'Lessons completed',value:completed.length,sub:'of '+lessons.length+' available',icon:BookOpenCheck,path:'/app/learn',tone:'purple'},
+sons completed',value:completed.length,sub:'of '+lessons.length+' available',icon:BookOpenCheck,path:'/app/learn',tone:'purple'},
   {title:'Challenges joined',value:joined.length,sub:'of '+challenges.length+' practice briefs',icon:Trophy,path:'/app/hackathons',tone:'pink'},
   {title:'Projects created',value:projects.length,sub:'saved in this browser',icon:FolderKanban,path:'/app/projects',tone:'cyan'},
   {title:'Learning progress',value:Math.round(completed.length/lessons.length*100)+'%',sub:'your lesson completion',icon:Target,path:'/app/progress',tone:'lime'}
@@ -100,6 +131,7 @@ function Overview({completed,joined,projects,go}){
      <Panel><PanelHeader title="Continue learning" subtitle="Pick up where you left off" action={<button className="st-small-link" onClick={()=>go('/app/learn')}>All lessons <ArrowRight size={15}/></button>}/><div className="st-continue-list">{lessons.filter(l=>!completed.includes(l.id)).slice(0,3).concat(completed.length===lessons.length?lessons.slice(0,2):[]).map(l=>{const Icon=iconFor[l.icon]||BookOpen;return <button className="st-continue-row" key={l.id} onClick={()=>go('/app/learn/'+l.id)}><span className={'st-row-icon st-soft-'+(colors[l.theme]||'purple')}><Icon size={20}/></span><span><strong>{l.title}</strong><small>{l.minutes} min · {l.tag}</small></span><ChevronRight size={17}/></button>})}</div></Panel>
      <Panel><PanelHeader title="Mini-hackathons" subtitle="Creative, self-paced briefs" action={<button className="st-small-link" onClick={()=>go('/app/hackathons')}>Explore all <ArrowRight size={15}/></button>}/><div className="st-mini-challenges">{challenges.slice(0,3).map(c=><ChallengeTile key={c.id} challenge={c} joined={joined.includes(c.id)} go={go}/>)}</div></Panel>
    </div>
+   <Panel className="st-discovery-panel"><PanelHeader title="Discover your starting point" subtitle="Explore learning, creativity and real-world AI challenges" action={<button className="st-small-link" onClick={()=>go('/app/learn')}>Browse lessons <ArrowRight size={15}/></button>}/><GradientCardDemo onNavigate={go}/></Panel>
    <Panel><PanelHeader title="Your latest projects" subtitle="Ideas saved in your browser" action={<button className="st-small-link" onClick={()=>go('/app/projects')}>View projects <ArrowRight size={15}/></button>}/>{recent.length?<div className="st-project-table-wrap"><table className="st-project-table"><thead><tr><th>Project</th><th>Area</th><th>Stage</th><th>Created</th><th></th></tr></thead><tbody>{recent.map(p=><tr key={p.id}><td><span className="st-table-project"><span><WandSparkles size={16}/></span>{p.title}</span></td><td>{p.area}</td><td><Tag color="purple">{p.stage||'Idea'}</Tag></td><td>{formatDate(p.created)}</td><td><button aria-label={'Open '+p.title} onClick={()=>go('/app/projects/'+p.id)}><ArrowUpRight size={16}/></button></td></tr>)}</tbody></table></div>:<Empty icon={FolderKanban} title="Your first project is waiting." description="Sketch an idea, save it, and watch it take shape." button="Start a project" go={()=>go('/app/build')}/>}</Panel>
    <p className="st-storage-note"><Info size={14}/> This is an early preview. Your progress and projects are stored only in this browser, not in a shared account.</p>
  </div>;
@@ -126,10 +158,25 @@ function Hackathons({joined,go}){
  const [filter,setFilter]=useState('All');
  const options=['All','Sport','Creativity','Social impact','Health'];
  const filtered=challenges.filter(c=>filter==='All'||c.category===filter);
- return <div className="st-view"><SectionTitle eyebrow="IDEAS INTO ACTION" title="Mini-hackathons" description="Find an interesting problem, explore solutions and turn what you learn into a project." action={<Tag color="purple">{challenges.length} practice challenges</Tag>}/>
-   <div className="st-info-line"><Info size={16}/> These are self-paced practice challenges, not scheduled in-person events or competitions.</div>
-   <div className="st-tabs">{options.map(o=><button key={o} className={filter===o?'selected':''} onClick={()=>setFilter(o)}>{o}</button>)}</div>
-   <div className="st-challenge-grid">{filtered.map(c=><div className="st-challenge-card" key={c.id}><div className="st-challenge-art"><PlaceholderArt tone={colors[c.theme]||'purple'} icon={iconFor[c.icon]||Trophy} compact/></div><div className="st-challenge-card-body"><div className="st-meta-row"><Tag color="outline">{c.tag}</Tag>{joined.includes(c.id)&&<Tag color="green"><Check size={13}/>Joined</Tag>}</div><h3>{c.title}</h3><p>{c.description}</p><div className="st-challenge-card-foot"><span><Clock3 size={14}/>{c.duration}</span><Button variant="outline" onClick={()=>go('/app/hackathons/'+c.id)}>View brief <ArrowRight size={15}/></Button></div></div></div>)}</div>
+ return <div className="st-view">
+   <SectionTitle eyebrow="IDEAS INTO ACTION" title="Mini-hackathons" description="Pick a theme you care about, explore a real problem, and turn an idea into a project." action={<Tag color="purple">{challenges.length} practice challenges</Tag>}/>
+   <div className="st-info-line"><Info size={16}/> These are self-paced practice briefs, not scheduled competitions or prize-backed events.</div>
+   <div className="st-tabs" role="group" aria-label="Filter challenges by theme">{options.map(o=><button key={o} aria-pressed={filter===o} className={filter===o?'selected':''} onClick={()=>setFilter(o)}>{o}</button>)}</div>
+   <div className="st-challenge-grid">{filtered.map(c=>{
+     const style=cardStyle[c.theme]||cardStyle.purple;
+     return <GradientCard
+       key={c.id}
+       gradient={style.gradient}
+       badgeText={joined.includes(c.id)?'Joined · '+c.category:'Self-paced · '+c.category}
+       badgeColor={joined.includes(c.id)?'#26855A':style.dot}
+       title={c.title}
+       description={c.description}
+       ctaText={joined.includes(c.id)?'Continue challenge':'Explore challenge'}
+       ctaHref={'/app/hackathons/'+c.id}
+       imageUrl={challengeImages[c.id]||challengeImages.future}
+       onNavigate={go}
+     />;
+   })}</div>
  </div>;
 }
 function Challenge({challenge,joined,onJoin,go}) {

@@ -394,3 +394,61 @@
 @media(prefers-reduced-motion:reduce){.studio-app *{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
 
 @media(max-width:640px){.st-sidebar.st-sidebar-mobile-open .st-sidebar-help{display:block}}
+
+/* Reusable shadcn-style gradient cards used by learning, challenges and discovery.
+   Preserve the clean Studio Admin framing while matching the landing page's
+   muted violet / indigo / blue / warm accent palette. */
+.studio-app .st-gradient-card{
+  min-height:332px;
+  border:1px solid rgba(102,72,157,.11);
+  box-shadow:0 4px 19px rgba(36,19,74,.045);
+}
+.studio-app .st-gradient-card:hover{
+  box-shadow:0 14px 32px rgba(36,19,74,.1);
+}
+.studio-app .st-gradient-card>img{
+  height:71%;
+  width:78%;
+  object-fit:cover;
+  object-position:center;
+  opacity:.58;
+  -webkit-mask-image:linear-gradient(95deg,transparent 2%,black 75%);
+  mask-image:linear-gradient(95deg,transparent 2%,black 75%);
+  border-radius:24px;
+}
+.studio-app .st-gradient-card>div:last-child{
+  text-shadow:0 1px 1px rgba(255,255,255,.23);
+}
+.studio-app .st-gradient-card h3{
+  letter-spacing:-.045em;
+  color:#1a0b54;
+  max-width:265px;
+}
+.studio-app .st-gradient-card p{
+  color:#514963;
+  max-width:255px;
+}
+.studio-app .st-gradient-card a{
+  color:#251251;
+  white-space:nowrap;
+}
+.studio-app .st-gradient-card a:hover{
+  color:#1c4eff;
+}
+.studio-app .st-discovery-panel{
+  padding:22px;
+}
+.studio-app .st-discovery-panel .st-panel-header{
+  margin-bottom:21px;
+}
+@media(min-width:1151px){
+ .studio-app .st-lessons-grid .st-gradient-card{min-height:350px}
+}
+@media(max-width:640px){
+ .studio-app .st-gradient-card{min-height:315px}
+ .studio-app .st-discovery-panel{padding:15px}
+ .studio-app .st-gradient-card>img{width:80%;height:76%}
+}
+@media(prefers-reduced-motion:reduce){
+ .studio-app .st-gradient-card{transition:none}
+}
