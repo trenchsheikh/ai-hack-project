@@ -82,7 +82,21 @@ function Button({children,onClick,variant='primary',icon:Icon,disabled=false,typ
 }
 function Tag({children,color='neutral'}){return <span className={'st-tag st-tag-'+color}>{children}</span>;}
 function Panel({children,className=''}){return <section className={'st-panel '+className}>{children}</section>;}
-function PanelHeader({title,subtitle,action}){return <div className="st-panel-header"><div><h2>{title}</h2>{subtitle&&<p>{subtitle}</p>}function LessonTile({lesson,completed,go}) {
+function PanelHeader({title,subtitle,action}){return <div className="st-panel-header"><div><h2>{title}</h2>{subtitle&&<p>{subtitle}</p>}</div>{action}</div>;}
+function PlaceholderArt({icon:Icon=Sparkles,tone='purple',compact=false}) {
+ return <div className={'st-art st-art-'+tone+(compact?' st-art-compact':'')} aria-hidden="true"><div className="st-art-orb"/><div className="st-art-stripe"/><span className="st-art-device"><Icon size={compact?25:38} strokeWidth={1.7}/></span><span className="st-art-twinkle">✦</span></div>;
+}
+function ProgressBar({percent}){return <div className="st-progress-track" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={percent}><div style={{width:percent+'%'}}/></div>;}
+function Stats({completed,joined,projects,go}){
+ const rows=[
+  {title:'Lessons completed',value:completed.length,sub:'of '+lessons.length+' available',icon:BookOpenCheck,path:'/app/learn',tone:'purple'},
+  {title:'Challenges joined',value:joined.length,sub:'of '+challenges.length+' practice briefs',icon:Trophy,path:'/app/hackathons',tone:'pink'},
+  {title:'Projects created',value:projects.length,sub:'saved in this browser',icon:FolderKanban,path:'/app/projects',tone:'cyan'},
+  {title:'Learning progress',value:Math.round(completed.length/lessons.length*100)+'%',sub:'your lesson completion',icon:Target,path:'/app/progress',tone:'lime'}
+ ];
+ return <div className="st-stats-grid">{rows.map(x=><button key={x.title} className="st-stat" onClick={()=>go(x.path)}><div className="st-stat-top"><span>{x.title}</span><x.icon size={17}/></div><strong>{x.value}</strong><div className="st-stat-bottom"><span className={'st-stat-indicator st-indicator-'+x.tone}><ArrowUpRight size={13}/></span><span>{x.sub}</span></div></button>)}</div>;
+}
+function LessonTile({lesson,completed,go}) {
  const style=cardStyle[lesson.theme]||cardStyle.purple;
  return <GradientCard
    gradient={style.gradient}
@@ -95,17 +109,6 @@ function PanelHeader({title,subtitle,action}){return <div className="st-panel-he
    imageUrl={lessonImages[lesson.id]||lessonImages.prototype}
    onNavigate={go}
  />;
-}
-sons completed',value:completed.length,sub:'of '+lessons.length+' available',icon:BookOpenCheck,path:'/app/learn',tone:'purple'},
-  {title:'Challenges joined',value:joined.length,sub:'of '+challenges.length+' practice briefs',icon:Trophy,path:'/app/hackathons',tone:'pink'},
-  {title:'Projects created',value:projects.length,sub:'saved in this browser',icon:FolderKanban,path:'/app/projects',tone:'cyan'},
-  {title:'Learning progress',value:Math.round(completed.length/lessons.length*100)+'%',sub:'your lesson completion',icon:Target,path:'/app/progress',tone:'lime'}
- ];
- return <div className="st-stats-grid">{rows.map(x=><button key={x.title} className="st-stat" onClick={()=>go(x.path)}><div className="st-stat-top"><span>{x.title}</span><x.icon size={17}/></div><strong>{x.value}</strong><div className="st-stat-bottom"><span className={'st-stat-indicator st-indicator-'+x.tone}><ArrowUpRight size={13}/></span><span>{x.sub}</span></div></button>)}</div>;
-}
-function LessonTile({lesson,completed,go}) {
- const Icon=iconFor[lesson.icon]||BrainCircuit;
- return <button className="st-lesson-tile" onClick={()=>go('/app/learn/'+lesson.id)}><PlaceholderArt icon={Icon} tone={colors[lesson.theme]||'purple'} compact/><div className="st-tile-body"><div className="st-tile-meta"><Tag color={colors[lesson.theme]||'purple'}>{lesson.tag}</Tag>{completed&&<span className="st-success-inline"><CheckCircle2 size={14}/> Done</span>}</div><h3>{lesson.title}</h3><p>{lesson.description}</p><div className="st-tile-foot"><span><Clock3 size={14}/>{lesson.minutes} min · {lesson.level}</span><ArrowUpRight size={17}/></div></div></button>;
 }
 function ChallengeTile({challenge,joined,go}) {
  const Icon=iconFor[challenge.icon]||Trophy;
