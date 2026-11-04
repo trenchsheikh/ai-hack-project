@@ -71,7 +71,7 @@ export function ServiceCard({
         className="absolute inset-x-0 bottom-0 z-[1] h-[55%] translate-y-full opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100"
         style={{
           background:
-            "linear-gradient(to top, rgba(10, 67, 237, 0.98) 60%, transparent)",
+            "linear-gradient(to top, rgba(69, 100, 125, 0.98) 60%, transparent)",
         }}
       />
 

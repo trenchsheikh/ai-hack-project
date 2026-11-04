@@ -105,3 +105,8 @@ The supplied ai-actions design was adapted to the existing Vite + React + TypeSc
 - Only recoloured the public landing to Fhilo logo blue `#0A43ED` and warm cream `#FAF7F0`, with monochrome treatment of existing media and restrained blue/cream overlays.
 - Removed the small all-caps eyebrow above the main hero headline while retaining the headline, supporting text, and calls to action.
 - Waitlist page, email-capture endpoint, studio, and organisation screens are not affected.
+
+## Muted landing palette (November 2026)
+- Public `/` landing retains its restored animated design, existing copy, floating navigation and section layout, but replaces the saturated blue fields with muted slate blue `#45647D` against cream `#FAF7F0`.
+- The large purpose section uses a cream backdrop while preserving blue cards, reducing the overall amount of blue.
+- The Fhilo logo itself remains its original `#0A43ED`; the separate waitlist, Studio and organisations pages are not changed.

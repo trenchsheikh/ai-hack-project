@@ -8,50 +8,50 @@
 
 /* Restored cinematic landing — refined Fhilo typography and emotional copy. */
 .nexacore{font-family:'DM Sans',ui-sans-serif,system-ui,sans-serif;overflow-x:hidden}
-.nexacore .nexa-brand{color:#123758;text-decoration:none}
+.nexacore .nexa-brand{color:#45647D;text-decoration:none}
 .nexacore .nexa-brand>span{font-size:26px;font-weight:700;letter-spacing:-.075em}
-.nexacore .nexa-logo-dot{color:#0a43ed}
+.nexacore .nexa-logo-dot{color:#45647D}
 .nexacore [data-slot="navbar"] nav{backdrop-filter:blur(24px)}
-.nexacore .nexa-nav-preview{color:#46708c;font-size:13px;font-weight:600;padding:10px 11px}
-.nexacore .nexa-nav-preview:hover{color:#2563eb}
-.nexacore .nexa-nav-join{align-items:center;justify-content:center;gap:8px;padding:12px 19px;background:#0a43ed;color:#fff;border-radius:10px;font-size:13px;font-weight:650;white-space:nowrap;transition:background .2s}
-.nexacore .nexa-nav-join:hover{background:#123a9b}
-.nexacore .nexa-restored-hero{min-height:100svh;isolation:isolate;background:radial-gradient(ellipse at 65% 25%,#21517b,#07213b 65%)}
+.nexacore .nexa-nav-preview{color:#45647D;font-size:13px;font-weight:600;padding:10px 11px}
+.nexacore .nexa-nav-preview:hover{color:#45647D}
+.nexacore .nexa-nav-join{align-items:center;justify-content:center;gap:8px;padding:12px 19px;background:#45647D;color:#FAF7F0;border-radius:10px;font-size:13px;font-weight:650;white-space:nowrap;transition:background .2s}
+.nexacore .nexa-nav-join:hover{background:#45647D}
+.nexacore .nexa-restored-hero{min-height:100svh;isolation:isolate;background:radial-gradient(ellipse at 65% 25%,#45647D,#45647D 65%)}
 .nexacore .nexa-restored-hero video{z-index:0;filter:saturate(.75);opacity:.85}
-.nexacore .nexa-hero-blue-wash{z-index:1;background:linear-gradient(108deg,rgba(5,28,50,.77),rgba(9,49,86,.6) 52%,rgba(9,43,79,.68))!important}
+.nexacore .nexa-hero-blue-wash{z-index:1;background:linear-gradient(rgba(69,100,125,.80),rgba(69,100,125,.80))!important}
 .nexacore .nexa-hero-copy{padding-top:78px;padding-bottom:80px;gap:0}
-.nexacore .nexa-hero-kicker{display:inline-flex;align-items:center;gap:10px;color:#e2f2ff;font-size:12px;font-weight:600;letter-spacing:.15em;line-height:1.4;text-transform:uppercase;margin-bottom:26px}
-.nexacore .nexa-kicker-dot{background:#a1ddff;width:8px;height:8px;border-radius:50%;box-shadow:0 0 15px #a1ddffb2}
-.nexacore .nexa-hero-copy h1{font-size:clamp(48px,6vw,91px);line-height:1.09;letter-spacing:-.071em;color:#fff;font-weight:500;max-width:1050px;text-wrap:balance;margin:0}
-.nexacore .nexa-hero-copy h1 em{font-family:'Instrument Serif',Georgia,serif;font-size:1.05em;color:#c8e4ff;font-style:italic;font-weight:400;letter-spacing:-.02em}
-.nexacore .nexa-hero-copy p{max-width:690px;font-size:clamp(16px,1.36vw,19px);line-height:1.8;color:#e4eef7;margin:25px auto 0;text-wrap:pretty}
+.nexacore .nexa-hero-kicker{display:inline-flex;align-items:center;gap:10px;color:#45647D;font-size:12px;font-weight:600;letter-spacing:.15em;line-height:1.4;text-transform:uppercase;margin-bottom:26px}
+.nexacore .nexa-kicker-dot{background:#45647D;width:8px;height:8px;border-radius:50%;box-shadow:0 0 15px #45647Db2}
+.nexacore .nexa-hero-copy h1{font-size:clamp(48px,6vw,91px);line-height:1.09;letter-spacing:-.071em;color:#FAF7F0;font-weight:500;max-width:1050px;text-wrap:balance;margin:0}
+.nexacore .nexa-hero-copy h1 em{font-family:'Instrument Serif',Georgia,serif;font-size:1.05em;color:#45647D;font-style:italic;font-weight:400;letter-spacing:-.02em}
+.nexacore .nexa-hero-copy p{max-width:690px;font-size:clamp(16px,1.36vw,19px);line-height:1.8;color:#45647D;margin:25px auto 0;text-wrap:pretty}
 .nexacore .nexa-hero-actions{display:flex;justify-content:center;gap:12px;align-items:center;flex-wrap:wrap;margin-top:32px}
-.nexacore .nexa-primary-action{display:inline-flex;align-items:center;justify-content:center;gap:12px;background:#fff;border:1px solid #fff;border-radius:11px;padding:15px 21px;min-height:49px;color:#133b62!important;font-size:13px;font-weight:700;box-shadow:0 6px 24px #02192d24;transition:transform .2s,background .2s}
-.nexacore .nexa-primary-action:hover{background:#e8f6ff;transform:translateY(-2px)}
-.nexacore .nexa-hero-secondary{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 21px;min-height:49px;border-radius:11px;border:1px solid #ffffff70;background:#ffffff0d;color:#fff;font-size:13px;font-weight:650;backdrop-filter:blur(8px)}
-.nexacore .nexa-hero-secondary:hover{background:#ffffff2e}
-.nexacore .nexa-hero-caption{color:#c3d9e9;font-size:12px;margin-top:28px}
-.nexacore .nexa-scroll-indicator{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);z-index:12;color:#f2f8ffb0;animation:nexascroll 2s ease-in-out infinite}
+.nexacore .nexa-primary-action{display:inline-flex;align-items:center;justify-content:center;gap:12px;background:#FAF7F0;border:1px solid #FAF7F0;border-radius:11px;padding:15px 21px;min-height:49px;color:#45647D!important;font-size:13px;font-weight:700;box-shadow:0 6px 24px #45647D24;transition:transform .2s,background .2s}
+.nexacore .nexa-primary-action:hover{background:#FAF7F0;transform:translateY(-2px)}
+.nexacore .nexa-hero-secondary{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 21px;min-height:49px;border-radius:11px;border:1px solid #FAF7F070;background:#FAF7F00d;color:#FAF7F0;font-size:13px;font-weight:650;backdrop-filter:blur(8px)}
+.nexacore .nexa-hero-secondary:hover{background:#FAF7F02e}
+.nexacore .nexa-hero-caption{color:#FAF7F0;font-size:12px;margin-top:28px}
+.nexacore .nexa-scroll-indicator{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);z-index:12;color:#FAF7F0b0;animation:nexascroll 2s ease-in-out infinite}
 @keyframes nexascroll{50%{transform:translate(-50%,5px)}}
 .nexacore h2{letter-spacing:-.055em}
 .nexacore [data-slot="trusted"] h2{max-width:1000px;text-wrap:balance;letter-spacing:-.06em}
 .nexacore [data-slot="trusted"] p{max-width:760px;line-height:1.75;text-wrap:pretty}
 .nexacore [data-slot="freedom"] h2{letter-spacing:-.055em;text-wrap:balance}
 .nexacore [data-slot="precision"] h2{letter-spacing:-.055em}
-.nexacore .nexa-closing{background:linear-gradient(125deg,#123e67,#0b2948 60%,#102e50);color:#fff;padding:110px 26px 120px;display:flex;justify-content:center;text-align:center}
+.nexacore .nexa-closing{background:linear-gradient(125deg,#45647D,#45647D 60%,#45647D);color:#FAF7F0;padding:110px 26px 120px;display:flex;justify-content:center;text-align:center}
 .nexacore .nexa-closing-inner{max-width:870px;display:flex;align-items:center;flex-direction:column}
-.nexacore .nexa-overline{font-size:11px;font-weight:650;letter-spacing:.18em;color:#b9dcf6;margin-bottom:23px}
+.nexacore .nexa-overline{font-size:11px;font-weight:650;letter-spacing:.18em;color:#45647D;margin-bottom:23px}
 .nexacore .nexa-closing h2{font-size:clamp(36px,4.9vw,68px);line-height:1.14;letter-spacing:-.058em;font-weight:500}
-.nexacore .nexa-closing h2 em{font-family:'Instrument Serif',Georgia,serif;font-size:1.1em;font-weight:400;color:#b8dcff;letter-spacing:-.015em}
-.nexacore .nexa-closing p{font-size:clamp(15px,1.3vw,18px);line-height:1.85;color:#bfd6e8;margin:23px 0 0;max-width:640px}
+.nexacore .nexa-closing h2 em{font-family:'Instrument Serif',Georgia,serif;font-size:1.1em;font-weight:400;color:#45647D;letter-spacing:-.015em}
+.nexacore .nexa-closing p{font-size:clamp(15px,1.3vw,18px);line-height:1.85;color:#45647D;margin:23px 0 0;max-width:640px}
 .nexacore .nexa-closing-actions{display:flex;align-items:center;justify-content:center;gap:17px;flex-wrap:wrap;margin-top:33px}
-.nexacore .nexa-text-action{color:#e9f7ff;font-weight:650;display:inline-flex;align-items:center;gap:8px;font-size:13px;padding:12px}
-.nexacore .nexa-text-action:hover{color:#9cd5ff}
-.nexacore .nexa-footer{background:#fff;display:flex;align-items:center;justify-content:space-between;gap:22px;padding:35px max(24px,calc((100vw - 1200px)/2));color:#8397a8;flex-wrap:wrap;font-size:12px}
-.nexacore .nexa-footer-logo{font-size:26px;color:#143d5e;letter-spacing:-.075em;font-weight:750}
-.nexacore .nexa-footer-logo span{color:#0a43ed}
+.nexacore .nexa-text-action{color:#45647D;font-weight:650;display:inline-flex;align-items:center;gap:8px;font-size:13px;padding:12px}
+.nexacore .nexa-text-action:hover{color:#45647D}
+.nexacore .nexa-footer{background:#FAF7F0;display:flex;align-items:center;justify-content:space-between;gap:22px;padding:35px max(24px,calc((100vw - 1200px)/2));color:#45647D;flex-wrap:wrap;font-size:12px}
+.nexacore .nexa-footer-logo{font-size:26px;color:#45647D;letter-spacing:-.075em;font-weight:750}
+.nexacore .nexa-footer-logo span{color:#45647D}
 .nexacore .nexa-footer>div{display:flex;gap:20px;flex-wrap:wrap}
-.nexacore .nexa-footer a:hover{color:#2563eb}
+.nexacore .nexa-footer a:hover{color:#45647D}
 @media(max-width:840px){
  .nexacore .nexa-restored-hero{min-height:780px}
  .nexacore .nexa-hero-copy h1{font-size:clamp(44px,8vw,70px)}
@@ -81,18 +81,18 @@
 .nexacore .nexa-nav-preview,
 .nexacore .nexa-footer-logo,
 .nexacore .nexa-footer,
-.nexacore .nexa-footer a {color:#0A43ED!important}
+.nexacore .nexa-footer a {color:#45647D!important}
 .nexacore .nexa-nav-preview:hover,
-.nexacore .nexa-footer a:hover {color:#0A43ED!important}
+.nexacore .nexa-footer a:hover {color:#45647D!important}
 .nexacore .nexa-nav-join{
- background:#0A43ED!important;
+ background:#45647D!important;
  color:#FAF7F0!important;
- border:1px solid #0A43ED!important
+ border:1px solid #45647D!important
 }
-.nexacore .nexa-nav-join:hover{background:#FAF7F0!important;color:#0A43ED!important}
-.nexacore .nexa-restored-hero{background:#0A43ED!important}
+.nexacore .nexa-nav-join:hover{background:#FAF7F0!important;color:#45647D!important}
+.nexacore .nexa-restored-hero{background:#45647D!important}
 .nexacore .nexa-restored-hero video{filter:grayscale(1) contrast(1.05)!important;opacity:.68}
-.nexacore .nexa-hero-blue-wash{background:rgba(10,67,237,.84)!important}
+.nexacore .nexa-hero-blue-wash{background:rgba(69, 100, 125, .84)!important}
 .nexacore .nexa-hero-copy h1,
 .nexacore .nexa-hero-copy h1 em,
 .nexacore .nexa-hero-copy p,
@@ -101,28 +101,28 @@
 .nexacore .nexa-hero-copy .nexa-primary-action,
 .nexacore .nexa-closing .nexa-primary-action{
  background:#FAF7F0!important;
- color:#0A43ED!important;
+ color:#45647D!important;
  border-color:#FAF7F0!important;
  box-shadow:none!important
 }
 .nexacore .nexa-hero-copy .nexa-primary-action:hover,
 .nexacore .nexa-closing .nexa-primary-action:hover{
- background:#0A43ED!important;color:#FAF7F0!important;
+ background:#45647D!important;color:#FAF7F0!important;
  border-color:#FAF7F0!important
 }
 .nexacore .nexa-hero-secondary{
- background:#0A43ED!important;
+ background:#45647D!important;
  color:#FAF7F0!important;
  border-color:#FAF7F0!important;
  backdrop-filter:none!important
 }
-.nexacore .nexa-hero-secondary:hover{background:#FAF7F0!important;color:#0A43ED!important}
-.nexacore [data-slot="trusted"]{background-color:#0A43ED!important}
+.nexacore .nexa-hero-secondary:hover{background:#FAF7F0!important;color:#45647D!important}
+.nexacore [data-slot="trusted"]{background-color:#45647D!important}
 .nexacore [data-slot="trusted"] h2,
 .nexacore [data-slot="trusted"] h2 span,
 .nexacore [data-slot="trusted"]>div p{color:#FAF7F0!important}
 .nexacore [data-slot="trusted"] .nexa-blur-card{
- background:#0A43ED!important;
+ background:#45647D!important;
  border:1px solid #FAF7F0!important;
  color:#FAF7F0!important
 }
@@ -131,32 +131,41 @@
 .nexacore [data-slot="trusted"] .nexa-blur-card li span{color:#FAF7F0!important}
 .nexacore [data-slot="trusted"] .nexa-blur-card .nexa-grad-a-bg{
  background:#FAF7F0!important;
- color:#0A43ED!important
+ color:#45647D!important
 }
 .nexacore [data-slot="trusted"] [data-slot="service-card"] [class*="rounded-full"]{
  border:1px solid #FAF7F0!important;
- background:#0A43ED!important;
+ background:#45647D!important;
  color:#FAF7F0!important
 }
-.nexacore [data-slot="trusted"] .nexa-blur-card .nexa-grad-a-bg svg{color:#0A43ED!important}
+.nexacore [data-slot="trusted"] .nexa-blur-card .nexa-grad-a-bg svg{color:#45647D!important}
 .nexacore [data-slot="freedom"],
-.nexacore [data-slot="precision"] {background-color:#FAF7F0!important;color:#0A43ED!important}
+.nexacore [data-slot="precision"] {background-color:#FAF7F0!important;color:#45647D!important}
 .nexacore [data-slot="freedom"] [class*="bg-white"]{background:#FAF7F0!important}
-.nexacore [data-slot="freedom"] .nexa-soft-shadow{border:1px solid #0A43ED!important;box-shadow:none!important}
+.nexacore [data-slot="freedom"] .nexa-soft-shadow{border:1px solid #45647D!important;box-shadow:none!important}
 .nexacore [data-slot="freedom"] .nexa-video-blue-wash video{filter:grayscale(1) contrast(1.05)!important}
-.nexacore [data-slot="freedom"] .nexa-video-blue-wash::after{background:rgba(10,67,237,.65)!important}
+.nexacore [data-slot="freedom"] .nexa-video-blue-wash::after{background:rgba(69, 100, 125, .65)!important}
 .nexacore [data-slot="precision"] [class*="bg-white"]{background:#FAF7F0!important}
-.nexacore [data-slot="precision"] .nexa-grad-text{-webkit-text-fill-color:#0A43ED!important;color:#0A43ED!important}
-.nexacore .nexa-closing{background:#0A43ED!important;color:#FAF7F0!important}
+.nexacore [data-slot="precision"] .nexa-grad-text{-webkit-text-fill-color:#45647D!important;color:#45647D!important}
+.nexacore .nexa-closing{background:#45647D!important;color:#FAF7F0!important}
 .nexacore .nexa-closing h2,
 .nexacore .nexa-closing h2 em,
 .nexacore .nexa-closing p,
 .nexacore .nexa-closing .nexa-overline,
 .nexacore .nexa-closing .nexa-text-action {color:#FAF7F0!important}
 .nexacore .nexa-closing .nexa-text-action:hover{color:#FAF7F0!important;text-decoration:underline}
-.nexacore .nexa-footer{background:#FAF7F0!important;color:#0A43ED!important}
-.nexacore .nexa-footer-logo span{color:#0A43ED!important}
-.nexacore [data-slot="navbar"] nav{background:#FAF7F0!important;border-color:#0A43ED!important;box-shadow:none!important}
+.nexacore .nexa-footer{background:#FAF7F0!important;color:#45647D!important}
+.nexacore .nexa-footer-logo span{color:#45647D!important}
+.nexacore [data-slot="navbar"] nav{background:#FAF7F0!important;border-color:#45647D!important;box-shadow:none!important}
 @media(prefers-reduced-motion:reduce){
  .nexacore [data-slot="hero"] video{display:none}
 }
+
+/* Less saturated and less blue-heavy, while keeping the historic layout. */
+.nexacore [data-slot="trusted"]{background-color:#FAF7F0!important}
+.nexacore [data-slot="trusted"] h2,
+.nexacore [data-slot="trusted"] h2 span,
+.nexacore [data-slot="trusted"]>div p{color:#45647D!important}
+.nexacore [data-slot="trusted"] .nexa-blur-card{background:#45647D!important}
+.nexacore .nexa-restored-hero video{opacity:.58!important}
+.nexacore .nexa-hero-blue-wash{background:rgba(69,100,125,.80)!important}

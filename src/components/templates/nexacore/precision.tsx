@@ -47,11 +47,11 @@ function DeliveryGlyph() {
       aria-hidden
       className="shrink-0"
     >
-      <circle cx="8.5" cy="8" r="7" stroke="#0A43ED" strokeWidth="1.2" />
-      <rect x="8" y="0" width="1" height="3" fill="rgb(10, 67, 237)" />
-      <rect x="8" y="13" width="1" height="3" fill="rgb(10, 67, 237)" />
-      <rect x="0" y="7.5" width="3" height="1" fill="rgb(10, 67, 237)" />
-      <rect x="14" y="7.5" width="3" height="1" fill="rgb(10, 67, 237)" />
+      <circle cx="8.5" cy="8" r="7" stroke="#45647D" strokeWidth="1.2" />
+      <rect x="8" y="0" width="1" height="3" fill="rgb(69, 100, 125)" />
+      <rect x="8" y="13" width="1" height="3" fill="rgb(69, 100, 125)" />
+      <rect x="0" y="7.5" width="3" height="1" fill="rgb(69, 100, 125)" />
+      <rect x="14" y="7.5" width="3" height="1" fill="rgb(69, 100, 125)" />
     </svg>
   );
 }
@@ -165,7 +165,7 @@ function MobileStack() {
                     key={item}
                     style={{
                       fontSize: 14,
-                      color: "rgb(10, 67, 237)",
+                      color: "rgb(69, 100, 125)",
                       padding: "8px 0",
                     }}
                   >
