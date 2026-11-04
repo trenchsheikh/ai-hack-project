@@ -2,15 +2,22 @@ import React,{useState,useMemo,useEffect} from "react";
 import {ArrowLeft,ArrowRight,ArrowUpRight,Check,CheckCircle2,ChevronDown,Code2,Lightbulb,BarChart3,Sparkles,Send,Save,Download,Play,Eye,RefreshCw,RotateCcw,BookOpen,Clock3,FileText,Info,AlertCircle,Maximize2,PanelRightClose,PanelRightOpen,Copy,MessageSquare,FolderOpen,Trophy,Plus,ShieldCheck,Trash2} from "lucide-react";
 import {opportunities,starterHtml,formatDate} from "./fhilo-data";
 import {PromptInputBox} from "./components/ui/ai-prompt-box";
+import {AIConversation} from "./components/ui/ai-actions";
 
 const modes=[{id:"create",icon:Lightbulb,title:"Create",desc:"Turn your idea into a clear, shareable project."},
  {id:"code",icon:Code2,title:"Build",desc:"Write and preview a working web prototype."},
  {id:"investigate",icon:BarChart3,title:"Investigate",desc:"Explore data and present a reasoned conclusion."}];
-function StudioChoice({create,projects,go}){
- return <div className="f-content"><div className="f-section-head"><div><span className="f-eyebrow">FHILO STUDIO</span><h1>What will you make?</h1><p>Everything starts somewhere. Pick a format; you can change your mind later.</p></div></div>
- <div className="f-studio-choices">{modes.map(x=><button className="f-studio-choice" key={x.id} onClick={()=>create(null,x.id)}><span className="f-iconbox"><x.icon size={26}/></span><h2>{x.title}</h2><p>{x.desc}</p><span className="f-choice-cta">Start building <ArrowUpRight size={18}/></span></button>)}</div>
- {projects.length>0&&<section className="f-panel"><div className="f-panel-heading"><h2>Continue something</h2><p>Your projects are saved on this device.</p></div><div className="f-recent-list">{projects.slice().sort((a,b)=>(b.updatedAt||"").localeCompare(a.updatedAt||"")).slice(0,4).map(p=><button key={p.id} onClick={()=>go("/app/studio/"+p.id)}><span className="f-iconbox"><FolderOpen size={19}/></span><span><b>{p.title||"Untitled project"}</b><small>{formatDate(p.updatedAt)}</small></span><ArrowUpRight size={18}/></button>)}</div></section>}
- </div>;
+function StudioEntry({create,projects,go}){
+ const opened=React.useRef(false);
+ useEffect(()=>{
+  // Preserve the latest Build conversation instead of creating unwanted blank projects on every visit.
+  if(opened.current)return;
+  opened.current=true;
+  const latest=projects.filter(p=>p.mode==="code").sort((a,b)=>(b.updatedAt||"").localeCompare(a.updatedAt||""))[0];
+  if(latest)go("/app/studio/"+latest.id);
+  else create(null,"code");
+ },[]);
+ return <div className="f-content fh-studio-opening" role="status"><Sparkles size={21}/> Opening your Studio chat…</div>;
 }
 function CSV({text}){
  const rows=useMemo(()=>text.trim().split(/\r?\n/).filter(Boolean).slice(0,101).map(line=>line.split(",").map(v=>v.trim())),[text]);
@@ -65,9 +72,8 @@ function BuildWorkspace({project,opportunity,update,safeHtml}){
  const [compact,setCompact]=useState(false);
  const [previewKey,setPreviewKey]=useState(0);
  const controllerRef=React.useRef(null);
- const bottomRef=React.useRef(null);
  const messages=Array.isArray(project.buildMessages)?project.buildMessages:[];
- useEffect(()=>{bottomRef.current?.scrollIntoView({behavior:"smooth",block:"end"});},[messages.length,working]);
+ const showOutput=messages.length>0||Boolean(project.html&&project.html!==starterHtml);
  useEffect(()=>()=>{controllerRef.current?.abort();},[]);
  const suggestions=["A portfolio for my work","A football match tracker","A landing page for my idea"];
  const imageData=(file)=>new Promise((resolve,reject)=>{
@@ -104,21 +110,24 @@ function BuildWorkspace({project,opportunity,update,safeHtml}){
   }finally{controllerRef.current=null;setWorking(false);}
  }
  const stop=()=>controllerRef.current?.abort();
- return <div className="fh-build-workspace">
+ const retry=(index)=>{
+  const previous=messages.slice(0,index).reverse().find(m=>m.role==="user");
+  if(previous&&!working)send(previous.text,[],previous.mode||"build");
+ };
+ const rate=(index,value)=>{
+  update(project.id,{buildMessages:messages.map((m,i)=>i===index?{...m,feedback:m.feedback===value?null:value}:m)});
+ };
+ return <div className={"fh-build-workspace"+(showOutput?"":" is-empty")}>
   <section className="fh-build-chat" aria-label="Fhilo AI building chat">
    <div className="fh-build-chat-head"><span className="fh-build-chat-symbol"><Sparkles size={18}/></span><div><strong>Build with Fhilo</strong><small>Describe it. Shape it. Make it yours.</small></div><span className="fh-build-chat-pill">AI studio</span></div>
-   <div className="fh-build-conversation" aria-live="polite">
-    {messages.length===0&&<div className="fh-build-welcome"><span className="fh-build-orb"><Sparkles size={26}/></span><h2>What should we build?</h2><p>Describe an idea in your own words. Choose <b>Plan</b> to explore it, <b>Build</b> to generate code, or <b>Review</b> for feedback.</p><div className="fh-build-ideas">{suggestions.map(s=><button type="button" key={s} onClick={()=>setPrompt(s)}>{s}<ArrowUpRight size={14}/></button>)}</div></div>}
-    {messages.map((entry,index)=><div key={index} className={"fh-build-message "+(entry.role==="user"?"from-user":"from-ai")}>
-     {entry.role==="assistant"&&<span className="fh-build-message-icon"><Sparkles size={15}/></span>}
-     <div className={"fh-build-bubble"+(entry.error?" error":"")}>{entry.text}{entry.hasImage&&<small>Reference image attached</small>}{entry.role==="assistant"&&!entry.error&&<small>Check the output before using it.</small>}</div>
-    </div>)}
-    {working&&<div className="fh-build-message from-ai"><span className="fh-build-message-icon"><Sparkles size={15}/></span><div className="fh-build-bubble fh-build-thinking"><span className="fh-build-pulse"/><span className="fh-build-pulse"/><span className="fh-build-pulse"/><span className="fh-visually-hidden">Building your response…</span></div></div>}
-    <div ref={bottomRef}/>
+   <div className="fh-build-conversation">
+    <AIConversation messages={messages} loading={working} onRetry={retry} onFeedback={rate} emptyState={
+     <div className="fh-build-welcome"><span className="fh-build-orb"><Sparkles size={26}/></span><h2>What should we build?</h2><p>Describe your idea. Choose <b>Plan</b> to explore, <b>Build</b> to create a prototype, or <b>Review</b> to improve your work.</p><div className="fh-build-ideas">{suggestions.map(s=><button type="button" key={s} onClick={()=>setPrompt(s)}>{s}<ArrowUpRight size={14}/></button>)}</div></div>
+    } />
    </div>
    <div className="fh-build-compose"><PromptInputBox value={prompt} onValueChange={setPrompt} onSend={send} onStop={stop} isLoading={working} placeholder="Ask Fhilo to build something..."/><p>Projects are saved in this browser. Keep personal information out of prompts.</p></div>
   </section>
-  <section className="fh-build-output" aria-label="Project preview and code">
+  {showOutput&&<section className="fh-build-output" aria-label="Project preview and code">
    <div className="fh-build-output-head"><div className="fh-build-output-title"><span className="fh-build-live-dot"/><b>{view==="preview"?"Live preview":"index.html"}</b><span>Sandboxed · Local</span></div><div className="fh-build-output-tools">
     {view==="preview"&&<button type="button" onClick={()=>setCompact(!compact)} title={compact?"Desktop width":"Mobile width"}>{compact?"Desktop":"Mobile"}</button>}
     {view==="preview"&&<button type="button" onClick={()=>setPreviewKey(n=>n+1)} title="Reload preview" aria-label="Reload preview"><RefreshCw size={16}/></button>}
@@ -130,11 +139,11 @@ function BuildWorkspace({project,opportunity,update,safeHtml}){
      <div className="fh-build-source"><div className="fh-build-source-head"><span><Code2 size={15}/> Edit your HTML, CSS and JavaScript</span><span>Saved locally</span></div><textarea spellCheck={false} aria-label="Edit project HTML" value={project.html||""} onChange={e=>update(project.id,{html:e.target.value.slice(0,200000)})}/></div>}
    </div>
    <div className="fh-build-output-foot"><ShieldCheck size={15}/> Isolated browser preview. External network access is blocked. <span>Version history is available above.</span></div>
-  </section>
+  </section>}
  </div>;
 }
 
-function StudioEditor({project,opportunity,update,go,projects,setProjects}){
+function StudioEditor({project,opportunity,update,go,projects,setProjects,create}){
  const [tab,setTab]=useState("edit");const [sofiaOpen,setSofiaOpen]=useState(true);const [notice,setNotice]=useState("");
  const mode=project.mode||"create";
  const set=(field,value)=>update(project.id,{[field]:value});
@@ -151,7 +160,7 @@ function StudioEditor({project,opportunity,update,go,projects,setProjects}){
  const readOnlyUrl=null;
  return <div className="f-studio-page">
   <div className="f-studio-top"><div className="f-studio-top-left"><button className="f-iconbutton" onClick={()=>go("/app/projects")} aria-label="Back to projects"><ArrowLeft size={19}/></button><div><span className="f-studio-eyebrow">FHILO STUDIO {opportunity?"· "+opportunity.category:"· PERSONAL PROJECT"}</span><input aria-label="Project title" value={project.title} onChange={e=>set("title",e.target.value.slice(0,140))}/></div><span className="f-save-tag"><CheckCircle2 size={14}/> Local autosave</span></div>
-   <div className="f-studio-actions"><button onClick={snapshot} className="f-studio-tool" title="Save version"><Save size={16}/><span>Version</span></button><button onClick={exportProject} className="f-studio-tool" title="Export your project"><Download size={16}/><span>Export</span></button>{mode!=="code"&&<button onClick={()=>setSofiaOpen(!sofiaOpen)} className="f-studio-tool" aria-label={sofiaOpen?"Hide Sofia":"Show Sofia"}><Sparkles size={17}/><span>{sofiaOpen?"Hide Sofia":"Ask Sofia"}</span></button>}</div>
+   <div className="f-studio-actions">{mode==="code"&&<button onClick={()=>create(null,"code")} className="f-studio-tool fh-new-chat" title="Start a new Studio chat"><Plus size={16}/><span>New chat</span></button>}<button onClick={snapshot} className="f-studio-tool" title="Save version"><Save size={16}/><span>Version</span></button><button onClick={exportProject} className="f-studio-tool" title="Export your project"><Download size={16}/><span>Export</span></button>{mode!=="code"&&<button onClick={()=>setSofiaOpen(!sofiaOpen)} className="f-studio-tool" aria-label={sofiaOpen?"Hide Sofia":"Show Sofia"}><Sparkles size={17}/><span>{sofiaOpen?"Hide Sofia":"Ask Sofia"}</span></button>}</div>
   </div>
   <div className={"f-studio-body"+(mode==="code"?" fh-build-body":"")}>
    <div className="f-studio-center">
@@ -175,8 +184,9 @@ function StudioEditor({project,opportunity,update,go,projects,setProjects}){
  </div>;
 }
 export default function Studio({projectId,projects,setProjects,create,go,update}){
- if(!projectId)return <StudioChoice projects={projects} create={create} go={go}/>;
- const project=projects.find(p=>p.id===projectId);
+ // Return directly to the latest Build chat without showing an intermediate choice screen.
+ const project=projectId?projects.find(p=>p.id===projectId):projects.filter(p=>p.mode==="code").sort((a,b)=>(b.updatedAt||"").localeCompare(a.updatedAt||""))[0];
+ if(!projectId&&!project)return <StudioEntry projects={projects} create={create} go={go}/>;
  if(!project)return <div className="f-content"><div className="f-empty"><h2>Project not found</h2><p>It may have been deleted or saved in a different browser.</p><button className="f-btn" onClick={()=>go("/app/projects")}>My projects <ArrowRight size={17}/></button></div></div>;
- return <StudioEditor project={project} opportunity={opportunities.find(o=>o.id===project.opportunityId)} projects={projects} setProjects={setProjects} update={update} go={go}/>;
+ return <StudioEditor project={project} opportunity={opportunities.find(o=>o.id===project.opportunityId)} projects={projects} setProjects={setProjects} update={update} go={go} create={create}/>;
 }

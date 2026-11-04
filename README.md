@@ -19,9 +19,10 @@ Mission: Unlock Potential. Create Opportunity.
 ## What works
 - Responsive learner and organisation journeys with Fhilo branding.
 - Searchable, beginner-friendly practice challenges — none claim sponsor funding.
-- Guided or independent entry into Studio.
+- Studio opens directly into a chat-first Build workspace (no three-card mode selection screen). Existing Build conversations resume automatically; New chat starts a fresh local project.
 - Editable concept builder with portfolio-style preview.
-- Chat-first Studio Build with Plan / Build / Review prompts, optional image references, and a split-screen preview/code editor.
+- Chat-first Studio Build with Plan / Build / Review prompts, optional image references and a centered welcome experience that becomes a split-screen chat/preview when work starts.
+- Assistant reply actions: retry the last request, mark helpful/not helpful, copy or share a response. Feedback is saved only with the local project.
 - HTML/CSS/JavaScript editing with sandboxed local preview; its CSP blocks external network access.
 - CSV investigation and basic statistics; preview capped at 100 rows.
 - Browser autosave, snapshots, version restore and JSON export.
@@ -67,5 +68,9 @@ The project remains Vite + React with shadcn-compatible paths. A Next.js migrati
 - api/sofia.js — disabled-by-default model API hook
 - api/build.js — disabled-by-default AI code generation endpoint
 - src/components/ui/ai-prompt-box.tsx — Studio Build prompt composer
+- src/components/ui/ai-actions.tsx — live chat message rendering and reply actions
+- src/components/ui/actions.tsx, conversation.tsx, message.tsx — reusable UI primitives
 
 The previous NexaCore and Studio Admin template attribution files remain in the repository.
+
+The supplied ai-actions design was adapted to the existing Vite + React + TypeScript + Tailwind/shadcn-compatible project. It deliberately uses Fhilo avatars and native image handling instead of installing Next.js or showing static example messages.
