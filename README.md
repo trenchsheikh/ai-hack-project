@@ -1,53 +1,67 @@
-# AI Lab — learning and mini-hackathon platform
+# Fhilo — Where Potential Grows
 
-Responsive AI learning product built to help new learners explore AI via real-world lessons, practice mini-hackathons and personal projects.
+Fhilo is an opportunity-led AI learning and building platform. It helps people explore industries, learn practical skills, create work in Fhilo Studio and build a portfolio. Organisations can prepare industry challenge briefs and support opportunities when the required infrastructure and approvals are in place.
 
-## Product
+Mission: Unlock Potential. Create Opportunity.
 
-- Landing (/): original NexaCore template layout and motion preserved, with our business copy
-- Dashboard (/app): Studio Admin-inspired sidebar, progress based on actual learner activity
-- Lessons (/app/learn): six practical lessons with completion tracking
-- Mini-hackathons (/app/hackathons): four self-paced briefs linked to project creation
-- Projects (/app/projects): create, edit, update stage, search and delete project ideas
-- Progress (/app/progress): learning-path breakdown
+## App routes
+- Public homepage: /
+- For organisations: /organisations
+- Learner home: /app
+- Opportunities: /app/explore and /app/opportunities/:id
+- Studio: /app/studio and /app/studio/:projectId
+- Projects: /app/projects
+- Learning: /app/learn
+- Profile and portfolio: /app/profile
+- Rewards: /app/rewards
+- Organisation preview: /organisations/dashboard and /organisations/new
 
-## Framework
+## What works
+- Responsive learner and organisation journeys with Fhilo branding.
+- Searchable, beginner-friendly practice challenges — none claim sponsor funding.
+- Guided or independent entry into Studio.
+- Editable concept builder with portfolio-style preview.
+- HTML/CSS/JavaScript editor with sandboxed local preview; its CSP blocks network access.
+- CSV investigation and basic statistics; preview capped at 100 rows.
+- Browser autosave, snapshots, version restore and JSON export.
+- Self-paced learning and practice-completion statuses.
+- Editable local profile, personalised opportunities, project portfolio.
+- Organisation challenge draft editor; no actual publication.
+- Sofia guided prompts. Live generative AI is disabled by default.
+- Automatic one-way import of old AI Lab browser projects and lesson progress.
 
-React 19 + Vite + Tailwind utilities + Lucide, with a standalone app-specific CSS layer.
-We adapted the MIT-licensed Next/Shadcn template's visual patterns to the existing React app. Migrating the whole product to Next.js would add complexity without unlocking anything required for this frontend.
+## Explicit limitations before a real cohort launches
+There is no shared identity or database connected: the Supabase integration is not active and there is no accessible Fhilo Supabase project or Vercel environment configuration. Project work, profiles and drafts are stored ONLY in the current browser. They are not real cross-device accounts, team workspaces or persistent server submissions.
 
-This is a browser-local prototype. Progress and projects continue to use the previous localStorage keys: ailab_lessons_v1, ailab_challenges_v1, ailab_projects_v1. There are no synced accounts, shared data or real-time bookings in this version.
+There is no live judging, confirmed prize pool, wallet custody, stablecoin transfer or funded sponsor partnership in this preview. Rewards show zero and wallet setup is disabled.
 
-## Run
+Sofia uses local guided prompts unless the live service is enabled. The server-only /api/sofia endpoint requires a gateway credential and an explicit switch; keep it disabled until user authentication, abuse prevention, rate limits, spend ceilings and privacy controls are implemented.
 
-npm install
-npm run dev
-npm run build
+## Run locally
+1. npm install
+2. npm run typecheck
+3. npm run build
+4. npm run dev
 
-## Attribution
+The project remains Vite + React with shadcn-compatible paths. A Next.js migration isn't required.
 
-See ATTRIBUTION-NEXACORE.md and ATTRIBUTION-STUDIO-ADMIN.md for both original MIT-licensed designs.
+## Production activation plan
+1. Provision and connect a dedicated backend; configure browser-safe Supabase URL and publishable key only (never service-role credentials). Add authentication and organisation role enforcement.
+2. Persist profiles, projects, versions, submissions and challenge membership securely with row-level security and private storage. Migrate browser-only data with user consent.
+3. Develop the detailed analytics plan next: scoped event schemas, consent, minimum necessary data, retention limits, cohorts, validated learning measures and aggregated sponsor reporting.
+4. Configure authenticated Sofia, request limits, server-side secrets, monitoring and model-cost controls.
+5. Add sponsor verification, prize-funding controls, audited award records, legal rules and permitted payout providers before enabling stablecoin transfers.
+6. Test accessibility, privacy, safeguarding, backup and live cohort workflows before a real pilot.
 
+## Main source files
+- src/FhiloApp.jsx — routes and state
+- src/FhiloAppParts.jsx — learner experience
+- src/FhiloStudio.jsx — editor, preview, versioning, Sofia UI
+- src/FhiloOrg.jsx — organisation experience
+- src/FhiloLanding.jsx — public landing page
+- src/fhilo-data.js — starter content
+- src/fhilo.css — visual system
+- src/FhiloBrand.jsx and public/favicon.svg — brand
+- api/sofia.js — disabled-by-default model API hook
 
-## Reusable gradient cards
-
-- Card source: `src/components/ui/gradient-card.tsx`
-- App-specific demo: `src/components/ui/gradient-card-demo.tsx`
-- Applied to lessons, mini-hackathons and the dashboard's discovery section.
-- Animations: Framer Motion (respects reduced-motion preferences).
-- Variants: `purple` (lavender), `gray` (slate/indigo), `green` (emerald/lime), `orange` (peach/coral).
-- Photos: Unsplash-hosted public images. Cards remain readable without an image.
-- Navigation uses the existing client-side router, preserving browser back/forward.
-
-### shadcn/ui and TypeScript configuration
-
-This Vite project already used Tailwind v3 and the alias `@` → `src`.
-The component uses `src/components/ui`, not a root-level `/components/ui` folder,
-because `@/components/ui` is resolved relative to `src` in this project.
-`components.json`, `tsconfig.json` and the standard `cn` helper in
-`src/lib/utils.ts` have been added for reusable, typed shadcn-style components.
-
-Install with `npm install`, then run `npm run typecheck` and `npm run build`.
-To generate **additional** shadcn/ui primitives later, run `npx shadcn@latest init`
-(after reviewing its proposed changes to the existing Tailwind configuration),
-then `npx shadcn@latest add button`. Do not scaffold a new Vite app over this repo.
+The previous NexaCore and Studio Admin template attribution files remain in the repository.
