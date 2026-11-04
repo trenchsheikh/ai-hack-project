@@ -1,83 +1,30 @@
-import { GradientText } from "./primitives";
-import { ServiceCard, type ServiceCardProps } from "./service-card";
+import { Compass, BookOpenText, Lightbulb, Blocks } from "lucide-react";
 
-const TRUSTED_BG =
-  "https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260418_120332_3b24257a-afe6-48ca-875f-78147370f403.png&w=1280&q=85";
-
-const CARDS: ServiceCardProps[] = [
-  {
-    label: "Discover",
-    level: 1,
-    title: "Start with what already sparks your curiosity.",
-    bullets: ["Interests that inspire you", "Ideas worth exploring"],
-  },
-  {
-    label: "Learn",
-    level: 2,
-    title: "Learn new skills without needing to know it all first.",
-    bullets: ["Beginner-friendly lessons", "Learn by experimenting"],
-  },
-  {
-    label: "Challenge",
-    level: 3,
-    title: "Try challenges that make learning feel real.",
-    bullets: ["Creative challenge briefs", "Real-world problem solving"],
-  },
-  {
-    label: "Build",
-    level: 4,
-    title: "Make something you can call your own.",
-    bullets: ["Your first AI prototype", "A space for your progress"],
-  },
+const steps=[
+  {number:"01",name:"Discover",title:"Start with what sparks your curiosity.",description:"Football, creativity, health, community—whatever catches your interest.",Icon:Compass},
+  {number:"02",name:"Learn",title:"Grow without needing a head start.",description:"Explore AI in plain language, at your pace and without the pressure.",Icon:BookOpenText},
+  {number:"03",name:"Try",title:"Put your ideas into practice.",description:"Take on practical challenges inspired by the world around you.",Icon:Lightbulb},
+  {number:"04",name:"Make",title:"Build something you can call your own.",description:"Turn your curiosity into a project you can develop and share.",Icon:Blocks},
 ];
 
-export function Trusted() {
-  return (
-    <section
-      id="why"
-      data-slot="trusted"
-      className="relative flex flex-col items-center"
-      style={{
-        backgroundImage: `linear-gradient(125deg, rgba(12, 42, 75, .92), rgba(25, 79, 128, .83)), url(${TRUSTED_BG})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        padding:
-          "clamp(100px, 12vw, 180px) clamp(16px, 4vw, 40px) clamp(100px, 12vw, 160px)",
-        gap: 110,
-      }}
-    >
-      <div className="flex w-full max-w-[1200px] flex-col items-center gap-5 text-center">
-        <h2
-          className="font-medium text-white"
-          style={{ fontSize: "clamp(32px, 4vw, 56px)", lineHeight: 1.2 }}
-        >
-          Your next chapter shouldn't depend on who you know.
-          <br />
-          <GradientText>It starts with a chance to try.</GradientText>
-        </h2>
-        <p
-          className="text-[var(--nexa-lavender-2)]"
-          style={{ fontSize: "clamp(14px, 1.25vw, 18px)" }}
-        >
-          If you've ever felt that AI, technology or opportunity wasn't made for people like you, this is your invitation in.
-          Come as you are. Bring your interests. Discover what you can make.
-        </p>
-      </div>
-
-      <div className="grid w-full max-w-[1200px] grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {CARDS.map((card) => (
-          <ServiceCard key={card.label} {...card} />
-        ))}
-      </div>
-
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-[180px]"
-        style={{
-          background:
-            "linear-gradient(to bottom, transparent, #FAF7F0)",
-        }}
-      />
-    </section>
-  );
+export function Trusted(){
+ return (
+  <section id="why" data-slot="trusted" className="nexa-purpose">
+   <div className="nexa-section-intro">
+    <span className="nexa-eyebrow">WHY FHILO EXISTS</span>
+    <h2>Your next chapter shouldn't depend on <em>who you know.</em></h2>
+    <p>If you've ever felt that technology, AI or opportunity wasn't made for people like you, this is your invitation in. Bring your interests. Bring your ideas. We'll help you find a place to begin.</p>
+   </div>
+   <div className="nexa-purpose-grid">
+    {steps.map(({number,name,title,description,Icon})=>
+      <article className="nexa-purpose-card" key={number}>
+       <div className="nexa-purpose-card-top"><Icon size={21} strokeWidth={1.7}/><span>{number}</span></div>
+       <span className="nexa-card-label">{name}</span>
+       <h3>{title}</h3>
+       <p>{description}</p>
+      </article>
+    )}
+   </div>
+  </section>
+ );
 }

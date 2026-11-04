@@ -99,3 +99,8 @@ The supplied ai-actions design was adapted to the existing Vite + React + TypeSc
 - `POST /api/waitlist` validates the email and explicit consent and stores one JSON record per normalized email in a **private Vercel Blob** store. A SHA-256 digest is used for file paths; no public read endpoint exists. Records contain email, selected interest, consent, source and update timestamp. Repeated submissions update the same record.
 - The Blob store is connected to the Vercel project; `BLOB_READ_WRITE_TOKEN` stays exclusively on the server. The form reports storage failures rather than pretending to collect addresses.
 - Basic best-effort serverless throttling and a honeypot are provided, but consider Vercel WAF/Turnstile before higher-volume promotion. A formal privacy/retention policy and an operational email-management workflow should be finalised before large-scale marketing.
+
+## Landing palette simplification
+- Public landing at `/` uses only the logo's royal blue `#0A43ED` and warm cream `#FAF7F0` across navigation, hero, content sections, buttons and footer.
+- Removed landing-only video backgrounds, photography, dark/navy and pale-blue variants, gradients and shadow colours to make the design calmer. Simplified learning sections into clear typography and two-colour line elements.
+- The `/waitlist` experience remains unchanged, retaining its independently requested background treatment and functioning email capture.

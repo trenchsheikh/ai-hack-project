@@ -1,166 +1,27 @@
-import type { ReactNode } from "react";
-import { Check, X } from "lucide-react";
+import { ArrowUpRight, Check } from "lucide-react";
 
-import { GradientText } from "./primitives";
-import { HlsVideo } from "./hls-video";
-
-const FREEDOM_HLS =
-  "https://stream.mux.com/bnYL6x5cAX6WiJv2pOKpITehZd3NVdXpj3ylJFpX5Lk.m3u8";
-
-const NEGATIVES = [
-  "Thinking you need to code before you belong",
-  "Feeling lost in a world full of unfamiliar terms",
-  "Learning without getting to try it yourself",
-  "Not seeing your interests reflected in technology",
-  "Knowing you have potential but not knowing where to begin",
+const promises=[
+  "You don't need to know how to code.",
+  "You don't need a perfect idea.",
+  "You don't need the right connections.",
 ];
 
-const POSITIVES = [
-  "Start with short lessons that explain AI in everyday language",
-  "Explore a challenge inspired by real-world questions",
-  "Connect AI to sport, creativity and community ideas",
-  "Build at your own pace with clear next steps",
-  "Turn what you learn into an idea you can develop",
-];
-
-function ControlGlyph() {
-  return (
-    <svg
-      width="19"
-      height="18"
-      viewBox="0 0 17 16"
-      fill="none"
-      aria-hidden
-      className="shrink-0"
-    >
-      <path
-        d="M8.5 14C8.5 14 1.5 9.8 1.5 5.4C1.5 3.2 3.2 1.8 5 1.8C6.5 1.8 7.8 2.8 8.5 4C9.2 2.8 10.5 1.8 12 1.8C13.8 1.8 15.5 3.2 15.5 5.4C15.5 9.8 8.5 14 8.5 14Z"
-        fill="rgb(71, 154, 219)"
-      />
-    </svg>
-  );
-}
-
-function PointRow({
-  children,
-  positive,
-}: {
-  children: ReactNode;
-  positive?: boolean;
-}) {
-  return (
-    <div
-      className="nexa-soft-shadow flex items-center gap-3 rounded-[18px] bg-white"
-      style={{ padding: "clamp(12px, 0.97vw, 16px) clamp(14px, 1.25vw, 20px)" }}
-    >
-      <span
-        className="flex shrink-0 items-center justify-center"
-        style={{
-          width: "clamp(16px, 1.25vw, 20px)",
-          height: "clamp(16px, 1.25vw, 20px)",
-        }}
-      >
-        {positive ? (
-          <Check
-            className="size-full text-[var(--nexa-blue)]"
-            strokeWidth={2.5}
-          />
-        ) : (
-          <X
-            className="size-full text-[var(--nexa-lavender-3)]"
-            strokeWidth={2.5}
-          />
-        )}
-      </span>
-      <span
-        className={
-          positive ? "text-[var(--nexa-navy)]" : "text-[var(--nexa-lavender-3)]"
-        }
-        style={{ fontSize: "clamp(13px, 1.15vw, 17px)" }}
-      >
-        {children}
-      </span>
+export function Freedom(){
+ return (
+  <section id="method" data-slot="freedom" className="nexa-method">
+   <div className="nexa-method-copy">
+    <span className="nexa-eyebrow">A DIFFERENT KIND OF STARTING POINT</span>
+    <h2>You don't need a head start.<br/><em>Just a place to begin.</em></h2>
+    <p>Most opportunities ask you to prove what you can do before you get the chance to learn. We believe it should work the other way around.</p>
+    <a href="/waitlist" className="nexa-text-link">Come as you are <ArrowUpRight size={18}/></a>
+   </div>
+   <div className="nexa-method-panel">
+    <div className="nexa-method-symbol" aria-hidden="true"><span/><span/><span/></div>
+    <span className="nexa-method-caption">YOUR POTENTIAL COMES FIRST</span>
+    <div className="nexa-promise-list">
+      {promises.map(item=><div className="nexa-promise" key={item}><Check size={17}/><span>{item}</span></div>)}
     </div>
-  );
-}
-
-export function Freedom() {
-  return (
-    <section
-      id="method"
-      data-slot="freedom"
-      className="nexa-section-cream flex flex-col items-center"
-      style={{
-        padding: "clamp(48px, 6vw, 80px) clamp(16px, 3vw, 40px)",
-        gap: 36,
-      }}
-    >
-      <div className="flex flex-col items-center gap-9 text-center">
-        <span
-          className="inline-flex items-center gap-2 rounded-full bg-[var(--nexa-chip)] font-medium text-[var(--nexa-navy)]"
-          style={{ padding: "0.9vw 1.25vw", fontSize: 18 }}
-        >
-          <ControlGlyph />
-          Your Path
-        </span>
-        <h2
-          className="font-medium text-[var(--nexa-navy)]"
-          style={{ fontSize: "clamp(32px, 4vw, 56px)", lineHeight: 1.15 }}
-        >
-          You don't need a head start.
-          <br />
-          <GradientText
-            className="inline-block"
-            style={{ paddingBottom: "0.3vw" }}
-          >
-            Just a place to begin.
-          </GradientText>
-        </h2>
-      </div>
-
-      <div
-        className="flex w-full flex-col items-center lg:grid lg:items-start"
-        style={{
-          gridTemplateColumns: "26vw 1fr 26vw",
-          columnGap: 36,
-          rowGap: 24,
-          padding: "0 clamp(0px, 2.92vw, 40px)",
-        }}
-      >
-        <div
-          className="order-2 flex w-full flex-col lg:order-none"
-          style={{ gap: 12 }}
-        >
-          {NEGATIVES.map((text) => (
-            <PointRow key={text}>{text}</PointRow>
-          ))}
-        </div>
-
-        <div className="order-first flex w-full justify-center lg:order-none">
-          <div
-            className="nexa-video-blue-wash relative"
-            style={{
-              borderRadius: "50%",
-              overflow: "hidden",
-              width: "clamp(200px, 22vw, 400px)",
-              height: "clamp(200px, 22vw, 400px)",
-            }}
-          >
-            <HlsVideo src={FREEDOM_HLS} />
-          </div>
-        </div>
-
-        <div
-          className="order-3 flex w-full flex-col lg:order-none"
-          style={{ gap: 12 }}
-        >
-          {POSITIVES.map((text) => (
-            <PointRow key={text} positive>
-              {text}
-            </PointRow>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
+   </div>
+  </section>
+ );
 }

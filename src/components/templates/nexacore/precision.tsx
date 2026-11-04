@@ -1,246 +1,26 @@
-import { BrandMark, GradientText } from "./primitives";
-
-const PRECISION_BG =
-  "https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260418_125638_553b96dc-a1fd-4b2b-81a9-ed7daa80006e.png&w=1280&q=85";
-
-type Pillar = {
-  label: string;
-  start: number;
-  bottom: number;
-  items: string[];
-};
-
-const PILLARS: Pillar[] = [
-  {
-    label: "Explore",
-    start: 2.8,
-    bottom: 7,
-    items: ["football", "creativity", "health", "community"],
-  },
-  {
-    label: "Learn",
-    start: 22.4,
-    bottom: 9.08,
-    items: ["AI basics", "prompting", "AI safety", "examples"],
-  },
-  {
-    label: "Challenge",
-    start: 41.2,
-    bottom: 11.16,
-    items: ["pick a brief", "sketch ideas", "test concepts", "feedback"],
-  },
-  {
-    label: "Build",
-    start: 61.1,
-    bottom: 13.24,
-    items: ["your project", "prototype", "improve", "next steps"],
-  },
+import { ArrowUpRight } from "lucide-react";
+const stages=[
+  {number:"01",label:"Find your thing",detail:"Explore challenges in the areas you care about."},
+  {number:"02",label:"Try something new",detail:"Learn the essentials and start experimenting."},
+  {number:"03",label:"Make it yours",detail:"Build a project, see your progress and keep growing."},
 ];
 
-function DeliveryGlyph() {
-  return (
-    <svg
-      width="19"
-      height="18"
-      viewBox="0 0 17 16"
-      fill="none"
-      aria-hidden
-      className="shrink-0"
-    >
-      <circle cx="8.5" cy="8" r="7" stroke="#4298d8" strokeWidth="1.2" />
-      <rect x="8" y="0" width="1" height="3" fill="rgb(71, 154, 219)" />
-      <rect x="8" y="13" width="1" height="3" fill="rgb(71, 154, 219)" />
-      <rect x="0" y="7.5" width="3" height="1" fill="rgb(71, 154, 219)" />
-      <rect x="14" y="7.5" width="3" height="1" fill="rgb(71, 154, 219)" />
-    </svg>
-  );
-}
-
-function PillarChip({ label, small }: { label: string; small?: boolean }) {
-  return (
-    <span
-      className="inline-flex items-center gap-2 font-medium text-[var(--nexa-navy)]"
-      style={{
-        background:
-          "linear-gradient(135deg, rgb(255, 255, 255), rgba(255, 255, 255, 0.6))",
-        borderRadius: 20,
-        fontSize: small ? 15 : 18,
-        padding: small ? "10px 18px" : "0.972vw 1.736vw",
-      }}
-    >
-      <BrandMark
-        style={
-          small
-            ? { width: 16, height: 16 }
-            : {
-                width: "1.111vw",
-                height: "1.111vw",
-                minWidth: 16,
-                minHeight: 16,
-              }
-        }
-      />
-      {label}
-    </span>
-  );
-}
-
-function DesktopStaircase() {
-  return (
-    <div
-      className="relative hidden sm:block"
-      style={{ width: "82.292vw", height: "31.94vw" }}
-    >
-      {PILLARS.map((pillar) => (
-        <div
-          key={pillar.label}
-          className="absolute flex flex-col items-center"
-          style={{
-            insetInlineStart: `${pillar.start}vw`,
-            bottom: `${pillar.bottom}vw`,
-          }}
-        >
-          <PillarChip label={pillar.label} />
-          <div className="relative" style={{ marginTop: 8 }}>
-            <div
-              className="nexa-grad-line-bg"
-              style={{ width: 1, height: "14.24vw" }}
-            />
-            <div
-              className="flex flex-col text-[var(--nexa-navy)]"
-              style={{
-                position: "absolute",
-                top: "0.56vw",
-                insetInlineStart: "1.94vw",
-                gap: 4,
-              }}
-            >
-              {pillar.items.map((item) => (
-                <span
-                  key={item}
-                  style={{
-                    fontSize: 16,
-                    padding: "0.69vw 1.04vw",
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  {item}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function MobileStack() {
-  return (
-    <div className="flex w-full flex-col gap-10 sm:hidden">
-      {PILLARS.map((pillar, i) => {
-        const end = i % 2 === 1;
-        return (
-          <div
-            key={pillar.label}
-            className={
-              end ? "flex flex-col items-end" : "flex flex-col items-start"
-            }
-          >
-            <PillarChip label={pillar.label} small />
-            <div
-              className="mt-4 flex gap-4"
-              style={{ flexDirection: end ? "row-reverse" : "row" }}
-            >
-              <div
-                className="nexa-grad-line-bg shrink-0"
-                style={{ width: 1, minHeight: 120 }}
-              />
-              <div
-                className="flex flex-col"
-                style={{ alignItems: end ? "flex-end" : "flex-start" }}
-              >
-                {pillar.items.map((item) => (
-                  <span
-                    key={item}
-                    style={{
-                      fontSize: 14,
-                      color: "rgb(66, 106, 145)",
-                      padding: "8px 0",
-                    }}
-                  >
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-        );
-      })}
-    </div>
-  );
-}
-
-export function Precision() {
-  return (
-    <section
-      id="thinking"
-      data-slot="precision"
-      className="flex flex-col items-center text-center"
-      style={{
-        backgroundImage: `linear-gradient(160deg, rgba(250, 247, 240, .92), rgba(232, 244, 253, .88)), url(${PRECISION_BG})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        padding:
-          "clamp(48px, 8vw, 120px) clamp(16px, 4vw, 60px) clamp(48px, 5.56vw, 80px)",
-        gap: "clamp(32px, 4vw, 56px)",
-      }}
-    >
-      <div className="flex flex-col items-center">
-        <span
-          className="inline-flex items-center gap-2 font-medium text-[var(--nexa-navy)]"
-          style={{
-            background: "#ffffff",
-            borderRadius: 36,
-            padding: "clamp(8px, 0.9vw, 14px) clamp(12px, 1.25vw, 20px)",
-            fontSize: "clamp(14px, 1.1vw, 18px)",
-          }}
-        >
-          <DeliveryGlyph />
-          Your Learning Journey
-        </span>
-
-        <h2
-          className="font-medium text-[var(--nexa-navy)]"
-          style={{
-            maxWidth: "clamp(700px, 60vw, 900px)",
-            marginTop: 22,
-            fontSize: "clamp(28px, 4vw, 56px)",
-            lineHeight: 1.15,
-          }}
-        >
-          <span className="block sm:whitespace-nowrap">
-            Follow what makes you curious.
-          </span>
-          <GradientText className="block" style={{ paddingBottom: "0.3vw" }}>
-            Make room for what comes next.
-          </GradientText>
-        </h2>
-
-        <p
-          className="mt-6 text-[var(--nexa-lavender)]"
-          style={{ fontSize: "clamp(15px, 1.2vw, 20px)" }}
-        >
-          See what interests you, grow your confidence and make real projects
-          through approachable lessons and creative challenges.
-        </p>
-      </div>
-
-      <div className="w-full" style={{ maxWidth: "82.292vw" }}>
-        <DesktopStaircase />
-        <MobileStack />
-      </div>
-    </section>
-  );
+export function Precision(){
+ return (
+  <section id="thinking" data-slot="precision" className="nexa-journey">
+   <div className="nexa-journey-head">
+    <span className="nexa-eyebrow">YOUR JOURNEY</span>
+    <h2>Follow what makes you curious.<br/><em>See where it takes you.</em></h2>
+    <p>One small step can open a door you didn't know existed. Here's how to take yours.</p>
+   </div>
+   <div className="nexa-journey-grid">
+    {stages.map(stage=><article className="nexa-journey-step" key={stage.number}>
+      <span className="nexa-journey-num">{stage.number}</span>
+      <h3>{stage.label}</h3>
+      <p>{stage.detail}</p>
+      <ArrowUpRight className="nexa-journey-arrow" size={19}/>
+    </article>)}
+   </div>
+  </section>
+ );
 }

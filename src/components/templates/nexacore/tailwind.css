@@ -1,76 +1,164 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;550;600;650;700&family=Instrument+Serif:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap');
 @tailwind utilities;
-.nexacore { --font-nexacore-sans: 'DM Sans'; --font-fhilo-display: 'Instrument Serif'; }
-.nexacore h1,.nexacore h2,.nexacore h3,.nexacore h4,.nexacore p,.nexacore ul { margin: 0; }
-.nexacore h1,.nexacore h2,.nexacore h3,.nexacore h4 { font-size: inherit; font-weight: inherit; }
-.nexacore ul { padding: 0; list-style: none; }
-.nexacore button { font: inherit; }
 
-/* Restored cinematic landing — refined Fhilo typography and emotional copy. */
-.nexacore{font-family:'DM Sans',ui-sans-serif,system-ui,sans-serif;overflow-x:hidden}
-.nexacore .nexa-brand{color:#123758;text-decoration:none}
-.nexacore .nexa-brand>span{font-size:26px;font-weight:700;letter-spacing:-.075em}
-.nexacore .nexa-logo-dot{color:#0a43ed}
-.nexacore [data-slot="navbar"] nav{backdrop-filter:blur(24px)}
-.nexacore .nexa-nav-preview{color:#46708c;font-size:13px;font-weight:600;padding:10px 11px}
-.nexacore .nexa-nav-preview:hover{color:#2563eb}
-.nexacore .nexa-nav-join{align-items:center;justify-content:center;gap:8px;padding:12px 19px;background:#0a43ed;color:#fff;border-radius:10px;font-size:13px;font-weight:650;white-space:nowrap;transition:background .2s}
-.nexacore .nexa-nav-join:hover{background:#123a9b}
-.nexacore .nexa-restored-hero{min-height:100svh;isolation:isolate;background:radial-gradient(ellipse at 65% 25%,#21517b,#07213b 65%)}
-.nexacore .nexa-restored-hero video{z-index:0;filter:saturate(.75);opacity:.85}
-.nexacore .nexa-hero-blue-wash{z-index:1;background:linear-gradient(108deg,rgba(5,28,50,.77),rgba(9,49,86,.6) 52%,rgba(9,43,79,.68))!important}
-.nexacore .nexa-hero-copy{padding-top:78px;padding-bottom:80px;gap:0}
-.nexacore .nexa-hero-kicker{display:inline-flex;align-items:center;gap:10px;color:#e2f2ff;font-size:12px;font-weight:600;letter-spacing:.15em;line-height:1.4;text-transform:uppercase;margin-bottom:26px}
-.nexacore .nexa-kicker-dot{background:#a1ddff;width:8px;height:8px;border-radius:50%;box-shadow:0 0 15px #a1ddffb2}
-.nexacore .nexa-hero-copy h1{font-size:clamp(48px,6vw,91px);line-height:1.09;letter-spacing:-.071em;color:#fff;font-weight:500;max-width:1050px;text-wrap:balance;margin:0}
-.nexacore .nexa-hero-copy h1 em{font-family:'Instrument Serif',Georgia,serif;font-size:1.05em;color:#c8e4ff;font-style:italic;font-weight:400;letter-spacing:-.02em}
-.nexacore .nexa-hero-copy p{max-width:690px;font-size:clamp(16px,1.36vw,19px);line-height:1.8;color:#e4eef7;margin:25px auto 0;text-wrap:pretty}
-.nexacore .nexa-hero-actions{display:flex;justify-content:center;gap:12px;align-items:center;flex-wrap:wrap;margin-top:32px}
-.nexacore .nexa-primary-action{display:inline-flex;align-items:center;justify-content:center;gap:12px;background:#fff;border:1px solid #fff;border-radius:11px;padding:15px 21px;min-height:49px;color:#133b62!important;font-size:13px;font-weight:700;box-shadow:0 6px 24px #02192d24;transition:transform .2s,background .2s}
-.nexacore .nexa-primary-action:hover{background:#e8f6ff;transform:translateY(-2px)}
-.nexacore .nexa-hero-secondary{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 21px;min-height:49px;border-radius:11px;border:1px solid #ffffff70;background:#ffffff0d;color:#fff;font-size:13px;font-weight:650;backdrop-filter:blur(8px)}
-.nexacore .nexa-hero-secondary:hover{background:#ffffff2e}
-.nexacore .nexa-hero-caption{color:#c3d9e9;font-size:12px;margin-top:28px}
-.nexacore .nexa-scroll-indicator{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);z-index:12;color:#f2f8ffb0;animation:nexascroll 2s ease-in-out infinite}
-@keyframes nexascroll{50%{transform:translate(-50%,5px)}}
-.nexacore h2{letter-spacing:-.055em}
-.nexacore [data-slot="trusted"] h2{max-width:1000px;text-wrap:balance;letter-spacing:-.06em}
-.nexacore [data-slot="trusted"] p{max-width:760px;line-height:1.75;text-wrap:pretty}
-.nexacore [data-slot="freedom"] h2{letter-spacing:-.055em;text-wrap:balance}
-.nexacore [data-slot="precision"] h2{letter-spacing:-.055em}
-.nexacore .nexa-closing{background:linear-gradient(125deg,#123e67,#0b2948 60%,#102e50);color:#fff;padding:110px 26px 120px;display:flex;justify-content:center;text-align:center}
-.nexacore .nexa-closing-inner{max-width:870px;display:flex;align-items:center;flex-direction:column}
-.nexacore .nexa-overline{font-size:11px;font-weight:650;letter-spacing:.18em;color:#b9dcf6;margin-bottom:23px}
-.nexacore .nexa-closing h2{font-size:clamp(36px,4.9vw,68px);line-height:1.14;letter-spacing:-.058em;font-weight:500}
-.nexacore .nexa-closing h2 em{font-family:'Instrument Serif',Georgia,serif;font-size:1.1em;font-weight:400;color:#b8dcff;letter-spacing:-.015em}
-.nexacore .nexa-closing p{font-size:clamp(15px,1.3vw,18px);line-height:1.85;color:#bfd6e8;margin:23px 0 0;max-width:640px}
-.nexacore .nexa-closing-actions{display:flex;align-items:center;justify-content:center;gap:17px;flex-wrap:wrap;margin-top:33px}
-.nexacore .nexa-text-action{color:#e9f7ff;font-weight:650;display:inline-flex;align-items:center;gap:8px;font-size:13px;padding:12px}
-.nexacore .nexa-text-action:hover{color:#9cd5ff}
-.nexacore .nexa-footer{background:#fff;display:flex;align-items:center;justify-content:space-between;gap:22px;padding:35px max(24px,calc((100vw - 1200px)/2));color:#8397a8;flex-wrap:wrap;font-size:12px}
-.nexacore .nexa-footer-logo{font-size:26px;color:#143d5e;letter-spacing:-.075em;font-weight:750}
-.nexacore .nexa-footer-logo span{color:#0a43ed}
-.nexacore .nexa-footer>div{display:flex;gap:20px;flex-wrap:wrap}
-.nexacore .nexa-footer a:hover{color:#2563eb}
-@media(max-width:840px){
- .nexacore .nexa-restored-hero{min-height:780px}
- .nexacore .nexa-hero-copy h1{font-size:clamp(44px,8vw,70px)}
- .nexacore .nexa-hero-copy p{font-size:16px}
- .nexacore .nexa-closing{padding:85px 22px}
+/* Only two solid brand colours: Fhilo blue and warm cream.
+   No video, photography, gradients, shadow colours or additional blues. */
+.nexacore{
+ --font-nexacore-sans:'DM Sans';
+ --font-fhilo-display:'Instrument Serif';
+ --nexa-blue:#0A43ED;
+ --nexa-cream:#FAF7F0;
+ background:var(--nexa-cream);
+ color:var(--nexa-blue);
+ font-family:'DM Sans',system-ui,sans-serif;
+ overflow-x:hidden;
+ -webkit-font-smoothing:antialiased;
 }
-@media(max-width:520px){
- .nexacore .nexa-restored-hero{min-height:100svh}
- .nexacore .nexa-hero-copy{padding-top:110px;padding-bottom:80px}
- .nexacore .nexa-hero-kicker{font-size:10px;letter-spacing:.12em;margin-bottom:21px}
- .nexacore .nexa-hero-copy h1{font-size:clamp(43px,10vw,56px);line-height:1.08}
- .nexacore .nexa-hero-copy p{font-size:15px;line-height:1.75}
- .nexacore .nexa-hero-actions{gap:10px;width:100%}
- .nexacore .nexa-primary-action,.nexacore .nexa-hero-secondary{width:100%}
- .nexacore .nexa-closing h2{font-size:42px}
- .nexacore .nexa-footer{justify-content:center;text-align:center;flex-direction:column;gap:14px}
+.nexacore *{box-sizing:border-box}
+.nexacore h1,.nexacore h2,.nexacore h3,.nexacore h4,.nexacore p,.nexacore ul{margin:0}
+.nexacore h1,.nexacore h2,.nexacore h3,.nexacore h4{font-weight:500}
+.nexacore a{text-decoration:none}
+.nexacore button{font:inherit;cursor:pointer}
+.nexacore em{font-family:'Instrument Serif',Georgia,serif;font-weight:400;letter-spacing:-.018em}
+.nexacore .nexa-eyebrow{display:inline-flex;align-items:center;gap:11px;font-size:11px;letter-spacing:.14em;font-weight:700;line-height:1.4}
+.nexacore .nexa-eyebrow-line{width:28px;height:1px;background:currentColor;display:inline-block}
+
+/* Navigation: restore the elegant floating bar with minimal decoration. */
+.nexacore .nexa-navigation{position:fixed;top:19px;left:0;right:0;z-index:50;display:flex;justify-content:center;padding:0 19px}
+.nexacore .nexa-navigation-inner{position:relative;width:100%;max-width:1150px;min-height:73px;padding:10px 22px;border:1px solid var(--nexa-blue);border-radius:15px;background:var(--nexa-cream);display:flex;align-items:center;justify-content:space-between;gap:22px;transition:max-width .5s ease}
+.nexacore .nexa-navigation-inner.is-scrolled{max-width:1040px}
+.nexacore .nexa-brand{display:inline-flex;align-items:center;gap:8px;color:var(--nexa-blue);white-space:nowrap;flex-shrink:0}
+.nexacore .nexa-brand img{width:29px;height:29px}
+.nexacore .nexa-brand span{font-size:28px;font-weight:700;letter-spacing:-.07em}
+.nexacore .nexa-navigation-links,.nexacore .nexa-navigation-actions{display:flex;align-items:center;gap:22px}
+.nexacore .nexa-navigation-links a,.nexacore .nexa-nav-preview{font-size:12px;font-weight:600;color:var(--nexa-blue);white-space:nowrap;padding:9px 0}
+.nexacore .nexa-navigation-links a:hover,.nexacore .nexa-nav-preview:hover{text-decoration:underline;text-underline-offset:5px}
+.nexacore .nexa-nav-join{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:42px;padding:10px 15px;border:1px solid var(--nexa-blue);border-radius:10px;background:var(--nexa-blue);color:var(--nexa-cream);font-size:12px;font-weight:700;white-space:nowrap}
+.nexacore .nexa-nav-join:hover{background:var(--nexa-cream);color:var(--nexa-blue)}
+.nexacore .nexa-menu-toggle{display:none;align-items:center;justify-content:center;width:37px;height:37px;background:var(--nexa-cream);border:1px solid var(--nexa-blue);border-radius:8px;color:var(--nexa-blue)}
+.nexacore .nexa-navigation-mobile{position:absolute;top:calc(100% + 7px);left:0;right:0;padding:14px;border:1px solid var(--nexa-blue);border-radius:13px;background:var(--nexa-cream);display:flex;flex-direction:column;gap:3px}
+.nexacore .nexa-navigation-mobile a:not(.nexa-nav-join){display:block;padding:11px 9px;font-size:13px;font-weight:600;color:var(--nexa-blue)}
+.nexacore .nexa-navigation-mobile .nexa-nav-join{margin-top:7px}
+
+/* Hero: generous cream space. Typographic emphasis instead of a video. */
+.nexacore .nexa-hero{position:relative;isolation:isolate;min-height:100svh;padding:165px 26px 100px;background:var(--nexa-cream);display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden}
+.nexacore .nexa-hero-orbit{position:absolute;z-index:-1;inset:0;pointer-events:none;overflow:hidden}
+.nexacore .nexa-hero-orbit span{position:absolute;right:-300px;top:11%;width:620px;height:620px;border:1px solid var(--nexa-blue);border-radius:50%}
+.nexacore .nexa-hero-orbit span:nth-child(2){right:-170px;top:24%;width:360px;height:360px}
+.nexacore .nexa-hero-content{position:relative;max-width:940px;display:flex;flex-direction:column;align-items:center}
+.nexacore .nexa-hero h1{margin:24px 0 0;color:var(--nexa-blue);font-size:clamp(48px,6.1vw,94px);line-height:1.08;letter-spacing:-.07em;font-weight:500;text-wrap:balance}
+.nexacore .nexa-hero h1 em{font-size:1.1em}
+.nexacore .nexa-hero-content>p{max-width:710px;font-size:clamp(15px,1.28vw,18px);line-height:1.8;margin:28px 0 0;color:var(--nexa-blue);text-wrap:pretty}
+.nexacore .nexa-hero-actions,.nexacore .nexa-closing-actions{display:flex;align-items:center;justify-content:center;gap:13px;flex-wrap:wrap;margin-top:32px}
+.nexacore .nexa-primary-action,.nexacore .nexa-outline-action{display:inline-flex;align-items:center;justify-content:center;gap:12px;padding:14px 19px;min-height:49px;border-radius:10px;font-size:13px;font-weight:700;border:1px solid var(--nexa-blue)}
+.nexacore .nexa-primary-action{background:var(--nexa-blue);color:var(--nexa-cream)}
+.nexacore .nexa-primary-action:hover{background:var(--nexa-cream);color:var(--nexa-blue)}
+.nexacore .nexa-outline-action{background:var(--nexa-cream);color:var(--nexa-blue)}
+.nexacore .nexa-outline-action:hover{background:var(--nexa-blue);color:var(--nexa-cream)}
+.nexacore .nexa-hero-caption{margin-top:25px;font-size:12px;line-height:1.5;color:var(--nexa-blue)}
+
+/* Why we exist: one solid blue field, cream cards. */
+.nexacore .nexa-purpose{padding:clamp(90px,10vw,154px) clamp(24px,5vw,78px);background:var(--nexa-blue);color:var(--nexa-cream)}
+.nexacore .nexa-section-intro{display:flex;align-items:center;flex-direction:column;text-align:center;max-width:860px;margin:0 auto}
+.nexacore .nexa-section-intro h2{margin-top:22px;font-size:clamp(36px,4.3vw,64px);line-height:1.14;letter-spacing:-.06em;text-wrap:balance}
+.nexacore .nexa-section-intro p{margin-top:24px;font-size:clamp(15px,1.2vw,17px);line-height:1.85;max-width:680px}
+.nexacore .nexa-purpose-grid{max-width:1260px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:66px auto 0}
+.nexacore .nexa-purpose-card{min-height:285px;display:flex;flex-direction:column;align-items:start;text-align:left;padding:29px 25px;border-radius:16px;border:1px solid var(--nexa-cream);background:var(--nexa-cream);color:var(--nexa-blue)}
+.nexacore .nexa-purpose-card-top{width:100%;display:flex;justify-content:space-between;align-items:center;margin-bottom:36px}
+.nexacore .nexa-purpose-card-top span{font-family:'Instrument Serif',Georgia,serif;font-size:23px;font-style:italic}
+.nexacore .nexa-card-label{font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;margin-bottom:12px}
+.nexacore .nexa-purpose-card h3{font-size:clamp(20px,1.55vw,25px);line-height:1.24;letter-spacing:-.045em;margin:0 0 15px}
+.nexacore .nexa-purpose-card p{font-size:12px;line-height:1.7;margin-top:auto}
+
+/* How it works: no stock video, just a simple symbolic motif. */
+.nexacore .nexa-method{display:grid;grid-template-columns:1fr 0.85fr;align-items:center;gap:clamp(40px,7vw,110px);padding:clamp(95px,12vw,175px) clamp(24px,7vw,115px);background:var(--nexa-cream);color:var(--nexa-blue)}
+.nexacore .nexa-method-copy{max-width:670px}
+.nexacore .nexa-method h2{font-size:clamp(38px,4.2vw,65px);line-height:1.12;letter-spacing:-.06em;margin:22px 0 0}
+.nexacore .nexa-method-copy>p{font-size:clamp(15px,1.2vw,18px);line-height:1.82;margin:25px 0 0;max-width:560px}
+.nexacore .nexa-text-link{display:inline-flex;align-items:center;gap:12px;color:var(--nexa-blue);border-bottom:1px solid var(--nexa-blue);padding-bottom:8px;font-size:14px;font-weight:700;margin-top:30px}
+.nexacore .nexa-method-panel{position:relative;min-height:445px;background:var(--nexa-blue);color:var(--nexa-cream);border:1px solid var(--nexa-blue);border-radius:18px;padding:25px clamp(24px,3vw,46px);display:flex;flex-direction:column;align-items:center;justify-content:end;overflow:hidden}
+.nexacore .nexa-method-symbol{position:relative;width:185px;height:185px;margin:auto;display:grid;place-items:center}
+.nexacore .nexa-method-symbol span{position:absolute;inset:0;border:1px solid var(--nexa-cream);border-radius:50%}
+.nexacore .nexa-method-symbol span:nth-child(2){inset:39px}
+.nexacore .nexa-method-symbol span:nth-child(3){inset:79px;background:var(--nexa-cream)}
+.nexacore .nexa-method-caption{font-size:10px;font-weight:700;letter-spacing:.13em;margin-bottom:18px}
+.nexacore .nexa-promise-list{width:100%;border-top:1px solid var(--nexa-cream)}
+.nexacore .nexa-promise{display:flex;align-items:center;gap:13px;border-bottom:1px solid var(--nexa-cream);padding:13px 0;font-size:13px;font-weight:500;line-height:1.4}
+.nexacore .nexa-promise svg{flex-shrink:0}
+
+/* Simple progression, no gradients, imagery, or extra colours. */
+.nexacore .nexa-journey{background:var(--nexa-cream);color:var(--nexa-blue);padding:clamp(80px,9vw,130px) clamp(24px,6vw,92px);border-top:1px solid var(--nexa-blue)}
+.nexacore .nexa-journey-head{max-width:850px;margin:0 auto;text-align:center}
+.nexacore .nexa-journey h2{font-size:clamp(36px,4.4vw,62px);letter-spacing:-.06em;line-height:1.13;margin:22px 0 0}
+.nexacore .nexa-journey-head p{max-width:560px;margin:22px auto 0;font-size:clamp(14px,1.2vw,17px);line-height:1.8}
+.nexacore .nexa-journey-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));max-width:1150px;margin:62px auto 0;border:1px solid var(--nexa-blue);border-radius:15px;overflow:hidden}
+.nexacore .nexa-journey-step{padding:37px 34px 29px;min-height:275px;display:flex;flex-direction:column;align-items:start;border-right:1px solid var(--nexa-blue)}
+.nexacore .nexa-journey-step:last-child{border-right:0}
+.nexacore .nexa-journey-num{font-family:'Instrument Serif',Georgia,serif;font-size:29px;font-style:italic}
+.nexacore .nexa-journey-step h3{margin:38px 0 11px;font-size:24px;letter-spacing:-.045em}
+.nexacore .nexa-journey-step p{font-size:13px;line-height:1.7;max-width:275px}
+.nexacore .nexa-journey-arrow{margin:auto 0 0 auto}
+
+/* Final call to action: solid blue, cream typography. */
+.nexacore .nexa-closing{background:var(--nexa-blue);color:var(--nexa-cream);padding:clamp(96px,12vw,160px) 24px;display:flex;justify-content:center;text-align:center}
+.nexacore .nexa-closing-inner{max-width:820px;display:flex;align-items:center;flex-direction:column}
+.nexacore .nexa-overline{font-size:11px;font-weight:700;letter-spacing:.15em}
+.nexacore .nexa-closing h2{margin-top:23px;font-size:clamp(40px,5vw,70px);line-height:1.12;letter-spacing:-.06em}
+.nexacore .nexa-closing p{font-size:clamp(15px,1.2vw,18px);line-height:1.8;margin-top:23px;max-width:660px}
+.nexacore .nexa-closing .nexa-primary-action{background:var(--nexa-cream);color:var(--nexa-blue);border-color:var(--nexa-cream)}
+.nexacore .nexa-closing .nexa-primary-action:hover{background:var(--nexa-blue);color:var(--nexa-cream)}
+.nexacore .nexa-text-action{color:var(--nexa-cream);padding:13px 9px;display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:700}
+.nexacore .nexa-text-action:hover{text-decoration:underline;text-underline-offset:5px}
+.nexacore .nexa-footer{background:var(--nexa-cream);border-top:1px solid var(--nexa-blue);padding:33px max(24px,calc((100vw - 1220px)/2));color:var(--nexa-blue);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:23px;font-size:12px}
+.nexacore .nexa-footer-logo{font-size:26px;font-weight:700;letter-spacing:-.075em;color:var(--nexa-blue)}
+.nexacore .nexa-footer>div{display:flex;align-items:center;flex-wrap:wrap;gap:18px}
+.nexacore .nexa-footer>div a{font-weight:600}
+.nexacore .nexa-footer a:hover{text-decoration:underline;text-underline-offset:4px}
+
+@media(max-width:1120px){
+ .nexacore .nexa-navigation-links{gap:15px}
+ .nexacore .nexa-navigation-inner{gap:15px}
+ .nexacore .nexa-purpose-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .nexacore .nexa-purpose-card{min-height:245px}
+ .nexacore .nexa-method{grid-template-columns:1fr 1fr;gap:45px}
+}
+@media(max-width:900px){
+ .nexacore .nexa-navigation-links,.nexacore .nexa-nav-preview,.nexacore .nexa-navigation-actions>.nexa-nav-join{display:none}
+ .nexacore .nexa-menu-toggle{display:inline-flex}
+ .nexacore .nexa-navigation-inner{min-height:66px}
+ .nexacore .nexa-method{grid-template-columns:1fr;gap:42px;padding-top:90px;padding-bottom:90px}
+ .nexacore .nexa-method-panel{min-height:380px}
+ .nexacore .nexa-journey-grid{grid-template-columns:1fr}
+ .nexacore .nexa-journey-step{min-height:180px;border-right:0;border-bottom:1px solid var(--nexa-blue)}
+ .nexacore .nexa-journey-step:last-child{border-bottom:0}
+ .nexacore .nexa-journey-step h3{margin-top:18px}
+}
+@media(max-width:600px){
+ .nexacore .nexa-navigation{top:12px;padding-inline:12px}
+ .nexacore .nexa-navigation-inner{padding:8px 13px;border-radius:12px}
+ .nexacore .nexa-brand span{font-size:25px}
+ .nexacore .nexa-hero{min-height:100svh;padding:150px 22px 85px}
+ .nexacore .nexa-hero h1{font-size:clamp(44px,10vw,63px)}
+ .nexacore .nexa-hero-content>p{font-size:15px;line-height:1.75;margin-top:22px}
+ .nexacore .nexa-hero-orbit span{width:340px;height:340px;right:-245px}
+ .nexacore .nexa-hero-orbit span:nth-child(2){width:190px;height:190px;right:-140px}
+ .nexacore .nexa-hero-actions{flex-direction:column;width:100%}
+ .nexacore .nexa-primary-action,.nexacore .nexa-outline-action{width:100%;max-width:360px}
+ .nexacore .nexa-purpose{padding:85px 20px}
+ .nexacore .nexa-purpose-grid{grid-template-columns:1fr;gap:10px;margin-top:45px}
+ .nexacore .nexa-purpose-card{min-height:200px;padding:24px}
+ .nexacore .nexa-purpose-card-top{margin-bottom:22px}
+ .nexacore .nexa-method{padding:85px 22px}
+ .nexacore .nexa-method h2{font-size:clamp(38px,9vw,52px)}
+ .nexacore .nexa-method-panel{min-height:360px}
+ .nexacore .nexa-journey{padding:82px 22px}
+ .nexacore .nexa-journey-grid{margin-top:42px}
+ .nexacore .nexa-journey-step{padding:25px;min-height:175px}
+ .nexacore .nexa-closing{padding:95px 22px}
+ .nexacore .nexa-closing h2{font-size:clamp(40px,9vw,58px)}
+ .nexacore .nexa-closing-actions{flex-direction:column;width:100%}
+ .nexacore .nexa-footer{flex-direction:column;justify-content:center;text-align:center;gap:15px}
 }
 @media(prefers-reduced-motion:reduce){
- .nexacore .nexa-restored-hero video{display:none}
- .nexacore .nexa-scroll-indicator{animation:none}
- .nexacore .nexa-primary-action{transition:none}
+ .nexacore .nexa-navigation-inner,.nexacore a,.nexacore button{transition:none}
 }
