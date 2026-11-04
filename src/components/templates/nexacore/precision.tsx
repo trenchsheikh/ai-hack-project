@@ -221,10 +221,10 @@ export function Precision() {
           }}
         >
           <span className="block sm:whitespace-nowrap">
-            One place to explore, learn and build.
+            Follow what makes you curious.
           </span>
           <GradientText className="block" style={{ paddingBottom: "0.3vw" }}>
-            Small steps. Big possibilities.
+            Make room for what comes next.
           </GradientText>
         </h2>
 
@@ -232,7 +232,7 @@ export function Precision() {
           className="mt-6 text-[var(--nexa-lavender)]"
           style={{ fontSize: "clamp(15px, 1.2vw, 20px)" }}
         >
-          Explore new skills, design solutions and create your own AI projects
+          See what interests you, grow your confidence and make real projects
           through approachable lessons and creative challenges.
         </p>
       </div>

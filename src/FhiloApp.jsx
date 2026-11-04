@@ -1,6 +1,7 @@
-import React,{useState} from "react";
+import React,{useState,useEffect,useRef} from "react";
 import {ArrowLeft,Plus,Save,Download,CheckCircle2} from "lucide-react";
 import FhiloLanding from "./FhiloLanding";
+import FhiloWaitlist from "./FhiloWaitlist";
 import Studio from "./FhiloStudio";
 import StudioErrorBoundary from "./StudioErrorBoundary";
 import {OrganisationsLanding,OrganisationDashboard,OrganisationCreate} from "./FhiloOrg";
@@ -10,6 +11,25 @@ import "./fhilo.css";
 
 export default function FhiloApp(){
  const [path,go]=useRoute();
+ const [waitlistSeen,setWaitlistSeen]=useState(()=>{
+  try{return window.localStorage.getItem("fhilo_waitlist_seen_v1")==="1";}catch{return false;}
+ });
+ const firstVisitRouted=useRef(false);
+ // Only the first arrival at "/" is routed to the invitation.
+ // Returning visitors can still see the full restored landing design.
+ useEffect(()=>{
+  if(path!=="/"||waitlistSeen||firstVisitRouted.current)return;
+  firstVisitRouted.current=true;
+  try{window.localStorage.setItem("fhilo_waitlist_seen_v1","1");}catch{}
+  setWaitlistSeen(true);
+  go("/waitlist");
+ },[path,waitlistSeen]);
+ const exploreLanding=()=>{
+  try{window.localStorage.setItem("fhilo_waitlist_seen_v1","1");}catch{}
+  setWaitlistSeen(true);
+  go("/");
+ };
+
  const [profile,setProfile]=useStored("fhilo_profile_v1",blankProfile);
  const [projects,setProjects]=useStored("fhilo_projects_v1",[]);
  const [lessonsDone,setLessonsDone]=useStored("fhilo_lessons_v1",[]);
@@ -55,6 +75,7 @@ export default function FhiloApp(){
    <button className="fh-topbar-action" type="button" onClick={exportStudioProject} title="Export project" aria-label="Export project"><Download size={16}/><span>Export</span></button>
   </div>
  </div>:null;
+ if(path==="/waitlist"||(path==="/"&&!waitlistSeen))return <FhiloWaitlist onExplore={exploreLanding}/>;
  if(path==="/")return <FhiloLanding/>;
  if(path==="/organisations")return <OrganisationsLanding go={go}/>;
  if(path==="/organisations/dashboard")return <OrganisationDashboard drafts={orgDrafts} setDrafts={setOrgDrafts} go={go}/>;

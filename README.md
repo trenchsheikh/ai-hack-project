@@ -88,3 +88,14 @@ The supplied ai-actions design was adapted to the existing Vite + React + TypeSc
 - Create and Investigate mode workflows remain available; their longer forms can scroll normally.
 
 - On mobile, a small floating navigation control retains sidebar access when the Studio Build header is absent.
+
+
+## Public landing and waitlist (November 2026)
+- Restored the November 3 cinematic Nexacore-based landing layout (moving background, blue wash, rounded floating white navigation, scrollytelling sections) in Fhilo branding, rather than replacing it with a new visual framework.
+- Updated the messaging to address new learners without experience or connections and organisations hoping to widen access. Primary calls to action go to the waitlist.
+- Elegant typography: DM Sans for interface/body, Instrument Serif for expressive headline accents.
+- The first visit to `/` in a browser routes to `/waitlist`. After that visit, `/` displays the full restored landing. `/waitlist` remains reachable directly; visitors can choose to explore the public site.
+- The waitlist design reuses the historic cinematic video background and dark blue overlay, with a gradient fallback if the video cannot load or reduced motion is preferred.
+- `POST /api/waitlist` validates the email and explicit consent and stores one JSON record per normalized email in a **private Vercel Blob** store. A SHA-256 digest is used for file paths; no public read endpoint exists. Records contain email, selected interest, consent, source and update timestamp. Repeated submissions update the same record.
+- The Blob store is connected to the Vercel project; `BLOB_READ_WRITE_TOKEN` stays exclusively on the server. The form reports storage failures rather than pretending to collect addresses.
+- Basic best-effort serverless throttling and a honeypot are provided, but consider Vercel WAF/Turnstile before higher-volume promotion. A formal privacy/retention policy and an operational email-management workflow should be finalised before large-scale marketing.

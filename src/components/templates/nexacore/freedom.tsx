@@ -8,11 +8,11 @@ const FREEDOM_HLS =
   "https://stream.mux.com/bnYL6x5cAX6WiJv2pOKpITehZd3NVdXpj3ylJFpX5Lk.m3u8";
 
 const NEGATIVES = [
-  "Feeling like AI is only for people who already know how to code",
-  "Getting overwhelmed by technical terms and unfamiliar tools",
-  "Watching tutorials without knowing what to try next",
-  "Struggling to connect AI with the things you care about",
-  "Having big ideas but no clear place to begin",
+  "Thinking you need to code before you belong",
+  "Feeling lost in a world full of unfamiliar terms",
+  "Learning without getting to try it yourself",
+  "Not seeing your interests reflected in technology",
+  "Knowing you have potential but not knowing where to begin",
 ];
 
 const POSITIVES = [
@@ -107,13 +107,13 @@ export function Freedom() {
           className="font-medium text-[var(--nexa-navy)]"
           style={{ fontSize: "clamp(32px, 4vw, 56px)", lineHeight: 1.15 }}
         >
-          No experience? No problem.
+          You don't need a head start.
           <br />
           <GradientText
             className="inline-block"
             style={{ paddingBottom: "0.3vw" }}
           >
-            Start with curiosity.
+            Just a place to begin.
           </GradientText>
         </h2>
       </div>

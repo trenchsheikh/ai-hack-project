@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/waitlist",
+      "destination": "/index.html"
+    },
+    {
       "source": "/app",
       "destination": "/index.html"
     },

@@ -8,25 +8,25 @@ const CARDS: ServiceCardProps[] = [
   {
     label: "Discover",
     level: 1,
-    title: "Explore how AI connects to the things you already love.",
+    title: "Start with what already sparks your curiosity.",
     bullets: ["Interests that inspire you", "Ideas worth exploring"],
   },
   {
     label: "Learn",
     level: 2,
-    title: "Build practical AI skills with confidence at your pace.",
+    title: "Learn new skills without needing to know it all first.",
     bullets: ["Beginner-friendly lessons", "Learn by experimenting"],
   },
   {
     label: "Challenge",
     level: 3,
-    title: "Try mini-hackathons that turn questions into ideas.",
+    title: "Try challenges that make learning feel real.",
     bullets: ["Creative challenge briefs", "Real-world problem solving"],
   },
   {
     label: "Build",
     level: 4,
-    title: "Turn your ideas into projects you can keep building.",
+    title: "Make something you can call your own.",
     bullets: ["Your first AI prototype", "A space for your progress"],
   },
 ];
@@ -34,7 +34,7 @@ const CARDS: ServiceCardProps[] = [
 export function Trusted() {
   return (
     <section
-      id="build"
+      id="why"
       data-slot="trusted"
       className="relative flex flex-col items-center"
       style={{
@@ -51,16 +51,16 @@ export function Trusted() {
           className="font-medium text-white"
           style={{ fontSize: "clamp(32px, 4vw, 56px)", lineHeight: 1.2 }}
         >
-          Made for curious minds
+          Your next chapter shouldn't depend on who you know.
           <br />
-          <GradientText>from first question to first project.</GradientText>
+          <GradientText>It starts with a chance to try.</GradientText>
         </h2>
         <p
           className="text-[var(--nexa-lavender-2)]"
           style={{ fontSize: "clamp(14px, 1.25vw, 18px)" }}
         >
-          Learn the essentials, choose a challenge and explore what you can build.
-          Whether you love football, design or technology, there's a place to start.
+          If you've ever felt that AI, technology or opportunity wasn't made for people like you, this is your invitation in.
+          Come as you are. Bring your interests. Discover what you can make.
         </p>
       </div>
 

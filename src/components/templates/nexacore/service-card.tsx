@@ -121,7 +121,7 @@ export function ServiceCard({
         >
           <button
             type="button"
-            onClick={() => window.location.assign(level === 3 ? "/app/hackathons" : level === 4 ? "/app/build" : "/app/learn")}
+            onClick={() => window.location.assign(level === 3 ? "/app/explore" : level === 4 ? "/app/studio" : "/app/learn")}
             className="nexa-grad-a-bg mt-4 flex w-full items-center justify-center gap-2 rounded-xl font-medium text-white"
             style={{
               padding: "clamp(10px, 0.9vw, 14px) 0",
