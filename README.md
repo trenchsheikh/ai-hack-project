@@ -21,13 +21,15 @@ Mission: Unlock Potential. Create Opportunity.
 - Searchable, beginner-friendly practice challenges — none claim sponsor funding.
 - Guided or independent entry into Studio.
 - Editable concept builder with portfolio-style preview.
-- HTML/CSS/JavaScript editor with sandboxed local preview; its CSP blocks network access.
+- Chat-first Studio Build with Plan / Build / Review prompts, optional image references, and a split-screen preview/code editor.
+- HTML/CSS/JavaScript editing with sandboxed local preview; its CSP blocks external network access.
 - CSV investigation and basic statistics; preview capped at 100 rows.
 - Browser autosave, snapshots, version restore and JSON export.
 - Self-paced learning and practice-completion statuses.
 - Editable local profile, personalised opportunities, project portfolio.
 - Organisation challenge draft editor; no actual publication.
 - Sofia guided prompts. Live generative AI is disabled by default.
+- The /api/build endpoint can generate self-contained HTML via Vercel AI Gateway when explicitly enabled; it is disabled by default and does not fabricate code when unavailable. Build chat history remains in local browser project storage.
 - Automatic one-way import of old AI Lab browser projects and lesson progress.
 
 ## Explicit limitations before a real cohort launches
@@ -35,7 +37,7 @@ There is no shared identity or database connected: the Supabase integration is n
 
 There is no live judging, confirmed prize pool, wallet custody, stablecoin transfer or funded sponsor partnership in this preview. Rewards show zero and wallet setup is disabled.
 
-Sofia uses local guided prompts unless the live service is enabled. The server-only /api/sofia endpoint requires a gateway credential and an explicit switch; keep it disabled until user authentication, abuse prevention, rate limits, spend ceilings and privacy controls are implemented.
+Sofia uses local guided prompts unless the live service is enabled. Studio Build provides the chat-first interface, manual code editing and an immediate sandboxed preview; AI code generation will report unavailable until the backend is deliberately enabled. The server-only /api/sofia endpoint requires a gateway credential and an explicit switch; keep it disabled until user authentication, abuse prevention, rate limits, spend ceilings and privacy controls are implemented.
 
 ## Run locally
 1. npm install
@@ -63,5 +65,7 @@ The project remains Vite + React with shadcn-compatible paths. A Next.js migrati
 - src/fhilo.css — visual system
 - src/FhiloBrand.jsx and public/favicon.svg — brand
 - api/sofia.js — disabled-by-default model API hook
+- api/build.js — disabled-by-default AI code generation endpoint
+- src/components/ui/ai-prompt-box.tsx — Studio Build prompt composer
 
 The previous NexaCore and Studio Admin template attribution files remain in the repository.

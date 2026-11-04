@@ -414,3 +414,127 @@
  .f-interest-grid{grid-template-columns:1fr 1fr}.f-modal{padding:22px}.f-modal h2{font-size:26px}
 }
 @media(prefers-reduced-motion:reduce){.fh-land *, .f-app *, .f-org-app *{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+
+
+/* Fhilo Studio Build — chat-first coding workspace */
+.fh-build-body{display:block}
+.fh-build-body .f-studio-center{width:100%}
+.fh-build-body .f-studio-editor{min-height:0}
+.fh-build-workspace{display:grid;grid-template-columns:minmax(340px,.91fr) minmax(0,1.09fr);min-height:570px;height:min(740px,calc(100vh - 280px));background:#fff;overflow:hidden}
+.fh-build-chat,.fh-build-output{display:flex;flex-direction:column;min-width:0;min-height:0}
+.fh-build-chat{border-right:1px solid #e5edf4;background:#fff}
+.fh-build-chat-head{height:68px;flex-shrink:0;padding:13px 20px;border-bottom:1px solid #edf1f5;display:flex;align-items:center;gap:11px}
+.fh-build-chat-symbol,.fh-build-message-icon{display:grid;place-items:center;color:#2563eb;background:#eaf3ff;border-radius:11px}
+.fh-build-chat-symbol{width:37px;height:37px}
+.fh-build-chat-head strong{display:block;font-size:13px;letter-spacing:-.025em;color:#16395a}
+.fh-build-chat-head small{display:block;font-size:11px;color:#8fa3b4;margin-top:3px}
+.fh-build-chat-pill{margin-left:auto;border:1px solid #dce9f6;background:#f5faff;border-radius:20px;color:#4e8ab9;font-size:10px;font-weight:700;padding:5px 9px;white-space:nowrap}
+.fh-build-conversation{flex:1;min-height:0;overflow-y:auto;padding:21px 20px;display:flex;flex-direction:column;gap:17px;overscroll-behavior:contain}
+.fh-build-welcome{margin:auto 0;display:flex;flex-direction:column;align-items:start;max-width:490px}
+.fh-build-orb{width:51px;height:51px;display:grid;place-items:center;border-radius:17px;background:linear-gradient(145deg,#e1efff,#f8f4ff);color:#2563eb;box-shadow:0 8px 25px #2563eb12}
+.fh-build-welcome h2{font-size:25px;font-weight:750;letter-spacing:-.055em;margin:18px 0 6px;color:#173a5a}
+.fh-build-welcome p{font-size:13px;line-height:1.75;color:#778c9d;margin:0}
+.fh-build-welcome b{font-weight:700;color:#426d90}
+.fh-build-ideas{display:flex;flex-direction:column;gap:8px;align-items:start;margin-top:22px;width:100%}
+.fh-build-ideas button{border:1px solid #e1ebf5;background:#fff;border-radius:12px;padding:10px 13px;display:flex;align-items:center;justify-content:space-between;gap:15px;font-size:12px;font-weight:600;color:#486a85;max-width:100%;width:300px;text-align:left}
+.fh-build-ideas button:hover{background:#f3f9ff;border-color:#b9d9f6}
+.fh-build-message{display:flex;align-items:flex-start;gap:9px;max-width:100%}
+.fh-build-message.from-user{justify-content:flex-end}
+.fh-build-message-icon{width:28px;height:28px;flex-shrink:0;border-radius:9px}
+.fh-build-bubble{border-radius:14px 14px 14px 4px;background:#f0f6fb;padding:13px 15px;color:#365e7b;font-size:12px;line-height:1.75;white-space:pre-wrap;overflow-wrap:anywhere;max-width:85%}
+.fh-build-message.from-user .fh-build-bubble{background:#2563eb;color:#fff;border-radius:14px 14px 4px 14px}
+.fh-build-bubble.error{background:#fff3ef;color:#9b5846}
+.fh-build-bubble small{display:block;font-size:10px;opacity:.7;margin-top:9px}
+.fh-build-thinking{display:flex;align-items:center;gap:5px;padding:16px}
+.fh-build-pulse{width:6px;height:6px;border-radius:50%;background:#7da5c4;animation:fh-build-pulse 1.1s ease-in-out infinite}
+.fh-build-pulse:nth-child(2){animation-delay:.15s}.fh-build-pulse:nth-child(3){animation-delay:.3s}
+@keyframes fh-build-pulse{0%,80%,100%{opacity:.3;transform:translateY(0)}40%{opacity:1;transform:translateY(-4px)}}
+.fh-build-compose{flex-shrink:0;padding:13px 16px 14px;border-top:1px solid #edf2f5;background:#fff}
+.fh-build-compose>p{margin:9px 4px 0;font-size:10px;color:#97aab8;line-height:1.55}
+.fh-build-output{background:#eef3f8}
+.fh-build-output-head{height:68px;flex-shrink:0;padding:12px 16px;border-bottom:1px solid #dfe8f0;background:#fff;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.fh-build-output-title,.fh-build-output-tools{display:flex;align-items:center;gap:9px;min-width:0}
+.fh-build-output-title b{font-size:12px;color:#1e4565;white-space:nowrap}
+.fh-build-output-title span:last-child{color:#99abb7;font-size:10px;white-space:nowrap}
+.fh-build-live-dot{background:#50bf95;width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.fh-build-output-tools{gap:5px}
+.fh-build-output-tools button{border:1px solid transparent;background:transparent;border-radius:8px;min-height:33px;padding:7px 9px;font-size:11px;color:#647f92;font-weight:650;display:flex;align-items:center;justify-content:center;gap:5px;white-space:nowrap}
+.fh-build-output-tools button:hover{background:#eff5fc;border-color:#e3eaf2}
+.fh-build-output-tools .fh-build-code-toggle{background:#eff6ff;color:#2d6ea7;border-color:#dceafb}
+.fh-build-canvas{flex:1;min-height:0;display:flex;overflow:hidden;align-items:stretch;justify-content:center;padding:14px}
+.fh-build-canvas iframe{height:100%;min-height:0;width:100%;border:1px solid #e1e9f1;background:#fff;border-radius:11px;box-shadow:0 9px 34px #17395a12}
+.fh-build-canvas.mobile iframe{max-width:390px;box-shadow:0 9px 34px #17395a20}
+.fh-build-source{height:100%;width:100%;display:flex;flex-direction:column;background:#152b42;color:#d8e9fa;border-radius:11px;overflow:hidden;border:1px solid #173f60}
+.fh-build-source-head{padding:12px 15px;border-bottom:1px solid #36516a;display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:11px;color:#bcd1df}
+.fh-build-source-head span:first-child{display:flex;align-items:center;gap:7px}
+.fh-build-source-head span:last-child{font-size:10px;color:#829cb2}
+.fh-build-source textarea{flex:1;min-height:0;width:100%;background:transparent;border:0;color:#edf6ff;resize:none;outline:none;padding:18px;font:12px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace;tab-size:2}
+.fh-build-output-foot{flex-shrink:0;min-height:38px;display:flex;align-items:center;gap:7px;padding:10px 15px;border-top:1px solid #e3ebf2;background:#fff;color:#859aaa;font-size:10px;line-height:1.5}
+.fh-build-output-foot svg{color:#429a87;flex-shrink:0}
+.fh-build-output-foot span{margin-left:auto;text-align:right}
+
+/* Adapted animated AI prompt box from the supplied design. Scoped to Studio. */
+.fh-prompt-box{background:#202329;color:#f3f6fb;border:1px solid #3d4652;border-radius:20px;padding:10px 10px 8px;box-shadow:0 10px 25px #11263e24;transition:border-color .2s}
+.fh-prompt-box:focus-within{border-color:#6a85a9}
+.fh-prompt-box.busy{border-color:#8aa8ce}
+.fh-prompt-box>textarea{display:block;width:100%;min-height:51px;max-height:210px;border:0!important;box-shadow:none!important;background:transparent!important;color:#f3f6fb!important;border-radius:8px;outline:none!important;resize:none;padding:10px 12px;font-size:13px;line-height:1.6;overflow-y:auto}
+.fh-prompt-box>textarea::placeholder{color:#a4adb9}
+.fh-prompt-box button{cursor:pointer;font-family:inherit}
+.fh-prompt-box button:disabled{opacity:.45;cursor:not-allowed}
+.fh-prompt-toolbar{display:flex;justify-content:space-between;align-items:center;gap:7px;min-height:35px}
+.fh-prompt-tools,.fh-prompt-submit-group{display:flex;align-items:center;gap:3px;min-width:0}
+.fh-prompt-icon,.fh-prompt-mode{color:#b7c3d1;background:transparent;border:1px solid transparent;display:flex;align-items:center;justify-content:center;transition:background .2s,color .2s;border-radius:9px;height:32px}
+.fh-prompt-icon{width:32px;flex-shrink:0}
+.fh-prompt-mode{padding:0 8px;gap:5px}
+.fh-prompt-mode>span:first-child{display:flex;align-items:center}
+.fh-prompt-mode:hover,.fh-prompt-icon:hover{background:#39424c;color:#fff}
+.fh-prompt-mode.active{background:#354457;border-color:#4e6687;color:#d9e9ff}
+.fh-prompt-mode.active.plan{background:#404132;border-color:#6e6d4a;color:#f2e4b5}
+.fh-prompt-mode.active.review{background:#40364c;border-color:#705c88;color:#e5d8fd}
+.fh-prompt-mode-label{display:inline-block;overflow:hidden;font-size:11px;white-space:nowrap;font-weight:650}
+.fh-prompt-divider{height:21px;width:1px;background:#53606e;margin:0 3px;opacity:.7}
+.fh-prompt-send{border:0;width:33px;height:33px;border-radius:50%;display:grid;place-items:center;background:#fff;color:#202329;flex-shrink:0}
+.fh-prompt-send:hover:not(:disabled){background:#d9e8fa}
+.fh-prompt-icon.listening{color:#ffb5b5;background:#65383d}
+.fh-prompt-error{font-size:11px;color:#ffbdbd;padding:6px 9px 0;margin:0}
+.fh-prompt-attachment{position:relative;display:flex;align-items:center;gap:10px;padding:3px 8px 9px;color:#b8c7d6;font-size:10px}
+.fh-prompt-attachment>button:first-child{width:49px;height:49px;border:1px solid #5a6676;border-radius:10px;overflow:hidden;padding:0;background:#374452;flex-shrink:0}
+.fh-prompt-attachment img{width:100%;height:100%;object-fit:cover}
+.fh-prompt-attachment-remove{position:absolute;top:0;left:41px;background:#0f172a;color:#fff;border:0;border-radius:50%;height:19px;width:19px;display:grid;place-items:center}
+.fh-prompt-attachment span{min-width:0;max-width:200px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}
+.fh-prompt-tooltip{z-index:110;background:#28313d;color:#fff;padding:8px 10px;border-radius:8px;font-size:11px;box-shadow:0 8px 20px #0003}
+.fh-prompt-tooltip-arrow{fill:#28313d}
+.fh-prompt-dialog-overlay{position:fixed;inset:0;background:#06111ed9;backdrop-filter:blur(7px);z-index:150}
+.fh-prompt-dialog{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:151;width:min(840px,92vw);max-height:85vh;display:grid;place-items:center;outline:none}
+.fh-prompt-dialog img{max-height:82vh;max-width:100%;object-fit:contain;border-radius:15px}
+.fh-prompt-dialog-close{position:absolute;top:10px;right:10px;border:0;border-radius:50%;color:#fff;background:#1f293bdd;padding:8px;display:grid;place-items:center}
+.fh-visually-hidden{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+@media(max-width:1080px){
+ .fh-build-workspace{grid-template-columns:minmax(300px,1fr) minmax(0,1fr)}
+ .fh-build-output-title span:last-child{display:none}
+}
+@media(max-width:860px){
+ .fh-build-workspace{display:flex;flex-direction:column;height:auto;min-height:0}
+ .fh-build-chat{height:560px;min-height:440px;border-right:0;border-bottom:1px solid #e5edf4}
+ .fh-build-output{height:600px;min-height:500px}
+ .fh-build-conversation{min-height:0}
+}
+@media(max-width:520px){
+ .fh-build-chat-head,.fh-build-output-head{padding:10px 12px}
+ .fh-build-conversation{padding:16px 12px}
+ .fh-build-chat{height:530px}
+ .fh-build-output{height:530px}
+ .fh-build-compose{padding:10px}
+ .fh-build-welcome h2{font-size:22px}
+ .fh-build-output-foot span{display:none}
+ .fh-build-output-title b{font-size:11px}
+ .fh-build-output-tools button{padding:6px}
+ .fh-build-canvas{padding:8px}
+ .fh-prompt-box{padding:8px 6px 6px;border-radius:16px}
+ .fh-prompt-mode{padding:0 6px}
+}
+@media(prefers-reduced-motion:reduce){
+ .fh-build-pulse{animation:none}
+ .fh-prompt-box *, .fh-build-workspace *{transition-duration:.01ms!important}
+}
