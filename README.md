@@ -80,3 +80,9 @@ The supplied ai-actions design was adapted to the existing Vite + React + TypeSc
 - Studio owns its own `Button` component, avoiding a runtime `ReferenceError` from an undefined component that previously blanked project routes.
 - Visiting `/app/studio/:id` needs no live backend: existing locally saved projects load as before, and a valid unsaved UUID displays a new local Studio workspace without claiming to recover data from other browsers.
 - The frontend error boundary shows a recovery view rather than a white screen if future Studio rendering errors occur.
+
+## Compact Studio layout (no backend required)
+- Project name, local autosave status, New chat, Version and Export are in the existing app header rather than a second Studio header.
+- Desktop Build fills the remaining viewport below the compact mode toolbar; conversation and code scroll within their own panes, so opening Studio does not require scrolling to reach the composer.
+- Smaller screens keep the chat first and allow scrolling to the preview without hiding the composer.
+- Create and Investigate mode workflows remain available; their longer forms can scroll normally.

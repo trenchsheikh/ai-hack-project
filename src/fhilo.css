@@ -605,3 +605,94 @@
 .fh-studio-local-notice{display:flex;align-items:flex-start;gap:9px;padding:12px 18px;background:#f2f7ff;color:#365f80;border-bottom:1px solid #dfeaf5;font-size:11px;line-height:1.6}
 .fh-studio-local-notice svg{flex-shrink:0;margin-top:1px;color:#3276bd}
 @media(max-width:520px){.fh-studio-local-notice{padding:10px 12px;font-size:10px}}
+
+
+/* Studio: one integrated application header, no duplicate project toolbar. */
+.f-topbar-studio{padding:0 19px;gap:14px;justify-content:flex-start;min-width:0}
+.f-topbar-studio .f-breadcrumb{flex:0 0 auto}
+.f-topbar-studio .f-top-right{flex:0 0 auto;margin-left:0;gap:10px}
+.f-topbar-studio .f-savedlabel{display:none}
+.fh-topbar-studio-content{display:flex;flex:1;min-width:0;align-items:center;gap:10px}
+.fh-topbar-studio-back{display:grid;place-items:center;width:33px;height:33px;flex:0 0 33px;border:1px solid #e2eaf1;border-radius:9px;background:#fff;color:#55748e}
+.fh-topbar-studio-back:hover{color:#2563eb;background:#eef6ff}
+.fh-topbar-studio-title{display:flex;flex-direction:column;justify-content:center;gap:3px;min-width:80px;flex:1;max-width:360px}
+.fh-topbar-studio-title input{border:1px solid transparent;outline:none;background:transparent;color:#16395a;width:100%;min-width:0;font-size:15px;font-weight:750;line-height:1.35;padding:2px 4px;margin-left:-4px;border-radius:6px;text-overflow:ellipsis}
+.fh-topbar-studio-title input:focus{border-color:#a7ceef;background:#f7fbff;text-overflow:clip}
+.fh-topbar-studio-title>span{display:flex;align-items:center;gap:5px;font-size:10px;color:#3a9876;white-space:nowrap;padding-left:0}
+.fh-topbar-studio-actions{display:flex;align-items:center;gap:7px;margin-left:auto;flex-shrink:0}
+.fh-topbar-action{height:35px;border:1px solid #e1e9f1;background:#fff;border-radius:10px;display:flex;align-items:center;justify-content:center;gap:7px;padding:0 11px;color:#507592;font-size:11px;font-weight:700;white-space:nowrap}
+.fh-topbar-action:hover{background:#edf6ff;border-color:#c9e1f8;color:#2563eb}
+.fh-topbar-action.primary{background:#eef5ff;border-color:#dbe9fd;color:#2563eb}
+.fh-topbar-action.primary:hover{background:#e2efff}
+
+/* Desktop Studio Build: full viewport workbench. Chat/code scroll internally. */
+@media(min-width:861px){
+ .f-app-studio-build{height:100dvh;min-height:0;overflow:hidden}
+ .f-app-studio-build .f-app-main{height:100dvh;min-height:0;overflow:hidden}
+ .f-app-studio-build .f-topbar{flex:0 0 72px;height:72px;position:relative}
+ .f-app-studio-build .f-page{flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden}
+ .f-app-studio-build .f-app-footer{display:none}
+ .f-app-studio-build .fh-studio-build-page{max-width:none;width:100%;height:100%;min-height:0;display:flex;flex-direction:column;overflow:hidden}
+ .f-app-studio-build .fh-build-body{flex:1;min-height:0;display:flex;overflow:hidden}
+ .f-app-studio-build .fh-build-body .f-studio-center{flex:1;min-height:0;min-width:0;width:100%;height:100%;padding:11px 14px;gap:10px;overflow:hidden}
+ .f-app-studio-build .f-studio-toolbar{flex:0 0 auto}
+ .f-app-studio-build .f-mode-switch,.f-app-studio-build .f-studio-tabs{padding:3px}
+ .f-app-studio-build .f-mode-switch button,.f-app-studio-build .f-studio-tabs button{padding:7px 12px}
+ .f-app-studio-build .f-studio-editor{flex:1;display:flex;flex-direction:column;min-height:0;overflow:hidden}
+ .f-app-studio-build .fh-build-workspace,
+ .f-app-studio-build .fh-build-workspace.is-empty{flex:1;min-height:0;height:100%;max-height:100%;width:100%;overflow:hidden}
+ .f-app-studio-build .fh-build-workspace.is-empty .fh-build-chat{height:100%;min-height:0}
+ .f-app-studio-build .f-studio-preview{flex:1;min-height:0;height:100%;overflow:hidden}
+ .f-app-studio-build .f-studio-preview iframe{flex:1;min-height:0}
+ .f-app-studio-build .f-history{flex:1;min-height:0;overflow-y:auto}
+ .f-app-studio-build .f-studio-submit{display:none}
+ .f-app-studio-build .f-notice{flex-shrink:0}
+}
+
+/* Keep header actions compact as the sidebar consumes horizontal space. */
+@media(max-width:1200px){
+ .f-topbar-studio{gap:9px;padding-inline:12px}
+ .fh-topbar-studio-content{gap:7px}
+ .fh-topbar-studio-title{max-width:260px}
+ .fh-topbar-action{padding-inline:9px}
+}
+@media(max-width:1050px){
+ .f-topbar-studio .f-breadcrumb{font-size:11px;gap:4px}
+ .f-topbar-studio .f-avatar{display:none}
+ .fh-topbar-action span{display:none}
+ .fh-topbar-action{width:35px;padding:0}
+}
+@media(max-width:860px){
+ /* Mobile/tablet: show the chat first; allow scrolling down only to the preview. */
+ .f-topbar-studio{height:64px;padding:0 12px;gap:8px;position:sticky}
+ .f-topbar-studio .f-breadcrumb{display:none}
+ .f-topbar-studio .f-top-right{display:none}
+ .fh-topbar-studio-content{gap:7px}
+ .fh-topbar-studio-title{min-width:55px;max-width:none}
+ .fh-topbar-studio-title input{font-size:13px}
+ .fh-topbar-studio-title>span{font-size:9px}
+ .fh-topbar-action{width:33px;height:33px;padding:0}
+ .fh-topbar-action span{display:none}
+ .fh-topbar-studio-back{height:32px;width:32px;flex-basis:32px}
+ .fh-topbar-studio-actions{gap:4px}
+ .f-app-studio-build .f-app-footer{display:none}
+ .f-app-studio-build .f-studio-center{padding:10px;gap:10px}
+ .f-app-studio-build .fh-build-workspace,
+ .f-app-studio-build .fh-build-workspace.is-empty{min-height:0;height:auto;overflow:visible}
+ .f-app-studio-build .f-studio-editor{min-height:0;overflow:visible}
+ .f-app-studio-build .fh-build-chat{min-height:0;height:min(70dvh,610px)}
+ .f-app-studio-build .fh-build-workspace.is-empty .fh-build-chat{min-height:0;height:min(75dvh,650px)}
+ .f-app-studio-build .fh-build-output{height:min(73dvh,650px);min-height:360px}
+ .f-app-studio-build .f-studio-submit{display:none}
+}
+@media(max-width:520px){
+ .f-topbar-studio{gap:5px;padding:0 9px}
+ .fh-topbar-studio-back{display:none}
+ .fh-topbar-studio-title>span svg{display:none}
+ .fh-topbar-studio-title input{font-size:12px}
+ .fh-topbar-studio-actions{gap:3px}
+ .fh-topbar-action{width:31px;height:31px}
+ .f-app-studio-build .f-studio-center{padding:8px}
+ .f-app-studio-build .fh-build-chat{height:min(68dvh,570px)}
+ .f-app-studio-build .fh-build-workspace.is-empty .fh-build-chat{height:min(73dvh,610px)}
+}

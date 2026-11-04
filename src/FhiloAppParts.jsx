@@ -56,13 +56,13 @@ function OpCard({item,go,compact=false}){
   <h3>{item.title}</h3><p>{item.description}</p><div className="f-opp-footer"><span><span className="f-dot"/> {item.funded?"Verified funded":"Free practice"}</span><ArrowUpRight size={18}/></div></div>
  </A>;
 }
-function AppShell({path,go,profile,children}){
+function AppShell({path,go,profile,studioHeader,studioIsBuild=false,children}){
  const [mobile,setMobile]=useState(false);
  const current=path.startsWith("/app/studio")?"/app/studio":path.startsWith("/app/opportunities")?"/app/explore":path.startsWith("/app/learn")?"/app/explore":path;
  const nav=[{path:"/app",title:"Home",icon:House},{path:"/app/explore",title:"Explore",icon:Compass},{path:"/app/studio",title:"Studio",icon:Blocks},{path:"/app/projects",title:"My projects",icon:FolderOpen}];
  const personal=[{path:"/app/profile",title:"My profile",icon:UserRound},{path:"/app/rewards",title:"Rewards",icon:Wallet}];
  const render=(list)=><>{list.map(it=><A key={it.path} to={it.path} go={x=>{setMobile(false);go(x);}} className={"f-navlink "+(current===it.path?"active":"")}><it.icon size={19}/><span>{it.title}</span>{current===it.path&&<span className="f-active-mark"/>}</A>)}</>;
- return <div className="f-app">
+ return <div className={"f-app"+(studioIsBuild?" f-app-studio-build":"")}>
   <aside className={"f-sidebar "+(mobile?"show":"")}>
    <A to="/" go={go} className="f-sidebar-logo"><Brand/></A>
    <button className="f-sideclose" onClick={()=>setMobile(false)} aria-label="Close navigation"><X size={20}/></button>
@@ -75,7 +75,8 @@ function AppShell({path,go,profile,children}){
   </aside>
   {mobile&&<button aria-label="Close navigation" className="f-dim" onClick={()=>setMobile(false)}/>}
   <div className="f-app-main">
-   <header className="f-topbar"><button onClick={()=>setMobile(true)} className="f-mobile-trigger" aria-label="Open menu"><Menu size={22}/></button><div className="f-breadcrumb">fhilo <ChevronRight size={15}/> <span>{path.startsWith("/app/studio")?"Studio":path.startsWith("/app/opportunities")?"Opportunity":path.split("/").filter(Boolean).at(-1)||"Home"}</span></div>
+   <header className={"f-topbar"+(path.startsWith("/app/studio")?" f-topbar-studio":"")}><button onClick={()=>setMobile(true)} className="f-mobile-trigger" aria-label="Open menu"><Menu size={22}/></button><div className="f-breadcrumb">fhilo <ChevronRight size={15}/> <span>{path.startsWith("/app/studio")?"Studio":path.startsWith("/app/opportunities")?"Opportunity":path.split("/").filter(Boolean).at(-1)||"Home"}</span></div>
+    {studioHeader}
     <div className="f-top-right"><span className="f-savedlabel"><CloudOff size={14}/> Device preview</span><A to="/app/profile" go={go} className="f-avatar">{profile?.name?profile.name.slice(0,1).toUpperCase():"F"}</A></div>
    </header>
    <main className="f-page">{children}</main>
