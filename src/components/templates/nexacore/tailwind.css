@@ -169,3 +169,11 @@
 .nexacore [data-slot="trusted"] .nexa-blur-card{background:#45647D!important}
 .nexacore .nexa-restored-hero video{opacity:.58!important}
 .nexacore .nexa-hero-blue-wash{background:rgba(69,100,125,.80)!important}
+
+/* Keep the hero's two-sided product positioning concise and readable. */
+.nexacore .nexa-hero-copy{max-width:1100px}
+.nexacore .nexa-hero-copy h1{font-size:clamp(38px,4.7vw,67px);line-height:1.14;letter-spacing:-.055em;max-width:1080px}
+.nexacore .nexa-hero-actions{margin-top:34px}
+@media(max-width:520px){
+  .nexacore .nexa-hero-copy h1{font-size:clamp(36px,8.9vw,50px);line-height:1.12}
+}
