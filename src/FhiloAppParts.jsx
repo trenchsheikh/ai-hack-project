@@ -75,10 +75,11 @@ function AppShell({path,go,profile,studioHeader,studioIsBuild=false,children}){
   </aside>
   {mobile&&<button aria-label="Close navigation" className="f-dim" onClick={()=>setMobile(false)}/>}
   <div className="f-app-main">
-   <header className={"f-topbar"+(path.startsWith("/app/studio")?" f-topbar-studio":"")}><button onClick={()=>setMobile(true)} className="f-mobile-trigger" aria-label="Open menu"><Menu size={22}/></button><div className="f-breadcrumb">fhilo <ChevronRight size={15}/> <span>{path.startsWith("/app/studio")?"Studio":path.startsWith("/app/opportunities")?"Opportunity":path.split("/").filter(Boolean).at(-1)||"Home"}</span></div>
+   {studioIsBuild&&<button onClick={()=>setMobile(true)} className="f-mobile-trigger f-studio-floating-menu" aria-label="Open navigation"><Menu size={20}/></button>}
+   {!studioIsBuild&&<header className={"f-topbar"+(path.startsWith("/app/studio")?" f-topbar-studio":"")}><button onClick={()=>setMobile(true)} className="f-mobile-trigger" aria-label="Open menu"><Menu size={22}/></button><div className="f-breadcrumb">fhilo <ChevronRight size={15}/> <span>{path.startsWith("/app/studio")?"Studio":path.startsWith("/app/opportunities")?"Opportunity":path.split("/").filter(Boolean).at(-1)||"Home"}</span></div>
     {studioHeader}
     <div className="f-top-right"><span className="f-savedlabel"><CloudOff size={14}/> Device preview</span><A to="/app/profile" go={go} className="f-avatar">{profile?.name?profile.name.slice(0,1).toUpperCase():"F"}</A></div>
-   </header>
+   </header>}
    <main className="f-page">{children}</main>
    <footer className="f-app-footer">Fhilo preview · Your work is saved in this browser only. <A to="/organisations" go={go}>For organisations</A></footer>
   </div>

@@ -46,7 +46,7 @@ export default function FhiloApp(){
   link.click();
   setTimeout(()=>URL.revokeObjectURL(url),1000);
  };
- const studioHeader=isStudioRoute&&studioProject?<div className="fh-topbar-studio-content">
+ const studioHeader=isStudioRoute&&!studioIsBuild&&studioProject?<div className="fh-topbar-studio-content">
   <button className="fh-topbar-studio-back" type="button" onClick={()=>go("/app/projects")} aria-label="Back to projects" title="My projects"><ArrowLeft size={18}/></button>
   <div className="fh-topbar-studio-title"><input aria-label="Project title" value={studioProject.title||""} onChange={e=>update(studioProject.id,{title:e.target.value.slice(0,140)})}/><span><CheckCircle2 size={13}/>{studioNotice||"Saved on this device"}</span></div>
   <div className="fh-topbar-studio-actions">

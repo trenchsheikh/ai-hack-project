@@ -696,3 +696,37 @@
  .f-app-studio-build .fh-build-chat{height:min(68dvh,570px)}
  .f-app-studio-build .fh-build-workspace.is-empty .fh-build-chat{height:min(73dvh,610px)}
 }
+
+
+/* Studio Build: remove the entire app header and give the workspace the full page. */
+.fh-build-inline-new{margin-left:auto;width:34px;height:34px;display:grid;place-items:center;background:#fff;border:1px solid #e2ebf4;border-radius:10px;color:#65819a;flex-shrink:0}
+.fh-build-inline-new:hover,.fh-build-inline-new:focus-visible{background:#edf6ff;color:#2563eb;border-color:#b8d8f5}
+.fh-version-actions{display:flex;align-items:center;flex-wrap:wrap;gap:10px}
+.f-app-studio-build .f-page{margin:0;padding:0}
+.f-app-studio-build .fh-studio-build-page{max-width:none;margin:0;width:100%}
+.f-app-studio-build .f-studio-toolbar{padding:10px 14px;border-bottom:1px solid #e4edf4;background:#fff}
+.f-app-studio-build .f-studio-editor{border:0;border-radius:0}
+.f-app-studio-build .f-studio-preview{border-radius:0;border-left:0;border-right:0;border-bottom:0}
+.f-app-studio-build .fh-build-workspace{border:0}
+@media(min-width:861px){
+ .f-app-studio-build .fh-build-body .f-studio-center{padding:0;gap:0}
+ .f-app-studio-build .fh-build-chat,.f-app-studio-build .fh-build-output{height:100%;min-height:0}
+}
+@media(max-width:860px){
+ .f-app-studio-build .f-studio-center{padding:0;gap:0}
+ .f-app-studio-build .f-studio-toolbar{padding:9px 10px;gap:7px}
+ .f-app-studio-build .f-studio-editor{min-height:0}
+}
+@media(max-width:760px){
+ .f-app-studio-build .f-mobile-trigger.f-studio-floating-menu{
+  display:grid;place-items:center;position:fixed;top:9px;left:10px;z-index:24;
+  width:36px;height:36px;border:1px solid #dae7f1;border-radius:9px;
+  background:#fff;color:#345e7e;box-shadow:0 2px 9px #17395a12
+ }
+ .f-app-studio-build .f-studio-toolbar{padding-left:51px;min-height:54px}
+}
+@media(max-width:520px){
+ .f-app-studio-build .f-studio-toolbar{padding:8px 7px 8px 49px}
+ .f-app-studio-build .f-mobile-trigger.f-studio-floating-menu{left:8px;top:8px;width:34px;height:34px}
+ .f-app-studio-build .fh-build-chat-head{padding-inline:13px}
+}
