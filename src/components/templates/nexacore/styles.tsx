@@ -1,4 +1,4 @@
-const NEXACORE_CSS = \`
+const NEXACORE_CSS = `
 /* Two-colour re-skin of the original landing design; layouts and media remain intact. */
 .nexacore {
   --background:#FAF7F0;
@@ -70,7 +70,7 @@ const NEXACORE_CSS = \`
  background:#FAF7F0;
 }
 .nexacore [data-slot="trusted"] .nexa-blur-card{border:1px solid #FAF7F0}
-\`;
+`;
 
 export function NexacoreStyles() {
  return <style dangerouslySetInnerHTML={{__html:NEXACORE_CSS}}/>;
