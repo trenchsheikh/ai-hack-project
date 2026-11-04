@@ -100,7 +100,8 @@ The supplied ai-actions design was adapted to the existing Vite + React + TypeSc
 - The Blob store is connected to the Vercel project; `BLOB_READ_WRITE_TOKEN` stays exclusively on the server. The form reports storage failures rather than pretending to collect addresses.
 - Basic best-effort serverless throttling and a honeypot are provided, but consider Vercel WAF/Turnstile before higher-volume promotion. A formal privacy/retention policy and an operational email-management workflow should be finalised before large-scale marketing.
 
-## Landing palette simplification
-- Public landing at `/` uses only the logo's royal blue `#0A43ED` and warm cream `#FAF7F0` across navigation, hero, content sections, buttons and footer.
-- Removed landing-only video backgrounds, photography, dark/navy and pale-blue variants, gradients and shadow colours to make the design calmer. Simplified learning sections into clear typography and two-colour line elements.
-- The `/waitlist` experience remains unchanged, retaining its independently requested background treatment and functioning email capture.
+## Public landing visual palette (revised)
+- Restored the exact earlier November 4 cinematic landing structure: original floating navbar, hero video, purpose cards, comparison section, journey section, full-screen background treatments, call to action, and footer.
+- Only recoloured the public landing to Fhilo logo blue `#0A43ED` and warm cream `#FAF7F0`, with monochrome treatment of existing media and restrained blue/cream overlays.
+- Removed the small all-caps eyebrow above the main hero headline while retaining the headline, supporting text, and calls to action.
+- Waitlist page, email-capture endpoint, studio, and organisation screens are not affected.
