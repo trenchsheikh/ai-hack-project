@@ -19,7 +19,7 @@ Mission: Unlock Potential. Create Opportunity.
 ## What works
 - Responsive learner and organisation journeys with Fhilo branding.
 - Searchable, beginner-friendly practice challenges — none claim sponsor funding.
-- Studio opens directly into a chat-first Build workspace (no three-card mode selection screen). Existing Build conversations resume automatically; New chat starts a fresh local project.
+- Studio opens directly into a chat-first Build workspace (no three-card mode selection screen). Existing Build conversations resume automatically; New chat starts a fresh local project. A valid deep-linked project ID missing from this browser opens a new local workspace at the same URL with a clear no-sync notice; it does not restore unavailable remote data.
 - Editable concept builder with portfolio-style preview.
 - Chat-first Studio Build with Plan / Build / Review prompts, optional image references and a centered welcome experience that becomes a split-screen chat/preview when work starts.
 - Assistant reply actions: retry the last request, mark helpful/not helpful, copy or share a response. Feedback is saved only with the local project.
@@ -57,7 +57,8 @@ The project remains Vite + React with shadcn-compatible paths. A Next.js migrati
 6. Test accessibility, privacy, safeguarding, backup and live cohort workflows before a real pilot.
 
 ## Main source files
-- src/FhiloApp.jsx — routes and state
+- src/FhiloApp.jsx — routes, state and a Studio error boundary
+- src/StudioErrorBoundary.jsx — safe frontend fallback if Studio rendering fails
 - src/FhiloAppParts.jsx — learner experience
 - src/FhiloStudio.jsx — editor, preview, versioning, Sofia UI
 - src/FhiloOrg.jsx — organisation experience
@@ -74,3 +75,8 @@ The project remains Vite + React with shadcn-compatible paths. A Next.js migrati
 The previous NexaCore and Studio Admin template attribution files remain in the repository.
 
 The supplied ai-actions design was adapted to the existing Vite + React + TypeScript + Tailwind/shadcn-compatible project. It deliberately uses Fhilo avatars and native image handling instead of installing Next.js or showing static example messages.
+
+## Studio frontend reliability
+- Studio owns its own `Button` component, avoiding a runtime `ReferenceError` from an undefined component that previously blanked project routes.
+- Visiting `/app/studio/:id` needs no live backend: existing locally saved projects load as before, and a valid unsaved UUID displays a new local Studio workspace without claiming to recover data from other browsers.
+- The frontend error boundary shows a recovery view rather than a white screen if future Studio rendering errors occur.

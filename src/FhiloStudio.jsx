@@ -1,8 +1,14 @@
 import React,{useState,useMemo,useEffect} from "react";
 import {ArrowLeft,ArrowRight,ArrowUpRight,Check,CheckCircle2,ChevronDown,Code2,Lightbulb,BarChart3,Sparkles,Send,Save,Download,Play,Eye,RefreshCw,RotateCcw,BookOpen,Clock3,FileText,Info,AlertCircle,Maximize2,PanelRightClose,PanelRightOpen,Copy,MessageSquare,FolderOpen,Trophy,Plus,ShieldCheck,Trash2} from "lucide-react";
-import {opportunities,starterHtml,formatDate} from "./fhilo-data";
+import {opportunities,starterHtml,formatDate,newProject} from "./fhilo-data";
 import {PromptInputBox} from "./components/ui/ai-prompt-box";
 import {AIConversation} from "./components/ui/ai-actions";
+
+// Fhilo Studio uses its own button because the AppParts button is not exported.
+// Without it, project routes throw a ReferenceError and React renders a blank page.
+function Button({children,onClick,icon:Icon=ArrowRight,variant="",disabled=false,type="button",className=""}){
+ return <button type={type} className={"f-btn "+variant+" "+className} disabled={disabled} onClick={onClick}>{children}{Icon&&<Icon size={17}/>}</button>;
+}
 
 const modes=[{id:"create",icon:Lightbulb,title:"Create",desc:"Turn your idea into a clear, shareable project."},
  {id:"code",icon:Code2,title:"Build",desc:"Write and preview a working web prototype."},
@@ -120,6 +126,7 @@ function BuildWorkspace({project,opportunity,update,safeHtml}){
  return <div className={"fh-build-workspace"+(showOutput?"":" is-empty")}>
   <section className="fh-build-chat" aria-label="Fhilo AI building chat">
    <div className="fh-build-chat-head"><span className="fh-build-chat-symbol"><Sparkles size={18}/></span><div><strong>Build with Fhilo</strong><small>Describe it. Shape it. Make it yours.</small></div><span className="fh-build-chat-pill">AI studio</span></div>
+   {project.localRecoveryNotice&&<div className="fh-studio-local-notice" role="status"><Info size={16}/> This link had no saved project in this browser. A fresh local workspace was opened here; earlier work is not synced between devices.</div>}
    <div className="fh-build-conversation">
     <AIConversation messages={messages} loading={working} onRetry={retry} onFeedback={rate} emptyState={
      <div className="fh-build-welcome"><span className="fh-build-orb"><Sparkles size={26}/></span><h2>What should we build?</h2><p>Describe your idea. Choose <b>Plan</b> to explore, <b>Build</b> to create a prototype, or <b>Review</b> to improve your work.</p><div className="fh-build-ideas">{suggestions.map(s=><button type="button" key={s} onClick={()=>setPrompt(s)}>{s}<ArrowUpRight size={14}/></button>)}</div></div>
@@ -184,9 +191,19 @@ function StudioEditor({project,opportunity,update,go,projects,setProjects,create
  </div>;
 }
 export default function Studio({projectId,projects,setProjects,create,go,update}){
- // Return directly to the latest Build chat without showing an intermediate choice screen.
- const project=projectId?projects.find(p=>p.id===projectId):projects.filter(p=>p.mode==="code").sort((a,b)=>(b.updatedAt||"").localeCompare(a.updatedAt||""))[0];
+ // Every saved project is local until accounts and the database are connected.
+ // If a direct-link UUID has not been seen in this browser, show a fresh
+ // usable Studio interface at that URL rather than a blank or dead-end page.
+ const fallback=useMemo(()=>{
+  if(!projectId||!/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(projectId))return null;
+  return {...newProject(null,"code"),id:projectId,localRecoveryNotice:true};
+ },[projectId]);
+ useEffect(()=>{
+  if(!fallback)return;
+  setProjects(xs=>xs.some(p=>p.id===fallback.id)?xs:[fallback,...xs]);
+ },[fallback,setProjects]);
+ const project=projectId?(projects.find(p=>p.id===projectId)||fallback):projects.filter(p=>p.mode==="code").sort((a,b)=>(b.updatedAt||"").localeCompare(a.updatedAt||""))[0];
  if(!projectId&&!project)return <StudioEntry projects={projects} create={create} go={go}/>;
- if(!project)return <div className="f-content"><div className="f-empty"><h2>Project not found</h2><p>It may have been deleted or saved in a different browser.</p><button className="f-btn" onClick={()=>go("/app/projects")}>My projects <ArrowRight size={17}/></button></div></div>;
+ if(!project)return <div className="f-content"><div className="f-empty"><h2>Project link not available</h2><p>Open Studio to create a new local project. Projects aren't synced between devices yet.</p><button className="f-btn" onClick={()=>go("/app/studio")}>Open Studio <ArrowRight size={17}/></button></div></div>;
  return <StudioEditor project={project} opportunity={opportunities.find(o=>o.id===project.opportunityId)} projects={projects} setProjects={setProjects} update={update} go={go} create={create}/>;
 }

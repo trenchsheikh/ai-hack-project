@@ -600,3 +600,8 @@
  .fh-build-workspace.is-empty .fh-build-ideas button{width:100%}
  .fh-build-workspace.is-empty .fh-build-compose{padding:10px 12px 16px}
 }
+
+/* Notice for a deep-linked Studio project that only exists on another device. */
+.fh-studio-local-notice{display:flex;align-items:flex-start;gap:9px;padding:12px 18px;background:#f2f7ff;color:#365f80;border-bottom:1px solid #dfeaf5;font-size:11px;line-height:1.6}
+.fh-studio-local-notice svg{flex-shrink:0;margin-top:1px;color:#3276bd}
+@media(max-width:520px){.fh-studio-local-notice{padding:10px 12px;font-size:10px}}

@@ -1,6 +1,7 @@
 import React,{useState} from "react";
 import FhiloLanding from "./FhiloLanding";
 import Studio from "./FhiloStudio";
+import StudioErrorBoundary from "./StudioErrorBoundary";
 import {OrganisationsLanding,OrganisationDashboard,OrganisationCreate} from "./FhiloOrg";
 import {opportunities,blankProfile,newProject} from "./fhilo-data";
 import {useStored,useRoute,AppShell,Home,Explore,OpportunityDetail,Projects,Profile,Rewards,Lessons,WelcomeModal} from "./FhiloAppParts";
@@ -29,7 +30,7 @@ export default function FhiloApp(){
   if(path==="/app"||path==="/app/home")return <Home profile={profile} projects={projects} lessonsDone={lessonsDone} go={go} create={create}/>;
   if(path==="/app/explore"||path==="/app/opportunities")return <Explore key={path} go={go}/>;
   if(path.startsWith("/app/opportunities/"))return <OpportunityDetail item={opportunities.find(o=>o.id===segments[2])} go={go} create={create}/>;
-  if(path==="/app/studio"||path.startsWith("/app/studio/"))return <Studio key={segments[2]||"new"} projectId={segments[2]} projects={projects} setProjects={setProjects} create={create} update={update} go={go}/>;
+  if(path==="/app/studio"||path.startsWith("/app/studio/"))return <StudioErrorBoundary key={segments[2]||"new"}><Studio projectId={segments[2]} projects={projects} setProjects={setProjects} create={create} update={update} go={go}/></StudioErrorBoundary>;
   if(path==="/app/projects")return <Projects projects={projects} go={go} create={create} remove={remove}/>;
   if(path==="/app/profile")return <Profile profile={profile} setProfile={setProfile} projects={projects} lessonsDone={lessonsDone} go={go}/>;
   if(path==="/app/rewards")return <Rewards/>;
